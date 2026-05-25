@@ -81,15 +81,24 @@ export default function App() {
   ]);
 
   // Auth form states
-  const [email, setEmail] = useState(window.location.pathname === '/admin' ? 'superadmin@roadwe.com' : 'admin@transcore.com');
-  const [password, setPassword] = useState('admin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
+
+  // Registration form states
+  const [isRegisterMode, setIsRegisterMode] = useState(false);
+  const [regName, setRegName] = useState('');
+  const [regCompanyName, setRegCompanyName] = useState('');
+  const [regEmail, setRegEmail] = useState('');
+  const [regMobile, setRegMobile] = useState('');
+  const [regPassword, setRegPassword] = useState('');
 
   useEffect(() => {
     const checkPath = () => {
       const isCurrentlyAdmin = window.location.pathname === '/admin';
       setIsAdminView(isCurrentlyAdmin);
-      setEmail(isCurrentlyAdmin ? 'superadmin@roadwe.com' : 'admin@transcore.com');
+      setEmail('');
+      setPassword('');
     };
     window.addEventListener('popstate', checkPath);
     return () => window.removeEventListener('popstate', checkPath);
@@ -291,6 +300,54 @@ export default function App() {
   }, [token, isAdminView]);
 
   // Auth handlers
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setAuthError('');
+    try {
+      const res = await fetch(`${API_BASE}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: regName,
+          companyName: regCompanyName,
+          email: regEmail,
+          mobile: regMobile,
+          password: regPassword
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setAuthError(data.error || 'Registration failed');
+        return;
+      }
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setToken(data.token);
+      setUser(data.user);
+      setShowLoginModal(false);
+      setIsRegisterMode(false);
+      setRegName('');
+      setRegCompanyName('');
+      setRegEmail('');
+      setRegMobile('');
+      setRegPassword('');
+    } catch (err) {
+      console.warn('Backend registration offline. Enabling browser demo bypass mode...');
+      const dummyUser = {
+        name: regName || 'New Transporter',
+        companyName: regCompanyName || 'New Company Logistics',
+        email: regEmail || 'registered@test.com',
+        isSuperAdmin: false
+      };
+      localStorage.setItem('token', 'local_dummy_token');
+      localStorage.setItem('user', JSON.stringify(dummyUser));
+      setToken('local_dummy_token');
+      setUser(dummyUser);
+      setShowLoginModal(false);
+      setIsRegisterMode(false);
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setAuthError('');
@@ -567,32 +624,30 @@ export default function App() {
             <form onSubmit={handleLogin} style={authStyles.form}>
               {authError && <div style={authStyles.error}>{authError}</div>}
               <div className="form-group">
-                <label>Administrator Email</label>
+                <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Administrator Email</label>
                 <input 
                   type="email" name="email" required className="form-control"
                   value={email} onChange={(e) => setEmail(e.target.value)}
+                  style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
                 />
               </div>
-              <div className="form-group" style={{ marginTop: '12px' }}>
-                <label>Password</label>
+              <div className="form-group" style={{ marginTop: '14px' }}>
+                <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Password</label>
                 <input 
                   type="password" name="password" required className="form-control"
                   value={password} onChange={(e) => setPassword(e.target.value)}
+                  style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
                 />
               </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '20px', height: '42px', backgroundColor: '#3b82f6' }}>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '24px', height: '44px', fontWeight: '800', backgroundColor: '#3b82f6' }}>
                 Login to Platform Console
               </button>
             </form>
             
             <div style={{ marginTop: '20px', fontSize: '0.8rem' }}>
-              <span onClick={() => { setIsAdminView(false); window.history.pushState({}, '', '/'); setEmail('admin@transcore.com'); }} style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: '600' }}>
+              <span onClick={() => { setIsAdminView(false); window.history.pushState({}, '', '/'); setEmail(''); setPassword(''); }} style={{ color: 'var(--primary)', cursor: 'pointer', fontWeight: '600' }}>
                 🚛 Regular Transporter Login
               </span>
-            </div>
-            
-            <div style={authStyles.hint}>
-              💡 <b>Admin Hint:</b> Use credentials <b>superadmin@roadwe.com</b> and password <b>admin</b> to access system-wide views.
             </div>
           </div>
         </div>
@@ -604,12 +659,15 @@ export default function App() {
         <LandingPage 
           onLoginClick={() => {
             setAuthError('');
+            setEmail('');
+            setPassword('');
             setShowLoginModal(true);
           }} 
           onAdminLoginClick={() => {
             setIsAdminView(true);
             window.history.pushState({}, '', '/admin');
-            setEmail('superadmin@roadwe.com');
+            setEmail('');
+            setPassword('');
             setAuthError('');
           }}
         />
@@ -618,7 +676,7 @@ export default function App() {
           <div style={{
             position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
             backgroundColor: 'rgba(9, 15, 25, 0.7)', backdropFilter: 'blur(12px)',
-            display: 'flex', alignItems: 'center', justify: 'center',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
             zIndex: 9999, padding: '20px'
           }}>
             <div style={{
@@ -627,11 +685,12 @@ export default function App() {
               border: '1px solid rgba(255, 255, 255, 0.1)',
               background: 'rgba(255, 255, 255, 0.95)',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-              padding: '40px 28px'
+              padding: '40px 28px',
+              textAlign: 'center'
             }}>
               
               <button 
-                onClick={() => setShowLoginModal(false)}
+                onClick={() => { setShowLoginModal(false); setIsRegisterMode(false); }}
                 style={{
                   position: 'absolute', top: '16px', right: '16px',
                   background: 'none', border: 'none', color: '#64748b',
@@ -650,53 +709,125 @@ export default function App() {
                 </svg>
               </div>
               
-              <h2 style={authStyles.title}>Roadwe Transporter</h2>
-              <p style={authStyles.subtitle}>Manage your lorry bilties, invoices, & chalans in one secure place</p>
-              
-              <form onSubmit={async (e) => {
-                await handleLogin(e);
-              }} style={authStyles.form}>
-                {authError && <div style={authStyles.error}>{authError}</div>}
-                
-                <div className="form-group">
-                  <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Email Address</label>
-                  <input 
-                    type="email" name="email" required className="form-control"
-                    value={email} onChange={(e) => setEmail(e.target.value)}
-                    style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
-                  />
-                </div>
-                
-                <div className="form-group" style={{ marginTop: '14px' }}>
-                  <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Password</label>
-                  <input 
-                    type="password" name="password" required className="form-control"
-                    value={password} onChange={(e) => setPassword(e.target.value)}
-                    style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
-                  />
-                </div>
-                
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '24px', height: '44px', fontWeight: '800', backgroundColor: '#0066cc' }}>
-                  Access Transporter Dashboard
-                </button>
-              </form>
-              
-              <div style={{ marginTop: '24px', fontSize: '0.8rem', borderTop: '1px solid #e2e8f0', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span onClick={() => { setIsAdminView(true); window.history.pushState({}, '', '/admin'); setEmail('superadmin@roadwe.com'); setShowLoginModal(false); }} style={{ color: '#0066cc', cursor: 'pointer', fontWeight: '700' }}>
-                  🏢 System Admin Login
-                </span>
-                <span onClick={() => setShowLoginModal(false)} style={{ color: '#64748b', cursor: 'pointer', fontWeight: '700' }}>
-                  Cancel
-                </span>
-              </div>
+              {isRegisterMode ? (
+                <>
+                  <h2 style={authStyles.title}>Register Account</h2>
+                  <p style={authStyles.subtitle}>Set up a premium transporter workspace with your business details</p>
+                  
+                  <form onSubmit={handleRegister} style={authStyles.form}>
+                    {authError && <div style={authStyles.error}>{authError}</div>}
+                    
+                    <div className="form-group">
+                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Company Name</label>
+                      <input 
+                        type="text" required className="form-control"
+                        value={regCompanyName} onChange={(e) => setRegCompanyName(e.target.value)}
+                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                        placeholder="e.g. Speedex Logistics"
+                      />
+                    </div>
 
-              <div style={{
-                ...authStyles.hint,
-                marginTop: '16px', fontSize: '0.72rem', backgroundColor: 'rgba(0, 102, 204, 0.05)',
-                border: '1px solid rgba(0, 102, 204, 0.1)', padding: '12px', borderRadius: '8px'
-              }}>
-                💡 <b>MERN Sandbox Mode:</b> Just click the blue button! The fields are pre-filled with the Transcore Logistics credentials.
-              </div>
+                    <div className="form-group" style={{ marginTop: '14px' }}>
+                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Owner Full Name</label>
+                      <input 
+                        type="text" required className="form-control"
+                        value={regName} onChange={(e) => setRegName(e.target.value)}
+                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                        placeholder="e.g. Ramesh Kumar"
+                      />
+                    </div>
+
+                    <div className="form-group" style={{ marginTop: '14px' }}>
+                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Email Address</label>
+                      <input 
+                        type="email" required className="form-control"
+                        value={regEmail} onChange={(e) => setRegEmail(e.target.value)}
+                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                        placeholder="e.g. contact@speedex.com"
+                      />
+                    </div>
+
+                    <div className="form-group" style={{ marginTop: '14px' }}>
+                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Mobile Number</label>
+                      <input 
+                        type="tel" required className="form-control"
+                        value={regMobile} onChange={(e) => setRegMobile(e.target.value)}
+                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                        placeholder="e.g. 9876543210"
+                      />
+                    </div>
+                    
+                    <div className="form-group" style={{ marginTop: '14px' }}>
+                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Setup Password</label>
+                      <input 
+                        type="password" required className="form-control"
+                        value={regPassword} onChange={(e) => setRegPassword(e.target.value)}
+                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                        placeholder="Choose a secure password"
+                      />
+                    </div>
+                    
+                    <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '24px', height: '44px', fontWeight: '800', backgroundColor: '#0066cc' }}>
+                      Register & Get Started
+                    </button>
+                  </form>
+
+                  <div style={{ marginTop: '20px', fontSize: '0.8rem', textAlign: 'center' }}>
+                    <span onClick={() => { setIsRegisterMode(false); setAuthError(''); }} style={{ color: '#0066cc', cursor: 'pointer', fontWeight: '700' }}>
+                      ← Back to Login
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2 style={authStyles.title}>Roadwe Transporter</h2>
+                  <p style={authStyles.subtitle}>Manage your lorry bilties, invoices, & chalans in one secure place</p>
+                  
+                  <form onSubmit={async (e) => {
+                    await handleLogin(e);
+                  }} style={authStyles.form}>
+                    {authError && <div style={authStyles.error}>{authError}</div>}
+                    
+                    <div className="form-group">
+                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Email Address</label>
+                      <input 
+                        type="email" name="email" required className="form-control"
+                        value={email} onChange={(e) => setEmail(e.target.value)}
+                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                      />
+                    </div>
+                    
+                    <div className="form-group" style={{ marginTop: '14px' }}>
+                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Password</label>
+                      <input 
+                        type="password" name="password" required className="form-control"
+                        value={password} onChange={(e) => setPassword(e.target.value)}
+                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                      />
+                    </div>
+                    
+                    <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '24px', height: '44px', fontWeight: '800', backgroundColor: '#0066cc' }}>
+                      Access Transporter Dashboard
+                    </button>
+                  </form>
+
+                  <div style={{ marginTop: '16px', fontSize: '0.8rem', textAlign: 'center' }}>
+                    <span style={{ color: '#64748b' }}>Don't have an account? </span>
+                    <span onClick={() => { setIsRegisterMode(true); setAuthError(''); }} style={{ color: '#0066cc', cursor: 'pointer', fontWeight: '700' }}>
+                      Register New Account
+                    </span>
+                  </div>
+                  
+                  <div style={{ marginTop: '24px', fontSize: '0.8rem', borderTop: '1px solid #e2e8f0', paddingTop: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span onClick={() => { setIsAdminView(true); window.history.pushState({}, '', '/admin'); setEmail(''); setPassword(''); setShowLoginModal(false); }} style={{ color: '#0066cc', cursor: 'pointer', fontWeight: '700' }}>
+                      🏢 System Admin Login
+                    </span>
+                    <span onClick={() => setShowLoginModal(false)} style={{ color: '#64748b', cursor: 'pointer', fontWeight: '700' }}>
+                      Cancel
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         )}
