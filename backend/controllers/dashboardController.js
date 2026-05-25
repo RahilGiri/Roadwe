@@ -22,18 +22,18 @@ const Driver = getModel('Driver', DriverSchema);
 // Fetch total counters for dashboard tiles and live activity streams
 exports.getDashboardStats = async (req, res) => {
   try {
-    const transporterId = req.userId;
+    const company_id = req.userId;
 
-    const biltyCount = await Bilty.countDocuments({ transporterId });
-    const loadingSlipCount = await LoadingSlip.countDocuments({ transporterId });
-    const invoiceCount = await Invoice.countDocuments({ transporterId });
-    const chalanCount = await Chalan.countDocuments({ transporterId });
-    const voucherCount = await Voucher.countDocuments({ transporterId });
-    const customerCount = await Customer.countDocuments({ transporterId });
-    const driverCount = await Driver.countDocuments({ transporterId });
+    const biltyCount = await Bilty.countDocuments({ company_id });
+    const loadingSlipCount = await LoadingSlip.countDocuments({ company_id });
+    const invoiceCount = await Invoice.countDocuments({ company_id });
+    const chalanCount = await Chalan.countDocuments({ company_id });
+    const voucherCount = await Voucher.countDocuments({ company_id });
+    const customerCount = await Customer.countDocuments({ company_id });
+    const driverCount = await Driver.countDocuments({ company_id });
 
     // Get today's activity logs, sorted descending by timestamp
-    const logs = await UserLog.find({ transporterId });
+    const logs = await UserLog.find({ company_id });
     const sortedLogs = logs
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
       .slice(0, 8); // Top 8 recent events

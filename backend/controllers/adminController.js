@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { getModel } = require('../config/db');
+const mongoose = require('mongoose');
+const { getModel, isFallback } = require('../config/db');
 const { UserSchema } = require('../models/schemas');
 
 const User = getModel('User', UserSchema);
@@ -25,8 +26,13 @@ exports.createTransporter = async (req, res) => {
       return res.status(400).json({ error: 'Email already registered.' });
     }
 
+    const newId = isFallback()
+      ? (Math.random().toString(36).substring(2, 11) + Date.now().toString(36))
+      : new mongoose.Types.ObjectId().toString();
+
     const hashedPassword = await bcrypt.hash(password || 'admin', 10);
     const newTransporter = await User.create({
+      _id: newId,
       name,
       companyName,
       email,
@@ -34,7 +40,8 @@ exports.createTransporter = async (req, res) => {
       password: hashedPassword,
       subscriptionPlan: subscriptionPlan || 'Free Trial',
       isSuperAdmin: false,
-      financialYear: '26-27'
+      financialYear: '26-27',
+      company_id: newId
     });
 
     res.status(201).json(newTransporter);
@@ -101,6 +108,7 @@ exports.impersonateTransporter = async (req, res) => {
         companyName: clientUser.companyName,
         email: clientUser.email,
         id: clientUser._id,
+        company_id: clientUser.company_id || clientUser._id,
         isSuperAdmin: false
       }
     });

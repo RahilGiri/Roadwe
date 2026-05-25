@@ -25,7 +25,7 @@ const logActivity = async (userId, description) => {
     const user = await User.findById(userId);
     const company = user ? user.companyName : 'TRANSCORE LOGISTICS';
     await UserLog.create({
-      transporterId: userId,
+      company_id: userId,
       description: `${description} by ${company}.`,
       timestamp: new Date().toISOString()
     });
@@ -37,7 +37,7 @@ const logActivity = async (userId, description) => {
 // --- BILTY CRUD ---
 exports.getBilties = async (req, res) => {
   try {
-    const bilties = await Bilty.find({ transporterId: req.userId });
+    const bilties = await Bilty.find({ company_id: req.userId });
     res.json(bilties);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -59,7 +59,7 @@ exports.createBilty = async (req, res) => {
     const balanceAmount = totalFreight - advancePaid;
 
     const bilty = await Bilty.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...data,
       freightCharge,
       totalFreight,
@@ -87,8 +87,8 @@ exports.updateBilty = async (req, res) => {
     const advancePaid = Number(data.advancePaid) || 0;
     const balanceAmount = totalFreight - advancePaid;
 
-    const bilty = await Bilty.findByIdAndUpdate(
-      req.params.id,
+    const bilty = await Bilty.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       {
         ...data,
         freightCharge,
@@ -97,6 +97,10 @@ exports.updateBilty = async (req, res) => {
       },
       { new: true }
     );
+
+    if (!bilty) {
+      return res.status(404).json({ error: 'Bilty not found or unauthorized' });
+    }
 
     await logActivity(req.userId, `Updated Bilty No. ${bilty.biltyNo} (${bilty.vehicleNumber})`);
     res.json(bilty);
@@ -107,11 +111,11 @@ exports.updateBilty = async (req, res) => {
 
 exports.deleteBilty = async (req, res) => {
   try {
-    const bilty = await Bilty.findById(req.params.id);
-    if (bilty) {
-      await Bilty.findByIdAndDelete(req.params.id);
-      await logActivity(req.userId, `Deleted Bilty No. ${bilty.biltyNo}`);
+    const bilty = await Bilty.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!bilty) {
+      return res.status(404).json({ error: 'Bilty not found or unauthorized' });
     }
+    await logActivity(req.userId, `Deleted Bilty No. ${bilty.biltyNo}`);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -121,7 +125,7 @@ exports.deleteBilty = async (req, res) => {
 // --- LOADING SLIP CRUD ---
 exports.getLoadingSlips = async (req, res) => {
   try {
-    const slips = await LoadingSlip.find({ transporterId: req.userId });
+    const slips = await LoadingSlip.find({ company_id: req.userId });
     res.json(slips);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -136,7 +140,7 @@ exports.createLoadingSlip = async (req, res) => {
     const balance = freightPromised - driverAdvance;
 
     const slip = await LoadingSlip.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...data,
       balance
     });
@@ -155,11 +159,15 @@ exports.updateLoadingSlip = async (req, res) => {
     const driverAdvance = Number(data.driverAdvance) || 0;
     const balance = freightPromised - driverAdvance;
 
-    const slip = await LoadingSlip.findByIdAndUpdate(
-      req.params.id,
+    const slip = await LoadingSlip.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       { ...data, balance },
       { new: true }
     );
+
+    if (!slip) {
+      return res.status(404).json({ error: 'Loading slip not found or unauthorized' });
+    }
 
     await logActivity(req.userId, `Updated Loading Slip No. ${slip.slipNo}`);
     res.json(slip);
@@ -170,11 +178,11 @@ exports.updateLoadingSlip = async (req, res) => {
 
 exports.deleteLoadingSlip = async (req, res) => {
   try {
-    const slip = await LoadingSlip.findById(req.params.id);
-    if (slip) {
-      await LoadingSlip.findByIdAndDelete(req.params.id);
-      await logActivity(req.userId, `Deleted Loading Slip No. ${slip.slipNo}`);
+    const slip = await LoadingSlip.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!slip) {
+      return res.status(404).json({ error: 'Loading slip not found or unauthorized' });
     }
+    await logActivity(req.userId, `Deleted Loading Slip No. ${slip.slipNo}`);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -184,7 +192,7 @@ exports.deleteLoadingSlip = async (req, res) => {
 // --- CHALAN CRUD ---
 exports.getChalans = async (req, res) => {
   try {
-    const chalans = await Chalan.find({ transporterId: req.userId });
+    const chalans = await Chalan.find({ company_id: req.userId });
     res.json(chalans);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -202,7 +210,7 @@ exports.createChalan = async (req, res) => {
     const balanceToDriver = data.balanceToDriver !== undefined ? Number(data.balanceToDriver) : (lorryFreight - advancePaid - dieselCardCharge - commission - officeExpenses);
 
     const chalan = await Chalan.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...data,
       advancePaid,
       balanceToDriver
@@ -225,8 +233,8 @@ exports.updateChalan = async (req, res) => {
     const officeExpenses = Number(data.officeExpenses) || 0;
     const balanceToDriver = data.balanceToDriver !== undefined ? Number(data.balanceToDriver) : (lorryFreight - advancePaid - dieselCardCharge - commission - officeExpenses);
 
-    const chalan = await Chalan.findByIdAndUpdate(
-      req.params.id,
+    const chalan = await Chalan.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       { 
         ...data, 
         advancePaid,
@@ -234,6 +242,10 @@ exports.updateChalan = async (req, res) => {
       },
       { new: true }
     );
+
+    if (!chalan) {
+      return res.status(404).json({ error: 'Chalan not found or unauthorized' });
+    }
 
     await logActivity(req.userId, `Updated Chalan No. ${chalan.chalanNo}`);
     res.json(chalan);
@@ -244,11 +256,11 @@ exports.updateChalan = async (req, res) => {
 
 exports.deleteChalan = async (req, res) => {
   try {
-    const chalan = await Chalan.findById(req.params.id);
-    if (chalan) {
-      await Chalan.findByIdAndDelete(req.params.id);
-      await logActivity(req.userId, `Deleted Chalan No. ${chalan.chalanNo}`);
+    const chalan = await Chalan.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!chalan) {
+      return res.status(404).json({ error: 'Chalan not found or unauthorized' });
     }
+    await logActivity(req.userId, `Deleted Chalan No. ${chalan.chalanNo}`);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -258,7 +270,7 @@ exports.deleteChalan = async (req, res) => {
 // --- INVOICE CRUD ---
 exports.getInvoices = async (req, res) => {
   try {
-    const invoices = await Invoice.find({ transporterId: req.userId });
+    const invoices = await Invoice.find({ company_id: req.userId });
     res.json(invoices);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -277,7 +289,7 @@ exports.createInvoice = async (req, res) => {
     const balance = grandTotal - amountPaid;
 
     const invoice = await Invoice.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...data,
       grandTotal,
       balance
@@ -301,11 +313,15 @@ exports.updateInvoice = async (req, res) => {
     const amountPaid = Number(data.amountPaid) || 0;
     const balance = grandTotal - amountPaid;
 
-    const invoice = await Invoice.findByIdAndUpdate(
-      req.params.id,
+    const invoice = await Invoice.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       { ...data, grandTotal, balance },
       { new: true }
     );
+
+    if (!invoice) {
+      return res.status(404).json({ error: 'Invoice not found or unauthorized' });
+    }
 
     await logActivity(req.userId, `Updated Invoice No. ${invoice.invoiceNo}`);
     res.json(invoice);
@@ -316,11 +332,11 @@ exports.updateInvoice = async (req, res) => {
 
 exports.deleteInvoice = async (req, res) => {
   try {
-    const invoice = await Invoice.findById(req.params.id);
-    if (invoice) {
-      await Invoice.findByIdAndDelete(req.params.id);
-      await logActivity(req.userId, `Deleted Invoice No. ${invoice.invoiceNo}`);
+    const invoice = await Invoice.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!invoice) {
+      return res.status(404).json({ error: 'Invoice not found or unauthorized' });
     }
+    await logActivity(req.userId, `Deleted Invoice No. ${invoice.invoiceNo}`);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -330,7 +346,7 @@ exports.deleteInvoice = async (req, res) => {
 // --- VOUCHER CRUD ---
 exports.getVouchers = async (req, res) => {
   try {
-    const vouchers = await Voucher.find({ transporterId: req.userId });
+    const vouchers = await Voucher.find({ company_id: req.userId });
     res.json(vouchers);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -340,7 +356,7 @@ exports.getVouchers = async (req, res) => {
 exports.createVoucher = async (req, res) => {
   try {
     const voucher = await Voucher.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     await logActivity(req.userId, `Recorded ${voucher.type} Voucher No. ${voucher.voucherNo}`);
@@ -352,11 +368,14 @@ exports.createVoucher = async (req, res) => {
 
 exports.updateVoucher = async (req, res) => {
   try {
-    const voucher = await Voucher.findByIdAndUpdate(
-      req.params.id,
+    const voucher = await Voucher.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!voucher) {
+      return res.status(404).json({ error: 'Voucher not found or unauthorized' });
+    }
     await logActivity(req.userId, `Updated Voucher No. ${voucher.voucherNo}`);
     res.json(voucher);
   } catch (err) {
@@ -366,11 +385,11 @@ exports.updateVoucher = async (req, res) => {
 
 exports.deleteVoucher = async (req, res) => {
   try {
-    const voucher = await Voucher.findById(req.params.id);
-    if (voucher) {
-      await Voucher.findByIdAndDelete(req.params.id);
-      await logActivity(req.userId, `Deleted Voucher No. ${voucher.voucherNo}`);
+    const voucher = await Voucher.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!voucher) {
+      return res.status(404).json({ error: 'Voucher not found or unauthorized' });
     }
+    await logActivity(req.userId, `Deleted Voucher No. ${voucher.voucherNo}`);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -380,7 +399,7 @@ exports.deleteVoucher = async (req, res) => {
 // --- SUPPLIER ADVANCE CRUD ---
 exports.getSupplierAdvances = async (req, res) => {
   try {
-    const advances = await SupplierAdvance.find({ transporterId: req.userId });
+    const advances = await SupplierAdvance.find({ company_id: req.userId });
     res.json(advances);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -395,7 +414,7 @@ exports.createSupplierAdvance = async (req, res) => {
     const balance = amount - settledAmount;
 
     const advance = await SupplierAdvance.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...data,
       balance
     });
@@ -414,11 +433,15 @@ exports.updateSupplierAdvance = async (req, res) => {
     const settledAmount = Number(data.settledAmount) || 0;
     const balance = amount - settledAmount;
 
-    const advance = await SupplierAdvance.findByIdAndUpdate(
-      req.params.id,
+    const advance = await SupplierAdvance.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       { ...data, balance },
       { new: true }
     );
+
+    if (!advance) {
+      return res.status(404).json({ error: 'Supplier advance not found or unauthorized' });
+    }
 
     await logActivity(req.userId, `Updated Supplier Advance for ${advance.supplierName}`);
     res.json(advance);
@@ -429,11 +452,11 @@ exports.updateSupplierAdvance = async (req, res) => {
 
 exports.deleteSupplierAdvance = async (req, res) => {
   try {
-    const advance = await SupplierAdvance.findById(req.params.id);
-    if (advance) {
-      await SupplierAdvance.findByIdAndDelete(req.params.id);
-      await logActivity(req.userId, `Deleted Supplier Advance for ${advance.supplierName}`);
+    const advance = await SupplierAdvance.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!advance) {
+      return res.status(404).json({ error: 'Supplier advance not found or unauthorized' });
     }
+    await logActivity(req.userId, `Deleted Supplier Advance for ${advance.supplierName}`);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });

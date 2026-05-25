@@ -1,9 +1,9 @@
 [
   {
-    "_id": "r4s0m2drnmpkq7g6e",
-    "createdAt": "2026-05-25T04:48:29.606Z",
-    "updatedAt": "2026-05-25T04:48:29.606Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "bbaohd70empl6q4qx",
+    "createdAt": "2026-05-25T12:30:55.113Z",
+    "updatedAt": "2026-05-25T12:30:55.113Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "vehicleNumber": "UP-77-AN-4876",
     "model": "Tata Signa 4825.T",
     "ownerName": "Transcore Logistics Owner",
@@ -12,10 +12,10 @@
     "rcNumber": "RCUP77AN4876"
   },
   {
-    "_id": "vyvblvioxmpkq7g6e",
-    "createdAt": "2026-05-25T04:48:29.607Z",
-    "updatedAt": "2026-05-25T04:48:29.607Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "hsbpxq9s0mpl6q4qy",
+    "createdAt": "2026-05-25T12:30:55.114Z",
+    "updatedAt": "2026-05-25T12:30:55.114Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "vehicleNumber": "DL-01-GB-1234",
     "model": "Ashok Leyland 3520",
     "ownerName": "Subhash Transport",
@@ -24,10 +24,10 @@
     "rcNumber": "RCDL01GB1234"
   },
   {
-    "_id": "3vwz198v7mpkq7gkt",
-    "createdAt": "2026-05-25T04:48:30.125Z",
-    "updatedAt": "2026-05-25T04:48:30.125Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "iwgobmrpzmpl6q5b0",
+    "createdAt": "2026-05-25T12:30:55.836Z",
+    "updatedAt": "2026-05-25T12:30:55.836Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "vehicleNumber": "GJ-01-XX-9999",
     "model": "Tata Signa 4021.S",
     "ownerName": "Ahmedabad Transport",
@@ -36,10 +36,10 @@
     "rcNumber": "RCGJ01XX9999"
   },
   {
-    "_id": "kskxj9uusmpkq7gku",
-    "createdAt": "2026-05-25T04:48:30.126Z",
-    "updatedAt": "2026-05-25T04:48:30.126Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "o8g7qboywmpl6q5b0",
+    "createdAt": "2026-05-25T12:30:55.836Z",
+    "updatedAt": "2026-05-25T12:30:55.836Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "vehicleNumber": "GJ-03-YY-7777",
     "model": "BharatBenz 3523R",
     "ownerName": "Rajkot Roadlines",
@@ -48,10 +48,10 @@
     "rcNumber": "RCGJ03YY7777"
   },
   {
-    "_id": "zexzkv904mpkq7gzw",
-    "createdAt": "2026-05-25T04:48:30.668Z",
-    "updatedAt": "2026-05-25T04:48:30.668Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "o0e0i7ez2mpl6q5s6",
+    "createdAt": "2026-05-25T12:30:56.454Z",
+    "updatedAt": "2026-05-25T12:30:56.454Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "vehicleNumber": "MH-12-FT-8888",
     "model": "Tata Ultra 1918",
     "ownerName": "Mumbai Fast Fleet",
@@ -60,39 +60,15 @@
     "rcNumber": "RCMH12FT8888"
   },
   {
-    "_id": "h0pg0j4ntmpkq7gzw",
-    "createdAt": "2026-05-25T04:48:30.668Z",
-    "updatedAt": "2026-05-25T04:48:30.668Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "ov5ksywxompl6q5s7",
+    "createdAt": "2026-05-25T12:30:56.455Z",
+    "updatedAt": "2026-05-25T12:30:56.455Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "vehicleNumber": "MH-43-EX-1111",
     "model": "Eicher Pro 6028",
     "ownerName": "Pune Logistics Group",
     "ownerPhone": "9000000009",
     "insuranceExpiry": "2027-12-31",
     "rcNumber": "RCMH43EX1111"
-  },
-  {
-    "_id": "ligak2ym7mpkqbcb0",
-    "createdAt": "2026-05-25T04:51:31.212Z",
-    "updatedAt": "2026-05-25T04:51:31.212Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "vehicleNumber": "UP-77-AN-4876",
-    "model": "Tata Signa 4825.T",
-    "ownerName": "Transcore Logistics Owner",
-    "ownerPhone": "8269203922",
-    "insuranceExpiry": "2027-12-31",
-    "rcNumber": "RCUP77AN4876"
-  },
-  {
-    "_id": "7005uojvbmpkqbcb0",
-    "createdAt": "2026-05-25T04:51:31.212Z",
-    "updatedAt": "2026-05-25T04:51:31.212Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "vehicleNumber": "DL-01-GB-1234",
-    "model": "Ashok Leyland 3520",
-    "ownerName": "Subhash Transport",
-    "ownerPhone": "9988776655",
-    "insuranceExpiry": "2027-12-31",
-    "rcNumber": "RCDL01GB1234"
   }
 ]

@@ -26,7 +26,7 @@ const PermissionHistory = getModel('PermissionHistory', PermissionHistorySchema)
 // --- Customer CRUD ---
 exports.getCustomers = async (req, res) => {
   try {
-    const customers = await Customer.find({ transporterId: req.userId });
+    const customers = await Customer.find({ company_id: req.userId });
     res.json(customers);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -36,7 +36,7 @@ exports.getCustomers = async (req, res) => {
 exports.createCustomer = async (req, res) => {
   try {
     const customer = await Customer.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     res.status(201).json(customer);
@@ -47,11 +47,14 @@ exports.createCustomer = async (req, res) => {
 
 exports.updateCustomer = async (req, res) => {
   try {
-    const customer = await Customer.findByIdAndUpdate(
-      req.params.id,
+    const customer = await Customer.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!customer) {
+      return res.status(404).json({ error: 'Customer not found or unauthorized' });
+    }
     res.json(customer);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -60,7 +63,10 @@ exports.updateCustomer = async (req, res) => {
 
 exports.deleteCustomer = async (req, res) => {
   try {
-    await Customer.findByIdAndDelete(req.params.id);
+    const customer = await Customer.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!customer) {
+      return res.status(404).json({ error: 'Customer not found or unauthorized' });
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -70,7 +76,7 @@ exports.deleteCustomer = async (req, res) => {
 // --- Vehicle CRUD ---
 exports.getVehicles = async (req, res) => {
   try {
-    const vehicles = await Vehicle.find({ transporterId: req.userId });
+    const vehicles = await Vehicle.find({ company_id: req.userId });
     res.json(vehicles);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -80,7 +86,7 @@ exports.getVehicles = async (req, res) => {
 exports.createVehicle = async (req, res) => {
   try {
     const vehicle = await Vehicle.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     res.status(201).json(vehicle);
@@ -91,11 +97,14 @@ exports.createVehicle = async (req, res) => {
 
 exports.updateVehicle = async (req, res) => {
   try {
-    const vehicle = await Vehicle.findByIdAndUpdate(
-      req.params.id,
+    const vehicle = await Vehicle.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!vehicle) {
+      return res.status(404).json({ error: 'Vehicle not found or unauthorized' });
+    }
     res.json(vehicle);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -104,7 +113,10 @@ exports.updateVehicle = async (req, res) => {
 
 exports.deleteVehicle = async (req, res) => {
   try {
-    await Vehicle.findByIdAndDelete(req.params.id);
+    const vehicle = await Vehicle.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!vehicle) {
+      return res.status(404).json({ error: 'Vehicle not found or unauthorized' });
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -114,7 +126,7 @@ exports.deleteVehicle = async (req, res) => {
 // --- Driver CRUD ---
 exports.getDrivers = async (req, res) => {
   try {
-    const drivers = await Driver.find({ transporterId: req.userId });
+    const drivers = await Driver.find({ company_id: req.userId });
     res.json(drivers);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -124,7 +136,7 @@ exports.getDrivers = async (req, res) => {
 exports.createDriver = async (req, res) => {
   try {
     const driver = await Driver.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     res.status(201).json(driver);
@@ -135,11 +147,14 @@ exports.createDriver = async (req, res) => {
 
 exports.updateDriver = async (req, res) => {
   try {
-    const driver = await Driver.findByIdAndUpdate(
-      req.params.id,
+    const driver = await Driver.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!driver) {
+      return res.status(404).json({ error: 'Driver not found or unauthorized' });
+    }
     res.json(driver);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -148,7 +163,10 @@ exports.updateDriver = async (req, res) => {
 
 exports.deleteDriver = async (req, res) => {
   try {
-    await Driver.findByIdAndDelete(req.params.id);
+    const driver = await Driver.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!driver) {
+      return res.status(404).json({ error: 'Driver not found or unauthorized' });
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -158,7 +176,7 @@ exports.deleteDriver = async (req, res) => {
 // --- Branch CRUD ---
 exports.getBranches = async (req, res) => {
   try {
-    const branches = await Branch.find({ transporterId: req.userId });
+    const branches = await Branch.find({ company_id: req.userId });
     res.json(branches);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -168,7 +186,7 @@ exports.getBranches = async (req, res) => {
 exports.createBranch = async (req, res) => {
   try {
     const branch = await Branch.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     res.status(201).json(branch);
@@ -179,20 +197,27 @@ exports.createBranch = async (req, res) => {
 
 exports.updateBranch = async (req, res) => {
   try {
-    const branch = await Branch.findByIdAndUpdate(
-      req.params.id,
+    const branch = await Branch.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!branch) {
+      return res.status(404).json({ error: 'Branch not found or unauthorized' });
+    }
     res.json(branch);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
+// Branch deletion requires strict company ownership
 exports.deleteBranch = async (req, res) => {
   try {
-    await Branch.findByIdAndDelete(req.params.id);
+    const branch = await Branch.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!branch) {
+      return res.status(404).json({ error: 'Branch not found or unauthorized' });
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -202,7 +227,7 @@ exports.deleteBranch = async (req, res) => {
 // --- Quotation CRUD ---
 exports.getQuotations = async (req, res) => {
   try {
-    const quotations = await Quotation.find({ transporterId: req.userId });
+    const quotations = await Quotation.find({ company_id: req.userId });
     res.json(quotations);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -212,7 +237,7 @@ exports.getQuotations = async (req, res) => {
 exports.createQuotation = async (req, res) => {
   try {
     const quotation = await Quotation.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     res.status(201).json(quotation);
@@ -223,11 +248,14 @@ exports.createQuotation = async (req, res) => {
 
 exports.updateQuotation = async (req, res) => {
   try {
-    const quotation = await Quotation.findByIdAndUpdate(
-      req.params.id,
+    const quotation = await Quotation.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!quotation) {
+      return res.status(404).json({ error: 'Quotation not found or unauthorized' });
+    }
     res.json(quotation);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -236,7 +264,10 @@ exports.updateQuotation = async (req, res) => {
 
 exports.deleteQuotation = async (req, res) => {
   try {
-    await Quotation.findByIdAndDelete(req.params.id);
+    const quotation = await Quotation.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!quotation) {
+      return res.status(404).json({ error: 'Quotation not found or unauthorized' });
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -246,7 +277,7 @@ exports.deleteQuotation = async (req, res) => {
 // --- SubUser CRUD ---
 exports.getSubUsers = async (req, res) => {
   try {
-    const subusers = await SubUser.find({ transporterId: req.userId });
+    const subusers = await SubUser.find({ company_id: req.userId });
     res.json(subusers);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -256,7 +287,7 @@ exports.getSubUsers = async (req, res) => {
 exports.createSubUser = async (req, res) => {
   try {
     const subuser = await SubUser.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     res.status(201).json(subuser);
@@ -267,11 +298,14 @@ exports.createSubUser = async (req, res) => {
 
 exports.updateSubUser = async (req, res) => {
   try {
-    const subuser = await SubUser.findByIdAndUpdate(
-      req.params.id,
+    const subuser = await SubUser.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!subuser) {
+      return res.status(404).json({ error: 'Sub-user not found or unauthorized' });
+    }
     res.json(subuser);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -280,7 +314,10 @@ exports.updateSubUser = async (req, res) => {
 
 exports.deleteSubUser = async (req, res) => {
   try {
-    await SubUser.findByIdAndDelete(req.params.id);
+    const subuser = await SubUser.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!subuser) {
+      return res.status(404).json({ error: 'Sub-user not found or unauthorized' });
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -290,7 +327,7 @@ exports.deleteSubUser = async (req, res) => {
 // --- CashBank CRUD ---
 exports.getCashBanks = async (req, res) => {
   try {
-    const cashbanks = await CashBank.find({ transporterId: req.userId });
+    const cashbanks = await CashBank.find({ company_id: req.userId });
     res.json(cashbanks);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -300,7 +337,7 @@ exports.getCashBanks = async (req, res) => {
 exports.createCashBank = async (req, res) => {
   try {
     const cashbank = await CashBank.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       ...req.body
     });
     res.status(201).json(cashbank);
@@ -311,11 +348,14 @@ exports.createCashBank = async (req, res) => {
 
 exports.updateCashBank = async (req, res) => {
   try {
-    const cashbank = await CashBank.findByIdAndUpdate(
-      req.params.id,
+    const cashbank = await CashBank.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!cashbank) {
+      return res.status(404).json({ error: 'Cash/Bank account not found or unauthorized' });
+    }
     res.json(cashbank);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -324,7 +364,10 @@ exports.updateCashBank = async (req, res) => {
 
 exports.deleteCashBank = async (req, res) => {
   try {
-    await CashBank.findByIdAndDelete(req.params.id);
+    const cashbank = await CashBank.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
+    if (!cashbank) {
+      return res.status(404).json({ error: 'Cash/Bank account not found or unauthorized' });
+    }
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -334,7 +377,7 @@ exports.deleteCashBank = async (req, res) => {
 // --- Roles CRUD ---
 exports.getRoles = async (req, res) => {
   try {
-    const roles = await Role.find({ transporterId: req.userId });
+    const roles = await Role.find({ company_id: req.userId });
     
     // Seed default roles if none exist for this transporter
     if (roles.length === 0) {
@@ -392,7 +435,7 @@ exports.getRoles = async (req, res) => {
       const seeded = [];
       for (let r of defaultRoles) {
         const item = await Role.create({
-          transporterId: req.userId,
+          company_id: req.userId,
           ...r
         });
         seeded.push(item);
@@ -409,7 +452,7 @@ exports.getRoles = async (req, res) => {
 exports.createRole = async (req, res) => {
   try {
     const role = await Role.create({
-      transporterId: req.userId,
+      company_id: req.userId,
       isPredefined: false,
       ...req.body
     });
@@ -421,11 +464,14 @@ exports.createRole = async (req, res) => {
 
 exports.updateRole = async (req, res) => {
   try {
-    const role = await Role.findByIdAndUpdate(
-      req.params.id,
+    const role = await Role.findOneAndUpdate(
+      { _id: req.params.id, company_id: req.userId },
       req.body,
       { new: true }
     );
+    if (!role) {
+      return res.status(404).json({ error: 'Role not found or unauthorized' });
+    }
     res.json(role);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -434,11 +480,14 @@ exports.updateRole = async (req, res) => {
 
 exports.deleteRole = async (req, res) => {
   try {
-    const role = await Role.findById(req.params.id);
-    if (role && role.isPredefined) {
+    const role = await Role.findOne({ _id: req.params.id, company_id: req.userId });
+    if (!role) {
+      return res.status(404).json({ error: 'Role not found or unauthorized' });
+    }
+    if (role.isPredefined) {
       return res.status(400).json({ error: 'Cannot delete predefined system roles.' });
     }
-    await Role.findByIdAndDelete(req.params.id);
+    await Role.findOneAndDelete({ _id: req.params.id, company_id: req.userId });
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -448,7 +497,7 @@ exports.deleteRole = async (req, res) => {
 // --- Logs & Audit Tracks ---
 exports.getAuditLogs = async (req, res) => {
   try {
-    const logs = await AuditLog.find({ transporterId: req.userId });
+    const logs = await AuditLog.find({ company_id: req.userId });
     
     // Fallback seed
     if (logs.length === 0) {
@@ -459,7 +508,7 @@ exports.getAuditLogs = async (req, res) => {
 
       const dummyLogs = [
         {
-          transporterId: req.userId,
+          company_id: req.userId,
           userId: req.userId,
           operatorName: 'Transcore Admin',
           action: 'LOGIN',
@@ -467,7 +516,7 @@ exports.getAuditLogs = async (req, res) => {
           timestamp: new Date().toISOString()
         },
         {
-          transporterId: req.userId,
+          company_id: req.userId,
           userId: req.userId,
           operatorName: 'Transcore Admin',
           action: 'PERM_CHANGE',
@@ -475,7 +524,7 @@ exports.getAuditLogs = async (req, res) => {
           timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString()
         },
         {
-          transporterId: req.userId,
+          company_id: req.userId,
           userId: req.userId,
           operatorName: 'Transcore Admin',
           action: 'BRANCH_ASSIGN',
@@ -500,19 +549,19 @@ exports.getAuditLogs = async (req, res) => {
 
 exports.getPermissionHistory = async (req, res) => {
   try {
-    const history = await PermissionHistory.find({ transporterId: req.userId });
+    const history = await PermissionHistory.find({ company_id: req.userId });
     
     if (history.length === 0) {
       const dummyHistory = [
         {
-          transporterId: req.userId,
+          company_id: req.userId,
           operatorName: 'Ramesh Singh',
           changedByName: 'Transcore Admin',
           changeDescription: 'Toggled view/create options for Loading Slips module.',
           timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString()
         },
         {
-          transporterId: req.userId,
+          company_id: req.userId,
           operatorName: 'Sukhdev Singh',
           changedByName: 'Transcore Admin',
           changeDescription: 'Cloned Accountant role permissions to Custom Accountant Role.',

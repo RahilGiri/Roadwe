@@ -37,11 +37,50 @@ class LocalModel {
     let items = this._read();
     return items.filter(item => {
       for (let key in query) {
-        if (query[key] !== undefined && item[key] !== query[key]) {
-          // simple check for nested or exact match
+        if (key === '$or') continue;
+        
+        const val = query[key];
+        if (val === undefined) continue;
+        
+        // Parse Mongo objects like $ne, $in
+        if (val && typeof val === 'object' && !Array.isArray(val)) {
+          if ('$ne' in val) {
+            if (item[key] === val.$ne) return false;
+            continue;
+          }
+          if ('$in' in val) {
+            if (!Array.isArray(val.$in) || !val.$in.includes(item[key])) return false;
+            continue;
+          }
+        }
+        
+        if (item[key] !== val) {
           return false;
         }
       }
+      
+      // Global $or check
+      if (query.$or && Array.isArray(query.$or)) {
+        const passOr = query.$or.some(subQuery => {
+          for (let key in subQuery) {
+            const val = subQuery[key];
+            if (val && typeof val === 'object' && !Array.isArray(val)) {
+              if ('$ne' in val) {
+                if (item[key] === val.$ne) return false;
+              } else if ('$in' in val) {
+                if (!Array.isArray(val.$in) || !val.$in.includes(item[key])) return false;
+              } else {
+                return false;
+              }
+            } else if (item[key] !== val) {
+              return false;
+            }
+          }
+          return true;
+        });
+        if (!passOr) return false;
+      }
+      
       return true;
     });
   }
@@ -89,6 +128,41 @@ class LocalModel {
   async findByIdAndDelete(id) {
     const items = this._read();
     const index = items.findIndex(item => item._id === id);
+    if (index === -1) return null;
+    const deleted = items[index];
+    items.splice(index, 1);
+    this._write(items);
+    return deleted;
+  }
+
+  async findOneAndUpdate(query, updateData, options = { new: true }) {
+    const items = this._read();
+    const index = items.findIndex(item => {
+      for (let key in query) {
+        if (item[key] !== query[key]) return false;
+      }
+      return true;
+    });
+    if (index === -1) return null;
+
+    const cleanUpdate = updateData.$set ? { ...updateData.$set } : { ...updateData };
+    items[index] = {
+      ...items[index],
+      ...cleanUpdate,
+      updatedAt: new Date().toISOString()
+    };
+    this._write(items);
+    return items[index];
+  }
+
+  async findOneAndDelete(query) {
+    const items = this._read();
+    const index = items.findIndex(item => {
+      for (let key in query) {
+        if (item[key] !== query[key]) return false;
+      }
+      return true;
+    });
     if (index === -1) return null;
     const deleted = items[index];
     items.splice(index, 1);

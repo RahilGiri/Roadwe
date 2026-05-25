@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   email: { type: String, required: true },
   mobile: { type: String, required: true },
   password: { type: String, required: true },
+  company_id: { type: String }, // Links to itself
   address: { type: String, default: '' },
   gstin: { type: String, default: '' },
   transportType: { type: String, default: '' },
@@ -18,7 +19,7 @@ const UserSchema = new Schema({
 
 // 2. Customer Master
 const CustomerSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   name: { type: String, required: true },
   phone: { type: String, required: true },
   email: { type: String, default: '' },
@@ -29,7 +30,7 @@ const CustomerSchema = new Schema({
 
 // 3. Vehicle Master
 const VehicleSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   vehicleNumber: { type: String, required: true },
   model: { type: String, default: '' },
   ownerName: { type: String, default: '' },
@@ -40,7 +41,7 @@ const VehicleSchema = new Schema({
 
 // 4. Driver Master
 const DriverSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   name: { type: String, required: true },
   licenseNumber: { type: String, required: true },
   mobile: { type: String, required: true },
@@ -50,7 +51,7 @@ const DriverSchema = new Schema({
 
 // 5. Bilty (Lorry Receipt / LR)
 const BiltySchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   biltyNo: { type: String, required: true },
   date: { type: String, required: true },
   fromCity: { type: String, required: true },
@@ -80,7 +81,7 @@ const BiltySchema = new Schema({
 
 // 6. Loading Slip
 const LoadingSlipSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   slipNo: { type: String, required: true },
   date: { type: String, required: true },
   consignorName: { type: String, required: true },
@@ -96,7 +97,7 @@ const LoadingSlipSchema = new Schema({
 
 // 7. Truck Hire Chalan
 const ChalanSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   chalanNo: { type: String, required: true },
   date: { type: String, required: true },
   branchCode: { type: String, default: '' },
@@ -165,7 +166,7 @@ const ChalanSchema = new Schema({
 
 // 8. Invoice
 const InvoiceSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   invoiceNo: { type: String, required: true },
   date: { type: String, required: true },
   customerId: { type: String, required: true },
@@ -183,7 +184,7 @@ const InvoiceSchema = new Schema({
 
 // 9. Voucher (Receipts/Payments)
 const VoucherSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   voucherNo: { type: String, required: true },
   date: { type: String, required: true },
   type: { type: String, enum: ['Receipt', 'Payment'], required: true },
@@ -194,14 +195,14 @@ const VoucherSchema = new Schema({
 
 // 10. User Activity Log (For Dashboard logs stream)
 const UserLogSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   description: { type: String, required: true },
   timestamp: { type: String, required: true }
 });
 
 // 11. Branch Schema
 const BranchSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   branchName: { type: String, required: true },
   gstin: { type: String, default: '' },
   phone: { type: String, default: '' },
@@ -210,7 +211,7 @@ const BranchSchema = new Schema({
 
 // 12. Quotation Schema
 const QuotationSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   quotationNo: { type: String, required: true },
   date: { type: String, required: true },
   type: { type: String, enum: ['Transport', 'P&M'], default: 'Transport' },
@@ -223,7 +224,7 @@ const QuotationSchema = new Schema({
 
 // 13. SubUser Schema
 const SubUserSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   username: { type: String, required: true },
   role: { type: String, required: true },
   branchAccess: { type: String, required: true },
@@ -238,7 +239,7 @@ const SubUserSchema = new Schema({
 
 // 14. Cash/Bank Schema
 const CashBankSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   type: { type: String, enum: ['Cash', 'Bank'], required: true },
   name: { type: String, required: true },
   accountNo: { type: String, default: '' },
@@ -248,7 +249,7 @@ const CashBankSchema = new Schema({
 
 // 15. Supplier Advance Schema
 const SupplierAdvanceSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   supplierName: { type: String, required: true },
   supplierPan: { type: String, default: '' },
   paymentDate: { type: String, required: true },
@@ -261,7 +262,7 @@ const SupplierAdvanceSchema = new Schema({
 
 // 16. Dynamic Role Schema
 const RoleSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   name: { type: String, required: true },
   key: { type: String, required: true },
   description: { type: String, default: '' },
@@ -272,7 +273,7 @@ const RoleSchema = new Schema({
 
 // 17. Detailed Audit Log Schema
 const AuditLogSchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   userId: { type: String, required: true },
   operatorName: { type: String, required: true },
   action: { type: String, required: true },
@@ -283,7 +284,7 @@ const AuditLogSchema = new Schema({
 
 // 18. Permission Change History Schema
 const PermissionHistorySchema = new Schema({
-  transporterId: { type: String, required: true },
+  company_id: { type: String, required: true },
   operatorName: { type: String, required: true },
   changedByName: { type: String, required: true },
   changeDescription: { type: String, required: true },

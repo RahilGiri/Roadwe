@@ -1,9 +1,9 @@
 [
   {
-    "_id": "h8er2edywmpkq7g6e",
-    "createdAt": "2026-05-25T04:48:29.606Z",
-    "updatedAt": "2026-05-25T04:48:29.606Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "3e9n6yog4mpl6q4qx",
+    "createdAt": "2026-05-25T12:30:55.113Z",
+    "updatedAt": "2026-05-25T12:30:55.113Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "name": "TATA STEEL LTD",
     "phone": "9876543210",
     "email": "logistics@tatasteel.com",
@@ -12,10 +12,10 @@
     "city": "Jamshedpur"
   },
   {
-    "_id": "m8az8i087mpkq7g6e",
-    "createdAt": "2026-05-25T04:48:29.606Z",
-    "updatedAt": "2026-05-25T04:48:29.606Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "wnie2kbsumpl6q4qx",
+    "createdAt": "2026-05-25T12:30:55.113Z",
+    "updatedAt": "2026-05-25T12:30:55.113Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "name": "RELIANCE INDUSTRIES",
     "phone": "9123456789",
     "email": "dispatch@ril.com",
@@ -24,10 +24,10 @@
     "city": "Jamnagar"
   },
   {
-    "_id": "lbtvgu8d2mpkq7gkt",
-    "createdAt": "2026-05-25T04:48:30.125Z",
-    "updatedAt": "2026-05-25T04:48:30.125Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "sqeo1n5l5mpl6q5az",
+    "createdAt": "2026-05-25T12:30:55.835Z",
+    "updatedAt": "2026-05-25T12:30:55.835Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "name": "AMBUJA CEMENT LTD",
     "phone": "9000000001",
     "email": "logistics@ambuja.com",
@@ -36,10 +36,10 @@
     "city": "Vadodara"
   },
   {
-    "_id": "3f1caekaimpkq7gkt",
-    "createdAt": "2026-05-25T04:48:30.125Z",
-    "updatedAt": "2026-05-25T04:48:30.125Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "2cqsnjkv6mpl6q5b0",
+    "createdAt": "2026-05-25T12:30:55.836Z",
+    "updatedAt": "2026-05-25T12:30:55.836Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "name": "ADANI PORTS & SEZ",
     "phone": "9000000002",
     "email": "dispatch@adani.com",
@@ -48,10 +48,10 @@
     "city": "Mundra"
   },
   {
-    "_id": "pc2i92fvcmpkq7gzw",
-    "createdAt": "2026-05-25T04:48:30.668Z",
-    "updatedAt": "2026-05-25T04:48:30.668Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "40hx2sfdympl6q5s6",
+    "createdAt": "2026-05-25T12:30:56.454Z",
+    "updatedAt": "2026-05-25T12:30:56.454Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "name": "AMAZON SELLER SERVICES",
     "phone": "9000000006",
     "email": "logistics@amazon.com",
@@ -60,39 +60,15 @@
     "city": "Mumbai"
   },
   {
-    "_id": "ivgoqnom6mpkq7gzw",
-    "createdAt": "2026-05-25T04:48:30.668Z",
-    "updatedAt": "2026-05-25T04:48:30.668Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "p3k7h75bdmpl6q5s6",
+    "createdAt": "2026-05-25T12:30:56.454Z",
+    "updatedAt": "2026-05-25T12:30:56.454Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "name": "FLIPKART LOGISTICS",
     "phone": "9000000007",
     "email": "dispatch@flipkart.com",
     "gstin": "27BBBBB1111B2Z2",
     "address": "Pune Fulfillment Center",
     "city": "Pune"
-  },
-  {
-    "_id": "tza6n31a3mpkqbcb0",
-    "createdAt": "2026-05-25T04:51:31.212Z",
-    "updatedAt": "2026-05-25T04:51:31.212Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "name": "TATA STEEL LTD",
-    "phone": "9876543210",
-    "email": "logistics@tatasteel.com",
-    "gstin": "22AAAAA0000A1Z1",
-    "address": "Jamshedpur Industrial Area",
-    "city": "Jamshedpur"
-  },
-  {
-    "_id": "upn4j8hq1mpkqbcb0",
-    "createdAt": "2026-05-25T04:51:31.212Z",
-    "updatedAt": "2026-05-25T04:51:31.212Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "name": "RELIANCE INDUSTRIES",
-    "phone": "9123456789",
-    "email": "dispatch@ril.com",
-    "gstin": "27BBBBB1111B2Z2",
-    "address": "Reliance Refinery",
-    "city": "Jamnagar"
   }
 ]

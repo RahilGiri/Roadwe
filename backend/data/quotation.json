@@ -1,9 +1,9 @@
 [
   {
-    "_id": "xz3lz17txmpkq7g6g",
-    "createdAt": "2026-05-25T04:48:29.608Z",
-    "updatedAt": "2026-05-25T04:48:29.608Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "hg1fvvqd4mpl6q4qz",
+    "createdAt": "2026-05-25T12:30:55.115Z",
+    "updatedAt": "2026-05-25T12:30:55.115Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "quotationNo": "Q-2026-001",
     "date": "2026-05-25",
     "type": "Transport",
@@ -14,10 +14,10 @@
     "details": "Freight charges include standard loading fees."
   },
   {
-    "_id": "n609m6jupmpkq7gkw",
-    "createdAt": "2026-05-25T04:48:30.128Z",
-    "updatedAt": "2026-05-25T04:48:30.128Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "eup1a29nwmpl6q5b1",
+    "createdAt": "2026-05-25T12:30:55.837Z",
+    "updatedAt": "2026-05-25T12:30:55.837Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "quotationNo": "Q-2026-001",
     "date": "2026-05-25",
     "type": "Transport",
@@ -28,30 +28,16 @@
     "details": "Freight charges include standard loading fees."
   },
   {
-    "_id": "014epyz3gmpkq7gzy",
-    "createdAt": "2026-05-25T04:48:30.670Z",
-    "updatedAt": "2026-05-25T04:48:30.670Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "jtabitfdempl6q5s8",
+    "createdAt": "2026-05-25T12:30:56.456Z",
+    "updatedAt": "2026-05-25T12:30:56.456Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "quotationNo": "Q-2026-001",
     "date": "2026-05-25",
     "type": "Transport",
     "partyName": "AMAZON SELLER SERVICES",
     "fromCity": "Pune",
     "toCity": "Bangalore",
-    "rate": 35000,
-    "details": "Freight charges include standard loading fees."
-  },
-  {
-    "_id": "yb4yvg1xompkqbcb2",
-    "createdAt": "2026-05-25T04:51:31.214Z",
-    "updatedAt": "2026-05-25T04:51:31.214Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "quotationNo": "Q-2026-001",
-    "date": "2026-05-25",
-    "type": "Transport",
-    "partyName": "TATA STEEL LTD",
-    "fromCity": "Kanpur",
-    "toCity": "Mumbai",
     "rate": 35000,
     "details": "Freight charges include standard loading fees."
   }

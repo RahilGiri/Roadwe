@@ -383,7 +383,10 @@ export default function App() {
           companyName: regCompanyName,
           email: regEmail,
           mobile: regMobile,
-          password: regPassword
+          password: regPassword,
+          gstin: regGstin,
+          transportType: regTransportType,
+          address: regAddress
         })
       });
       const data = await res.json();
@@ -402,6 +405,11 @@ export default function App() {
       setRegEmail('');
       setRegMobile('');
       setRegPassword('');
+      setRegConfirmPassword('');
+      setRegGstin('');
+      setRegTransportType('Full Truck Load (FTL)');
+      setRegAddress('');
+      setRegStep(1);
     } catch (err) {
       console.error('Registration connection error:', err);
       setAuthError('Connection error: Unable to connect to the authentication server. Please ensure the backend server is running on port 5001.');

@@ -1,98 +1,74 @@
 [
   {
-    "_id": "ftwcx6lhrmpkq7g6d",
-    "createdAt": "2026-05-25T04:48:29.605Z",
-    "updatedAt": "2026-05-25T04:48:29.605Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "nf6yljmxnmpl6q4qw",
+    "createdAt": "2026-05-25T12:30:55.112Z",
+    "updatedAt": "2026-05-25T12:30:55.112Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "description": "Updated Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-25T04:48:29.605Z"
+    "timestamp": "2026-05-25T12:30:55.112Z"
   },
   {
-    "_id": "fcpwefadempkq7g6d",
-    "createdAt": "2026-05-25T04:48:29.605Z",
-    "updatedAt": "2026-05-25T04:48:29.605Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "9qf6na01pmpl6q4qx",
+    "createdAt": "2026-05-25T12:30:55.113Z",
+    "updatedAt": "2026-05-25T12:30:55.113Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "description": "Created Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-25T04:43:29.605Z"
+    "timestamp": "2026-05-25T12:25:55.113Z"
   },
   {
-    "_id": "xdkaqxo74mpkq7g6e",
-    "createdAt": "2026-05-25T04:48:29.606Z",
-    "updatedAt": "2026-05-25T04:48:29.606Z",
-    "transporterId": "9bjhdah35mpkq7g6a",
+    "_id": "13fdlyzc0mpl6q4qx",
+    "createdAt": "2026-05-25T12:30:55.113Z",
+    "updatedAt": "2026-05-25T12:30:55.113Z",
+    "company_id": "08v57pv9dmpl6q4nc",
     "description": "Updated Loading Slip No. 504 by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-25T04:18:29.606Z"
+    "timestamp": "2026-05-25T12:00:55.113Z"
   },
   {
-    "_id": "jli5w1x7cmpkq7gks",
-    "createdAt": "2026-05-25T04:48:30.124Z",
-    "updatedAt": "2026-05-25T04:48:30.124Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "yvbn37zgrmpl6q5az",
+    "createdAt": "2026-05-25T12:30:55.835Z",
+    "updatedAt": "2026-05-25T12:30:55.835Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "description": "Updated Bilty No. 2000044105 (GJ-01-XX-9999) by GUJARAT FREIGHT MOVERS.",
-    "timestamp": "2026-05-25T04:48:30.124Z"
+    "timestamp": "2026-05-25T12:30:55.835Z"
   },
   {
-    "_id": "ne76d1rnwmpkq7gks",
-    "createdAt": "2026-05-25T04:48:30.124Z",
-    "updatedAt": "2026-05-25T04:48:30.124Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "wz9pq4w3xmpl6q5az",
+    "createdAt": "2026-05-25T12:30:55.835Z",
+    "updatedAt": "2026-05-25T12:30:55.835Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "description": "Created Bilty No. 2000044105 (GJ-01-XX-9999) by GUJARAT FREIGHT MOVERS.",
-    "timestamp": "2026-05-25T04:43:30.124Z"
+    "timestamp": "2026-05-25T12:25:55.835Z"
   },
   {
-    "_id": "q79hb9qd5mpkq7gks",
-    "createdAt": "2026-05-25T04:48:30.124Z",
-    "updatedAt": "2026-05-25T04:48:30.124Z",
-    "transporterId": "cbcnin8l4mpkq7gkq",
+    "_id": "8d9i72tqzmpl6q5az",
+    "createdAt": "2026-05-25T12:30:55.835Z",
+    "updatedAt": "2026-05-25T12:30:55.835Z",
+    "company_id": "3ttjgl636mpl6q57g",
     "description": "Updated Loading Slip No. 504 by GUJARAT FREIGHT MOVERS.",
-    "timestamp": "2026-05-25T04:18:30.124Z"
+    "timestamp": "2026-05-25T12:00:55.835Z"
   },
   {
-    "_id": "gh7q4a624mpkq7gzv",
-    "createdAt": "2026-05-25T04:48:30.667Z",
-    "updatedAt": "2026-05-25T04:48:30.667Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "spz9y78olmpl6q5s6",
+    "createdAt": "2026-05-25T12:30:56.454Z",
+    "updatedAt": "2026-05-25T12:30:56.454Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "description": "Updated Bilty No. 3000055308 (MH-12-FT-8888) by FASTTRACK CARGO.",
-    "timestamp": "2026-05-25T04:48:30.667Z"
+    "timestamp": "2026-05-25T12:30:56.453Z"
   },
   {
-    "_id": "homkyzpjkmpkq7gzw",
-    "createdAt": "2026-05-25T04:48:30.668Z",
-    "updatedAt": "2026-05-25T04:48:30.668Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "eu33gpw2tmpl6q5s6",
+    "createdAt": "2026-05-25T12:30:56.454Z",
+    "updatedAt": "2026-05-25T12:30:56.454Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "description": "Created Bilty No. 3000055308 (MH-12-FT-8888) by FASTTRACK CARGO.",
-    "timestamp": "2026-05-25T04:43:30.668Z"
+    "timestamp": "2026-05-25T12:25:56.454Z"
   },
   {
-    "_id": "jutfknk0tmpkq7gzw",
-    "createdAt": "2026-05-25T04:48:30.668Z",
-    "updatedAt": "2026-05-25T04:48:30.668Z",
-    "transporterId": "y2n7l425rmpkq7gzt",
+    "_id": "8fbh3da9fmpl6q5s6",
+    "createdAt": "2026-05-25T12:30:56.454Z",
+    "updatedAt": "2026-05-25T12:30:56.454Z",
+    "company_id": "alvuqrb6qmpl6q5oc",
     "description": "Updated Loading Slip No. 504 by FASTTRACK CARGO.",
-    "timestamp": "2026-05-25T04:18:30.668Z"
-  },
-  {
-    "_id": "bxc1pmk9jmpkqbcay",
-    "createdAt": "2026-05-25T04:51:31.210Z",
-    "updatedAt": "2026-05-25T04:51:31.210Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "description": "Updated Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-25T04:51:31.207Z"
-  },
-  {
-    "_id": "5x9nchidrmpkqbcay",
-    "createdAt": "2026-05-25T04:51:31.210Z",
-    "updatedAt": "2026-05-25T04:51:31.210Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "description": "Created Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-25T04:46:31.210Z"
-  },
-  {
-    "_id": "vt6roclwumpkqbcay",
-    "createdAt": "2026-05-25T04:51:31.210Z",
-    "updatedAt": "2026-05-25T04:51:31.210Z",
-    "transporterId": "4rq3q1epnmpkqay2r",
-    "description": "Updated Loading Slip No. 504 by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-25T04:21:31.210Z"
+    "timestamp": "2026-05-25T12:00:56.454Z"
   }
 ]

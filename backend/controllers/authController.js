@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { getModel } = require('../config/db');
+const mongoose = require('mongoose');
+const { getModel, isFallback } = require('../config/db');
 const { UserSchema, UserLogSchema, BiltySchema } = require('../models/schemas');
 
 const User = getModel('User', UserSchema);
@@ -10,7 +11,7 @@ const Bilty = getModel('Bilty', BiltySchema);
 const JWT_SECRET = process.env.JWT_SECRET || 'roadwe-super-secret-key-12345';
 
 // Unified Multi-Tenant Demo Data Seeder
-const seedDemoData = async (transporterId, customData = {}) => {
+const seedDemoData = async (company_id, customData = {}) => {
   try {
     const {
       companyName = 'TRANSCORE LOGISTICS',
@@ -33,23 +34,23 @@ const seedDemoData = async (transporterId, customData = {}) => {
       goodsDescription = 'Iron Sheets / Coils'
     } = customData;
 
-    const biltyCountExisting = await Bilty.countDocuments({ transporterId });
+    const biltyCountExisting = await Bilty.countDocuments({ company_id });
     if (biltyCountExisting === 0) {
       console.log(`🌱 Database empty for ${companyName}. Seeding initial operational MERN records...`);
 
       // 1. Create logs
       await UserLog.create({
-        transporterId,
+        company_id,
         description: `Updated Bilty No. ${biltyNoPrefix}${biltyStartNum} (${vehicles[0].vehicleNumber}) by ${companyName}.`,
         timestamp: new Date().toISOString()
       });
       await UserLog.create({
-        transporterId,
+        company_id,
         description: `Created Bilty No. ${biltyNoPrefix}${biltyStartNum} (${vehicles[0].vehicleNumber}) by ${companyName}.`,
         timestamp: new Date(Date.now() - 5 * 60 * 1000).toISOString()
       });
       await UserLog.create({
-        transporterId,
+        company_id,
         description: `Updated Loading Slip No. 504 by ${companyName}.`,
         timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString()
       });
@@ -59,7 +60,7 @@ const seedDemoData = async (transporterId, customData = {}) => {
       const Customer = getModel('Customer', CustomerSchema);
       const createdCustomers = [];
       for (let c of customers) {
-        const item = await Customer.create({ transporterId, ...c });
+        const item = await Customer.create({ company_id, ...c });
         createdCustomers.push(item);
       }
 
@@ -69,7 +70,7 @@ const seedDemoData = async (transporterId, customData = {}) => {
       const createdVehicles = [];
       for (let v of vehicles) {
         const item = await Vehicle.create({
-          transporterId,
+          company_id,
           ...v,
           insuranceExpiry: '2027-12-31',
           rcNumber: 'RC' + v.vehicleNumber.replace(/-/g, '')
@@ -82,7 +83,7 @@ const seedDemoData = async (transporterId, customData = {}) => {
       const Driver = getModel('Driver', DriverSchema);
       const createdDrivers = [];
       for (let d of drivers) {
-        const item = await Driver.create({ transporterId, ...d });
+        const item = await Driver.create({ company_id, ...d });
         createdDrivers.push(item);
       }
 
@@ -90,7 +91,7 @@ const seedDemoData = async (transporterId, customData = {}) => {
       const { BranchSchema } = require('../models/schemas');
       const Branch = getModel('Branch', BranchSchema);
       await Branch.create({
-        transporterId,
+        company_id,
         branchName: `${companyName} (${fromCity} HQ) (ADMIN)`,
         gstin: '09AAACT9211C1ZA',
         phone: '8269203922',
@@ -101,7 +102,7 @@ const seedDemoData = async (transporterId, customData = {}) => {
       const { SubUserSchema } = require('../models/schemas');
       const SubUser = getModel('SubUser', SubUserSchema);
       await SubUser.create({
-        transporterId,
+        company_id,
         username: `${companyName.toLowerCase().replace(/\s/g, '_')}_clerk`,
         role: 'Loading Clerk',
         branchAccess: `${fromCity} Branch HQ`,
@@ -113,13 +114,13 @@ const seedDemoData = async (transporterId, customData = {}) => {
       const { CashBankSchema } = require('../models/schemas');
       const CashBank = getModel('CashBank', CashBankSchema);
       await CashBank.create({
-        transporterId,
+        company_id,
         type: 'Cash',
         name: 'Main Cash Box',
         balance: 25000
       });
       await CashBank.create({
-        transporterId,
+        company_id,
         type: 'Bank',
         name: 'HDFC Corporate Bank Account',
         accountNo: '50100223344',
@@ -131,7 +132,7 @@ const seedDemoData = async (transporterId, customData = {}) => {
       const { QuotationSchema } = require('../models/schemas');
       const Quotation = getModel('Quotation', QuotationSchema);
       await Quotation.create({
-        transporterId,
+        company_id,
         quotationNo: 'Q-2026-001',
         date: new Date().toISOString().split('T')[0],
         type: 'Transport',
@@ -152,7 +153,7 @@ const seedDemoData = async (transporterId, customData = {}) => {
         const num = biltyStartNum - (biltyCount - i);
         const bNo = biltyNoPrefix + String(num).padStart(3, '0');
         await Bilty.create({
-          transporterId,
+          company_id,
           biltyNo: isTarget ? `${biltyNoPrefix}${biltyStartNum}` : bNo,
           date: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
           fromCity: isTarget ? fromCity : 'Mumbai',
@@ -217,8 +218,13 @@ exports.register = async (req, res) => {
       return res.status(400).json({ error: 'Mobile number is already registered.' });
     }
 
+    const newId = isFallback() 
+      ? (Math.random().toString(36).substring(2, 11) + Date.now().toString(36))
+      : new mongoose.Types.ObjectId().toString();
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
+      _id: newId,
       name,
       companyName,
       email,
@@ -226,11 +232,21 @@ exports.register = async (req, res) => {
       gstin: gstin || '',
       transportType: transportType || 'Full Truck Load (FTL)',
       address: address || '',
-      password: hashedPassword
+      password: hashedPassword,
+      company_id: newId
     });
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '7d' });
-    res.status(201).json({ token, user: { name: user.name, companyName: user.companyName, email: user.email, id: user._id } });
+    res.status(201).json({ 
+      token, 
+      user: { 
+        name: user.name, 
+        companyName: user.companyName, 
+        email: user.email, 
+        id: user._id,
+        company_id: user.company_id
+      } 
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -254,6 +270,13 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password.' });
     }
 
+    // Lock out suspended companies immediately
+    if (user.subscriptionPlan === 'Suspended') {
+      return res.status(403).json({ 
+        error: 'Access Denied. Your company workspace has been suspended. Please contact admin@roadwe.com to manage billing or renew your plan.' 
+      });
+    }
+
     // Dynamic Multi-tenant seeding checks on user login
     if (user.isSuperAdmin !== true) {
       const matchConfig = transportersConfig.find(tc => tc.email === user.email);
@@ -268,6 +291,7 @@ exports.login = async (req, res) => {
         companyName: user.companyName, 
         email: user.email, 
         id: user._id,
+        company_id: user.company_id || user._id,
         role: user.isSuperAdmin ? 'Super Admin' : (user.role || 'Transporter'),
         isSuperAdmin: !!user.isSuperAdmin 
       } 
@@ -292,6 +316,7 @@ exports.getProfile = async (req, res) => {
       transportType: user.transportType,
       address: user.address,
       id: user._id,
+      company_id: user.company_id || user._id,
       role: user.isSuperAdmin ? 'Super Admin' : (user.role || 'Transporter'),
       isSuperAdmin: !!user.isSuperAdmin
     });
@@ -395,25 +420,35 @@ exports.ensureAdminSeeded = async () => {
     const superAdmin = await User.findOne({ email: 'admin@roadwe.com' });
     if (!superAdmin) {
       console.log('👑 Seeding default Platform Super Admin user: admin@roadwe.com / admin');
+      const adminId = isFallback()
+        ? (Math.random().toString(36).substring(2, 11) + Date.now().toString(36))
+        : new mongoose.Types.ObjectId().toString();
       const hashedPassword = await bcrypt.hash('admin', 10);
       await User.create({
+        _id: adminId,
         name: 'Platform Super Admin',
         companyName: 'Roadwe Platform HQ',
         email: 'admin@roadwe.com',
         mobile: '9999999999',
         password: hashedPassword,
         isSuperAdmin: true,
-        financialYear: '26-27'
+        financialYear: '26-27',
+        company_id: adminId
       });
     }
 
     // 2. Seed all 3 distinct Transporter Companies
     for (let tConfig of transportersConfig) {
       let tenant = await User.findOne({ email: tConfig.email });
+      const newTenantId = isFallback()
+        ? (Math.random().toString(36).substring(2, 11) + Date.now().toString(36))
+        : new mongoose.Types.ObjectId().toString();
+      
       if (!tenant) {
         console.log(`👤 Seeding client Transporter user: ${tConfig.email} (${tConfig.companyName})`);
         const hashedPassword = await bcrypt.hash('admin', 10);
         tenant = await User.create({
+          _id: newTenantId,
           name: tConfig.name,
           companyName: tConfig.companyName,
           email: tConfig.email,
@@ -422,7 +457,8 @@ exports.ensureAdminSeeded = async () => {
           gstin: tConfig.gstin,
           subscriptionPlan: tConfig.subscriptionPlan,
           isSuperAdmin: false,
-          financialYear: '26-27'
+          financialYear: '26-27',
+          company_id: newTenantId
         });
         await seedDemoData(tenant._id, tConfig.customSeeding);
       } else {
@@ -430,6 +466,7 @@ exports.ensureAdminSeeded = async () => {
         let updates = {};
         if (tenant.isSuperAdmin === true) updates.isSuperAdmin = false;
         if (tenant.subscriptionPlan !== tConfig.subscriptionPlan) updates.subscriptionPlan = tConfig.subscriptionPlan;
+        if (!tenant.company_id) updates.company_id = tenant._id;
         
         if (Object.keys(updates).length > 0) {
           await User.findByIdAndUpdate(tenant._id, updates);

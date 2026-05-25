@@ -49,7 +49,7 @@ const checkPermission = (moduleName, action) => {
       req.userRole = roleKey;
 
       const role = await Role.findOne({ 
-        transporterId: subuser.transporterId,
+        company_id: subuser.company_id,
         $or: [{ key: roleKey }, { name: subuser.role }]
       });
 
