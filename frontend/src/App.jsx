@@ -1090,7 +1090,7 @@ export default function App() {
 
           {/* B. SUPER ADMIN MAIN DISPLAY COORDINATES */}
           <div className="main-content" style={{ flex: 1, overflowY: 'auto', backgroundColor: '#090d16', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ height: '70px', borderBottom: '1px solid rgba(55, 65, 81, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', backgroundColor: '#0f172a' }}>
+            <div style={{ height: '70px', borderBottom: '1px solid rgba(55, 65, 81, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', backgroundColor: '#0f172a', position: 'sticky', top: 0, zIndex: 99 }}>
               <div>
                 <h2 style={{ fontFamily: 'Outfit', fontWeight: '800', fontSize: '1.4rem', color: '#ffffff' }}>
                   {adminTab === 'overview' && '🛡️ SaaS Control Tower'}

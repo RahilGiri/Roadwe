@@ -227,7 +227,9 @@ const styles = {
     justifyContent: 'space-between',
     padding: '0 20px',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-    zIndex: 99
+    zIndex: 99,
+    position: 'sticky',
+    top: 0
   },
   logoSection: {
     display: 'flex',
