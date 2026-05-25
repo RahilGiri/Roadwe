@@ -332,19 +332,8 @@ export default function App() {
       setRegMobile('');
       setRegPassword('');
     } catch (err) {
-      console.warn('Backend registration offline. Enabling browser demo bypass mode...');
-      const dummyUser = {
-        name: regName || 'New Transporter',
-        companyName: regCompanyName || 'New Company Logistics',
-        email: regEmail || 'registered@test.com',
-        isSuperAdmin: false
-      };
-      localStorage.setItem('token', 'local_dummy_token');
-      localStorage.setItem('user', JSON.stringify(dummyUser));
-      setToken('local_dummy_token');
-      setUser(dummyUser);
-      setShowLoginModal(false);
-      setIsRegisterMode(false);
+      console.error('Registration connection error:', err);
+      setAuthError('Connection error: Unable to connect to the authentication server. Please ensure the backend server is running on port 5001.');
     }
   };
 
@@ -367,18 +356,8 @@ export default function App() {
       setToken(data.token);
       setUser(data.user);
     } catch (err) {
-      console.warn('Backend login connection offline. Enabling browser demo bypass mode...');
-      // Allow bypass if testing purely static offline code
-      let dummyUser;
-      if (email.includes('super')) {
-        dummyUser = { name: 'Platform Super Admin', companyName: 'Roadwe Platform HQ', email: 'superadmin@roadwe.com', isSuperAdmin: true };
-      } else {
-        dummyUser = { name: 'Transcore Admin', companyName: 'TRANSCORE LOGISTICS', email: 'admin@transcore.com', isSuperAdmin: false };
-      }
-      localStorage.setItem('token', 'local_dummy_token');
-      localStorage.setItem('user', JSON.stringify(dummyUser));
-      setToken('local_dummy_token');
-      setUser(dummyUser);
+      console.error('Login connection error:', err);
+      setAuthError('Connection error: Unable to connect to the authentication server. Please ensure the backend server is running on port 5001.');
     }
   };
 
