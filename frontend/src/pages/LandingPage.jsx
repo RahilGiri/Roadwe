@@ -331,7 +331,7 @@ export default function LandingPage({ onLoginClick, onAdminLoginClick }) {
 
       {/* 2. FLEETX-STYLE PREMIUM DARK HERO SECTION */}
       <section id="home" style={{ 
-        padding: '120px 24px 130px 24px', 
+        padding: '190px 24px 130px 24px', 
         position: 'relative', 
         zIndex: 1,
         backgroundColor: '#0b0f19',
