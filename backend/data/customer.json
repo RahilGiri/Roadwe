@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "jm5fuulbfmpim1vo5",
+    "createdAt": "2026-05-23T17:16:38.933Z",
+    "updatedAt": "2026-05-23T17:16:38.933Z",
+    "transporterId": "t2ccef7fnmpim1vo3",
+    "name": "TATA STEEL LTD",
+    "phone": "9876543210",
+    "email": "logistics@tatasteel.com",
+    "gstin": "22AAAAA0000A1Z1",
+    "address": "Jamshedpur Industrial Area",
+    "city": "Jamshedpur"
+  },
+  {
+    "_id": "lmkhxsthfmpim1vo5",
+    "createdAt": "2026-05-23T17:16:38.933Z",
+    "updatedAt": "2026-05-23T17:16:38.933Z",
+    "transporterId": "t2ccef7fnmpim1vo3",
+    "name": "RELIANCE INDUSTRIES",
+    "phone": "9123456789",
+    "email": "dispatch@ril.com",
+    "gstin": "27BBBBB1111B2Z2",
+    "address": "Reliance Refinery",
+    "city": "Jamnagar"
+  },
+  {
+    "_id": "dn52ggt9xmpkkqux8",
+    "createdAt": "2026-05-25T02:15:37.484Z",
+    "updatedAt": "2026-05-25T02:15:37.484Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "name": "AMBUJA CEMENT LTD",
+    "phone": "9000000001",
+    "email": "logistics@ambuja.com",
+    "gstin": "24AAAAA0000A1Z1",
+    "address": "Mehsana Road",
+    "city": "Vadodara"
+  },
+  {
+    "_id": "b8fkytp1wmpkkqux8",
+    "createdAt": "2026-05-25T02:15:37.484Z",
+    "updatedAt": "2026-05-25T02:15:37.484Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "name": "ADANI PORTS & SEZ",
+    "phone": "9000000002",
+    "email": "dispatch@adani.com",
+    "gstin": "24BBBBB1111B2Z2",
+    "address": "Mundra Port",
+    "city": "Mundra"
+  },
+  {
+    "_id": "3fn6phvfgmpkkquxq",
+    "createdAt": "2026-05-25T02:15:37.502Z",
+    "updatedAt": "2026-05-25T02:15:37.502Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "name": "AMAZON SELLER SERVICES",
+    "phone": "9000000006",
+    "email": "logistics@amazon.com",
+    "gstin": "27AAAAA0000A1Z1",
+    "address": "Bhiwandi Warehouse",
+    "city": "Mumbai"
+  },
+  {
+    "_id": "rmub40k8ampkkquxr",
+    "createdAt": "2026-05-25T02:15:37.503Z",
+    "updatedAt": "2026-05-25T02:15:37.503Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "name": "FLIPKART LOGISTICS",
+    "phone": "9000000007",
+    "email": "dispatch@flipkart.com",
+    "gstin": "27BBBBB1111B2Z2",
+    "address": "Pune Fulfillment Center",
+    "city": "Pune"
+  },
+  {
+    "_id": "gxm1zhtzrmpkkqvr5",
+    "createdAt": "2026-05-25T02:15:38.561Z",
+    "updatedAt": "2026-05-25T02:15:38.561Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "name": "ULTRA TECH CEMENT",
+    "phone": "9000000011",
+    "email": "logistics@ultratech.com",
+    "gstin": "06AAAAA0000A1Z1",
+    "address": "Gurugram Industrial Area",
+    "city": "Gurugram"
+  },
+  {
+    "_id": "dsl7c89w9mpkkqvr5",
+    "createdAt": "2026-05-25T02:15:38.561Z",
+    "updatedAt": "2026-05-25T02:15:38.561Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "name": "L&T INFRASTRUCTURE",
+    "phone": "9000000012",
+    "email": "dispatch@lnnt.com",
+    "gstin": "06BBBBB1111B2Z2",
+    "address": "Kolkata Metro Project Site",
+    "city": "Kolkata"
+  },
+  {
+    "_id": "w0o30yg25mpkkqvsx",
+    "createdAt": "2026-05-25T02:15:38.625Z",
+    "updatedAt": "2026-05-25T02:15:38.625Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "name": "MARUTI SUZUKI INDIA",
+    "phone": "9000000016",
+    "email": "logistics@maruti.com",
+    "gstin": "07AAAAA0000A1Z1",
+    "address": "Manesar Plant",
+    "city": "Gurugram"
+  },
+  {
+    "_id": "iz8ql33zgmpkkqvsx",
+    "createdAt": "2026-05-25T02:15:38.625Z",
+    "updatedAt": "2026-05-25T02:15:38.625Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "name": "TATA MOTORS CO",
+    "phone": "9000000017",
+    "email": "dispatch@tatamotors.com",
+    "gstin": "07BBBBB1111B2Z2",
+    "address": "Jamshedpur Factory",
+    "city": "Jamshedpur"
+  }
+]

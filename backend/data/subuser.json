@@ -1,0 +1,46 @@
+[
+  {
+    "_id": "1mzqkfuuempkkquxa",
+    "createdAt": "2026-05-25T02:15:37.486Z",
+    "updatedAt": "2026-05-25T02:15:37.486Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "username": "gujarat_freight_movers_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Vadodara Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
+  },
+  {
+    "_id": "dnha5nkzhmpkkquxs",
+    "createdAt": "2026-05-25T02:15:37.504Z",
+    "updatedAt": "2026-05-25T02:15:37.504Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "username": "fasttrack_cargo_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Pune Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
+  },
+  {
+    "_id": "gtlcmeo9kmpkkqvr6",
+    "createdAt": "2026-05-25T02:15:38.562Z",
+    "updatedAt": "2026-05-25T02:15:38.562Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "username": "mahadev_transport_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Gurugram Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
+  },
+  {
+    "_id": "hlmcnyg1xmpkkqvsz",
+    "createdAt": "2026-05-25T02:15:38.627Z",
+    "updatedAt": "2026-05-25T02:15:38.627Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "username": "roadlink_express_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Delhi Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "1x5c91t0dmpkkquxa",
+    "createdAt": "2026-05-25T02:15:37.486Z",
+    "updatedAt": "2026-05-25T02:15:37.486Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "branchName": "GUJARAT FREIGHT MOVERS (Vadodara HQ) (ADMIN)",
+    "gstin": "09AAACT9211C1ZA",
+    "phone": "8269203922",
+    "city": "Vadodara"
+  },
+  {
+    "_id": "2kbhr805wmpkkquxs",
+    "createdAt": "2026-05-25T02:15:37.504Z",
+    "updatedAt": "2026-05-25T02:15:37.504Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "branchName": "FASTTRACK CARGO (Pune HQ) (ADMIN)",
+    "gstin": "09AAACT9211C1ZA",
+    "phone": "8269203922",
+    "city": "Pune"
+  },
+  {
+    "_id": "yunqt4x26mpkkqvr6",
+    "createdAt": "2026-05-25T02:15:38.562Z",
+    "updatedAt": "2026-05-25T02:15:38.562Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "branchName": "MAHADEV TRANSPORT (Gurugram HQ) (ADMIN)",
+    "gstin": "09AAACT9211C1ZA",
+    "phone": "8269203922",
+    "city": "Gurugram"
+  },
+  {
+    "_id": "95ps951qempkkqvsz",
+    "createdAt": "2026-05-25T02:15:38.627Z",
+    "updatedAt": "2026-05-25T02:15:38.627Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "branchName": "ROADLINK EXPRESS (Delhi HQ) (ADMIN)",
+    "gstin": "09AAACT9211C1ZA",
+    "phone": "8269203922",
+    "city": "Delhi"
+  }
+]

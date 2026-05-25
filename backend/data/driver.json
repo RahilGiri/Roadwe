@@ -1,0 +1,57 @@
+[
+  {
+    "_id": "xplcie8nampim1vo6",
+    "createdAt": "2026-05-23T17:16:38.934Z",
+    "updatedAt": "2026-05-23T17:16:38.934Z",
+    "transporterId": "t2ccef7fnmpim1vo3",
+    "name": "Ramesh Singh",
+    "licenseNumber": "DL1234567890123",
+    "mobile": "9888877777",
+    "address": "Kanpur, UP",
+    "commissionRate": 10
+  },
+  {
+    "_id": "npsugg1nfmpkkqux9",
+    "createdAt": "2026-05-25T02:15:37.485Z",
+    "updatedAt": "2026-05-25T02:15:37.485Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "name": "Devendra Patel",
+    "licenseNumber": "GJ1234567890123",
+    "mobile": "9000000005",
+    "address": "Ahmedabad, GJ",
+    "commissionRate": 8
+  },
+  {
+    "_id": "s9258phk8mpkkquxs",
+    "createdAt": "2026-05-25T02:15:37.504Z",
+    "updatedAt": "2026-05-25T02:15:37.504Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "name": "Sukhwinder Singh",
+    "licenseNumber": "MH1234567890123",
+    "mobile": "9000000010",
+    "address": "Mumbai, MH",
+    "commissionRate": 12
+  },
+  {
+    "_id": "jsxeccp0pmpkkqvr5",
+    "createdAt": "2026-05-25T02:15:38.561Z",
+    "updatedAt": "2026-05-25T02:15:38.561Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "name": "Rajesh Yadav",
+    "licenseNumber": "HR1234567890123",
+    "mobile": "9000000015",
+    "address": "Gurugram, HR",
+    "commissionRate": 11
+  },
+  {
+    "_id": "c9sjd4erdmpkkqvsy",
+    "createdAt": "2026-05-25T02:15:38.626Z",
+    "updatedAt": "2026-05-25T02:15:38.626Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "name": "Harish Chandra",
+    "licenseNumber": "DL1234567890999",
+    "mobile": "9000000020",
+    "address": "Delhi, DL",
+    "commissionRate": 9
+  }
+]

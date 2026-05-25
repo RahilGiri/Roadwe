@@ -1,0 +1,82 @@
+[
+  {
+    "_id": "obe6x727lmpkkquxa",
+    "createdAt": "2026-05-25T02:15:37.486Z",
+    "updatedAt": "2026-05-25T02:15:37.486Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "type": "Cash",
+    "name": "Main Cash Box",
+    "balance": 25000
+  },
+  {
+    "_id": "3z0i6zl18mpkkquxa",
+    "createdAt": "2026-05-25T02:15:37.486Z",
+    "updatedAt": "2026-05-25T02:15:37.486Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "type": "Bank",
+    "name": "HDFC Corporate Bank Account",
+    "accountNo": "50100223344",
+    "ifsc": "HDFC0000112",
+    "balance": 450000
+  },
+  {
+    "_id": "sow35m3ffmpkkquxt",
+    "createdAt": "2026-05-25T02:15:37.505Z",
+    "updatedAt": "2026-05-25T02:15:37.505Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "type": "Cash",
+    "name": "Main Cash Box",
+    "balance": 25000
+  },
+  {
+    "_id": "y43u8dyyrmpkkquxt",
+    "createdAt": "2026-05-25T02:15:37.505Z",
+    "updatedAt": "2026-05-25T02:15:37.505Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "type": "Bank",
+    "name": "HDFC Corporate Bank Account",
+    "accountNo": "50100223344",
+    "ifsc": "HDFC0000112",
+    "balance": 450000
+  },
+  {
+    "_id": "ad1mncmpmmpkkqvr6",
+    "createdAt": "2026-05-25T02:15:38.562Z",
+    "updatedAt": "2026-05-25T02:15:38.562Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "type": "Cash",
+    "name": "Main Cash Box",
+    "balance": 25000
+  },
+  {
+    "_id": "eps1uzrifmpkkqvr6",
+    "createdAt": "2026-05-25T02:15:38.562Z",
+    "updatedAt": "2026-05-25T02:15:38.562Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "type": "Bank",
+    "name": "HDFC Corporate Bank Account",
+    "accountNo": "50100223344",
+    "ifsc": "HDFC0000112",
+    "balance": 450000
+  },
+  {
+    "_id": "sge86h9ejmpkkqvsz",
+    "createdAt": "2026-05-25T02:15:38.627Z",
+    "updatedAt": "2026-05-25T02:15:38.627Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "type": "Cash",
+    "name": "Main Cash Box",
+    "balance": 25000
+  },
+  {
+    "_id": "cblg6xa1jmpkkqvt0",
+    "createdAt": "2026-05-25T02:15:38.628Z",
+    "updatedAt": "2026-05-25T02:15:38.628Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "type": "Bank",
+    "name": "HDFC Corporate Bank Account",
+    "accountNo": "50100223344",
+    "ifsc": "HDFC0000112",
+    "balance": 450000
+  }
+]

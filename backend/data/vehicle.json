@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "i0kky7khhmpim1vo5",
+    "createdAt": "2026-05-23T17:16:38.933Z",
+    "updatedAt": "2026-05-23T17:16:38.933Z",
+    "transporterId": "t2ccef7fnmpim1vo3",
+    "vehicleNumber": "UP-77-AN-4876",
+    "model": "Tata Signa 4825.T",
+    "ownerName": "Transcore Logistics Owner",
+    "ownerPhone": "8269203922",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCUP77AN4876"
+  },
+  {
+    "_id": "q1snj14s6mpim1vo5",
+    "createdAt": "2026-05-23T17:16:38.933Z",
+    "updatedAt": "2026-05-23T17:16:38.933Z",
+    "transporterId": "t2ccef7fnmpim1vo3",
+    "vehicleNumber": "DL-01-GB-1234",
+    "model": "Ashok Leyland 3520",
+    "ownerName": "Subhash Transport",
+    "ownerPhone": "9988776655",
+    "insuranceExpiry": "2026-11-20",
+    "rcNumber": "RCDL01GB1234"
+  },
+  {
+    "_id": "rt9qrp872mpkkqux9",
+    "createdAt": "2026-05-25T02:15:37.485Z",
+    "updatedAt": "2026-05-25T02:15:37.485Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "vehicleNumber": "GJ-01-XX-9999",
+    "model": "Tata Signa 4021.S",
+    "ownerName": "Ahmedabad Transport",
+    "ownerPhone": "9000000003",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCGJ01XX9999"
+  },
+  {
+    "_id": "9riol4zycmpkkqux9",
+    "createdAt": "2026-05-25T02:15:37.485Z",
+    "updatedAt": "2026-05-25T02:15:37.485Z",
+    "transporterId": "7f8jkk3vvmpkkqux6",
+    "vehicleNumber": "GJ-03-YY-7777",
+    "model": "BharatBenz 3523R",
+    "ownerName": "Rajkot Roadlines",
+    "ownerPhone": "9000000004",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCGJ03YY7777"
+  },
+  {
+    "_id": "zp82vhzdpmpkkquxr",
+    "createdAt": "2026-05-25T02:15:37.503Z",
+    "updatedAt": "2026-05-25T02:15:37.503Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "vehicleNumber": "MH-12-FT-8888",
+    "model": "Tata Ultra 1918",
+    "ownerName": "Mumbai Fast Fleet",
+    "ownerPhone": "9000000008",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCMH12FT8888"
+  },
+  {
+    "_id": "uc0m0ohdcmpkkquxr",
+    "createdAt": "2026-05-25T02:15:37.503Z",
+    "updatedAt": "2026-05-25T02:15:37.503Z",
+    "transporterId": "l8fus055bmpkkquxp",
+    "vehicleNumber": "MH-43-EX-1111",
+    "model": "Eicher Pro 6028",
+    "ownerName": "Pune Logistics Group",
+    "ownerPhone": "9000000009",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCMH43EX1111"
+  },
+  {
+    "_id": "ws9e0e3cbmpkkqvr5",
+    "createdAt": "2026-05-25T02:15:38.561Z",
+    "updatedAt": "2026-05-25T02:15:38.561Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "vehicleNumber": "HR-55-MD-7777",
+    "model": "Ashok Leyland 4825",
+    "ownerName": "Haryana Road Carrier",
+    "ownerPhone": "9000000013",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCHR55MD7777"
+  },
+  {
+    "_id": "alu3394vimpkkqvr5",
+    "createdAt": "2026-05-25T02:15:38.561Z",
+    "updatedAt": "2026-05-25T02:15:38.561Z",
+    "transporterId": "2cmss0d02mpkkqvr1",
+    "vehicleNumber": "HR-38-XY-2222",
+    "model": "Mahindra Blazo X 35",
+    "ownerName": "Delhi Transit Co",
+    "ownerPhone": "9000000014",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCHR38XY2222"
+  },
+  {
+    "_id": "79d6bawlempkkqvsy",
+    "createdAt": "2026-05-25T02:15:38.626Z",
+    "updatedAt": "2026-05-25T02:15:38.626Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "vehicleNumber": "DL-03-RL-5555",
+    "model": "Tata Signa 2823",
+    "ownerName": "Delhi Transport Hub",
+    "ownerPhone": "9000000018",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCDL03RL5555"
+  },
+  {
+    "_id": "f5bgazltimpkkqvsy",
+    "createdAt": "2026-05-25T02:15:38.626Z",
+    "updatedAt": "2026-05-25T02:15:38.626Z",
+    "transporterId": "oucut00pcmpkkqvst",
+    "vehicleNumber": "DL-08-AB-6666",
+    "model": "BharatBenz 2823C",
+    "ownerName": "Capital Logistics",
+    "ownerPhone": "9000000019",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCDL08AB6666"
+  }
+]
