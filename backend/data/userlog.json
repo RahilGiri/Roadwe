@@ -1,130 +1,98 @@
 [
   {
-    "_id": "vzn1w80sjmpim1vo4",
-    "createdAt": "2026-05-23T17:16:38.932Z",
-    "updatedAt": "2026-05-23T17:16:38.932Z",
-    "transporterId": "t2ccef7fnmpim1vo3",
+    "_id": "ftwcx6lhrmpkq7g6d",
+    "createdAt": "2026-05-25T04:48:29.605Z",
+    "updatedAt": "2026-05-25T04:48:29.605Z",
+    "transporterId": "9bjhdah35mpkq7g6a",
     "description": "Updated Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-23T17:16:38.932Z"
+    "timestamp": "2026-05-25T04:48:29.605Z"
   },
   {
-    "_id": "pnpgqb7i1mpim1vo4",
-    "createdAt": "2026-05-23T17:16:38.932Z",
-    "updatedAt": "2026-05-23T17:16:38.932Z",
-    "transporterId": "t2ccef7fnmpim1vo3",
+    "_id": "fcpwefadempkq7g6d",
+    "createdAt": "2026-05-25T04:48:29.605Z",
+    "updatedAt": "2026-05-25T04:48:29.605Z",
+    "transporterId": "9bjhdah35mpkq7g6a",
     "description": "Created Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-23T17:11:38.932Z"
+    "timestamp": "2026-05-25T04:43:29.605Z"
   },
   {
-    "_id": "h7k7v8qtdmpim1vo4",
-    "createdAt": "2026-05-23T17:16:38.932Z",
-    "updatedAt": "2026-05-23T17:16:38.932Z",
-    "transporterId": "t2ccef7fnmpim1vo3",
+    "_id": "xdkaqxo74mpkq7g6e",
+    "createdAt": "2026-05-25T04:48:29.606Z",
+    "updatedAt": "2026-05-25T04:48:29.606Z",
+    "transporterId": "9bjhdah35mpkq7g6a",
     "description": "Updated Loading Slip No. 504 by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-23T16:46:38.932Z"
+    "timestamp": "2026-05-25T04:18:29.606Z"
   },
   {
-    "_id": "ffxgjeie3mpk2nei1",
-    "createdAt": "2026-05-24T17:49:03.145Z",
-    "updatedAt": "2026-05-24T17:49:03.145Z",
-    "transporterId": "t2ccef7fnmpim1vo3",
-    "description": "Created Bilty No. G/1000011241 (GJ-06-AV-2423) by TRANSCORE LOGISTICS.",
-    "timestamp": "2026-05-24T17:49:03.144Z"
-  },
-  {
-    "_id": "4ff8dovtempkkqux7",
-    "createdAt": "2026-05-25T02:15:37.483Z",
-    "updatedAt": "2026-05-25T02:15:37.483Z",
-    "transporterId": "7f8jkk3vvmpkkqux6",
+    "_id": "jli5w1x7cmpkq7gks",
+    "createdAt": "2026-05-25T04:48:30.124Z",
+    "updatedAt": "2026-05-25T04:48:30.124Z",
+    "transporterId": "cbcnin8l4mpkq7gkq",
     "description": "Updated Bilty No. 2000044105 (GJ-01-XX-9999) by GUJARAT FREIGHT MOVERS.",
-    "timestamp": "2026-05-25T02:15:37.483Z"
+    "timestamp": "2026-05-25T04:48:30.124Z"
   },
   {
-    "_id": "0iv2syccgmpkkqux7",
-    "createdAt": "2026-05-25T02:15:37.483Z",
-    "updatedAt": "2026-05-25T02:15:37.483Z",
-    "transporterId": "7f8jkk3vvmpkkqux6",
+    "_id": "ne76d1rnwmpkq7gks",
+    "createdAt": "2026-05-25T04:48:30.124Z",
+    "updatedAt": "2026-05-25T04:48:30.124Z",
+    "transporterId": "cbcnin8l4mpkq7gkq",
     "description": "Created Bilty No. 2000044105 (GJ-01-XX-9999) by GUJARAT FREIGHT MOVERS.",
-    "timestamp": "2026-05-25T02:10:37.483Z"
+    "timestamp": "2026-05-25T04:43:30.124Z"
   },
   {
-    "_id": "u23swgwxempkkqux7",
-    "createdAt": "2026-05-25T02:15:37.483Z",
-    "updatedAt": "2026-05-25T02:15:37.483Z",
-    "transporterId": "7f8jkk3vvmpkkqux6",
+    "_id": "q79hb9qd5mpkq7gks",
+    "createdAt": "2026-05-25T04:48:30.124Z",
+    "updatedAt": "2026-05-25T04:48:30.124Z",
+    "transporterId": "cbcnin8l4mpkq7gkq",
     "description": "Updated Loading Slip No. 504 by GUJARAT FREIGHT MOVERS.",
-    "timestamp": "2026-05-25T01:45:37.483Z"
+    "timestamp": "2026-05-25T04:18:30.124Z"
   },
   {
-    "_id": "897usaj8wmpkkquxp",
-    "createdAt": "2026-05-25T02:15:37.501Z",
-    "updatedAt": "2026-05-25T02:15:37.501Z",
-    "transporterId": "l8fus055bmpkkquxp",
+    "_id": "gh7q4a624mpkq7gzv",
+    "createdAt": "2026-05-25T04:48:30.667Z",
+    "updatedAt": "2026-05-25T04:48:30.667Z",
+    "transporterId": "y2n7l425rmpkq7gzt",
     "description": "Updated Bilty No. 3000055308 (MH-12-FT-8888) by FASTTRACK CARGO.",
-    "timestamp": "2026-05-25T02:15:37.501Z"
+    "timestamp": "2026-05-25T04:48:30.667Z"
   },
   {
-    "_id": "j0fvwf0spmpkkquxq",
-    "createdAt": "2026-05-25T02:15:37.502Z",
-    "updatedAt": "2026-05-25T02:15:37.502Z",
-    "transporterId": "l8fus055bmpkkquxp",
+    "_id": "homkyzpjkmpkq7gzw",
+    "createdAt": "2026-05-25T04:48:30.668Z",
+    "updatedAt": "2026-05-25T04:48:30.668Z",
+    "transporterId": "y2n7l425rmpkq7gzt",
     "description": "Created Bilty No. 3000055308 (MH-12-FT-8888) by FASTTRACK CARGO.",
-    "timestamp": "2026-05-25T02:10:37.502Z"
+    "timestamp": "2026-05-25T04:43:30.668Z"
   },
   {
-    "_id": "98d10pnwfmpkkquxq",
-    "createdAt": "2026-05-25T02:15:37.502Z",
-    "updatedAt": "2026-05-25T02:15:37.502Z",
-    "transporterId": "l8fus055bmpkkquxp",
+    "_id": "jutfknk0tmpkq7gzw",
+    "createdAt": "2026-05-25T04:48:30.668Z",
+    "updatedAt": "2026-05-25T04:48:30.668Z",
+    "transporterId": "y2n7l425rmpkq7gzt",
     "description": "Updated Loading Slip No. 504 by FASTTRACK CARGO.",
-    "timestamp": "2026-05-25T01:45:37.502Z"
+    "timestamp": "2026-05-25T04:18:30.668Z"
   },
   {
-    "_id": "e7bwf52wompkkqvr4",
-    "createdAt": "2026-05-25T02:15:38.560Z",
-    "updatedAt": "2026-05-25T02:15:38.560Z",
-    "transporterId": "2cmss0d02mpkkqvr1",
-    "description": "Updated Bilty No. 4000066405 (HR-55-MD-7777) by MAHADEV TRANSPORT.",
-    "timestamp": "2026-05-25T02:15:38.559Z"
+    "_id": "bxc1pmk9jmpkqbcay",
+    "createdAt": "2026-05-25T04:51:31.210Z",
+    "updatedAt": "2026-05-25T04:51:31.210Z",
+    "transporterId": "4rq3q1epnmpkqay2r",
+    "description": "Updated Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
+    "timestamp": "2026-05-25T04:51:31.207Z"
   },
   {
-    "_id": "bik0sosjjmpkkqvr4",
-    "createdAt": "2026-05-25T02:15:38.560Z",
-    "updatedAt": "2026-05-25T02:15:38.560Z",
-    "transporterId": "2cmss0d02mpkkqvr1",
-    "description": "Created Bilty No. 4000066405 (HR-55-MD-7777) by MAHADEV TRANSPORT.",
-    "timestamp": "2026-05-25T02:10:38.560Z"
+    "_id": "5x9nchidrmpkqbcay",
+    "createdAt": "2026-05-25T04:51:31.210Z",
+    "updatedAt": "2026-05-25T04:51:31.210Z",
+    "transporterId": "4rq3q1epnmpkqay2r",
+    "description": "Created Bilty No. 1000011205 (UP-77-AN-4876) by TRANSCORE LOGISTICS.",
+    "timestamp": "2026-05-25T04:46:31.210Z"
   },
   {
-    "_id": "bxcs9xdg3mpkkqvr4",
-    "createdAt": "2026-05-25T02:15:38.560Z",
-    "updatedAt": "2026-05-25T02:15:38.560Z",
-    "transporterId": "2cmss0d02mpkkqvr1",
-    "description": "Updated Loading Slip No. 504 by MAHADEV TRANSPORT.",
-    "timestamp": "2026-05-25T01:45:38.560Z"
-  },
-  {
-    "_id": "1sbmemeywmpkkqvsv",
-    "createdAt": "2026-05-25T02:15:38.623Z",
-    "updatedAt": "2026-05-25T02:15:38.623Z",
-    "transporterId": "oucut00pcmpkkqvst",
-    "description": "Updated Bilty No. 5000077120 (DL-03-RL-5555) by ROADLINK EXPRESS.",
-    "timestamp": "2026-05-25T02:15:38.623Z"
-  },
-  {
-    "_id": "fanauyfuimpkkqvsv",
-    "createdAt": "2026-05-25T02:15:38.623Z",
-    "updatedAt": "2026-05-25T02:15:38.623Z",
-    "transporterId": "oucut00pcmpkkqvst",
-    "description": "Created Bilty No. 5000077120 (DL-03-RL-5555) by ROADLINK EXPRESS.",
-    "timestamp": "2026-05-25T02:10:38.623Z"
-  },
-  {
-    "_id": "8wwh598hnmpkkqvsw",
-    "createdAt": "2026-05-25T02:15:38.624Z",
-    "updatedAt": "2026-05-25T02:15:38.624Z",
-    "transporterId": "oucut00pcmpkkqvst",
-    "description": "Updated Loading Slip No. 504 by ROADLINK EXPRESS.",
-    "timestamp": "2026-05-25T01:45:38.624Z"
+    "_id": "vt6roclwumpkqbcay",
+    "createdAt": "2026-05-25T04:51:31.210Z",
+    "updatedAt": "2026-05-25T04:51:31.210Z",
+    "transporterId": "4rq3q1epnmpkqay2r",
+    "description": "Updated Loading Slip No. 504 by TRANSCORE LOGISTICS.",
+    "timestamp": "2026-05-25T04:21:31.210Z"
   }
 ]

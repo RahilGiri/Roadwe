@@ -1,9 +1,9 @@
 [
   {
-    "_id": "xplcie8nampim1vo6",
-    "createdAt": "2026-05-23T17:16:38.934Z",
-    "updatedAt": "2026-05-23T17:16:38.934Z",
-    "transporterId": "t2ccef7fnmpim1vo3",
+    "_id": "xg0nb3w02mpkq7g6f",
+    "createdAt": "2026-05-25T04:48:29.607Z",
+    "updatedAt": "2026-05-25T04:48:29.607Z",
+    "transporterId": "9bjhdah35mpkq7g6a",
     "name": "Ramesh Singh",
     "licenseNumber": "DL1234567890123",
     "mobile": "9888877777",
@@ -11,10 +11,10 @@
     "commissionRate": 10
   },
   {
-    "_id": "npsugg1nfmpkkqux9",
-    "createdAt": "2026-05-25T02:15:37.485Z",
-    "updatedAt": "2026-05-25T02:15:37.485Z",
-    "transporterId": "7f8jkk3vvmpkkqux6",
+    "_id": "uotlm44gbmpkq7gku",
+    "createdAt": "2026-05-25T04:48:30.126Z",
+    "updatedAt": "2026-05-25T04:48:30.126Z",
+    "transporterId": "cbcnin8l4mpkq7gkq",
     "name": "Devendra Patel",
     "licenseNumber": "GJ1234567890123",
     "mobile": "9000000005",
@@ -22,10 +22,10 @@
     "commissionRate": 8
   },
   {
-    "_id": "s9258phk8mpkkquxs",
-    "createdAt": "2026-05-25T02:15:37.504Z",
-    "updatedAt": "2026-05-25T02:15:37.504Z",
-    "transporterId": "l8fus055bmpkkquxp",
+    "_id": "0o6h1rm9rmpkq7gzw",
+    "createdAt": "2026-05-25T04:48:30.668Z",
+    "updatedAt": "2026-05-25T04:48:30.668Z",
+    "transporterId": "y2n7l425rmpkq7gzt",
     "name": "Sukhwinder Singh",
     "licenseNumber": "MH1234567890123",
     "mobile": "9000000010",
@@ -33,25 +33,14 @@
     "commissionRate": 12
   },
   {
-    "_id": "jsxeccp0pmpkkqvr5",
-    "createdAt": "2026-05-25T02:15:38.561Z",
-    "updatedAt": "2026-05-25T02:15:38.561Z",
-    "transporterId": "2cmss0d02mpkkqvr1",
-    "name": "Rajesh Yadav",
-    "licenseNumber": "HR1234567890123",
-    "mobile": "9000000015",
-    "address": "Gurugram, HR",
-    "commissionRate": 11
-  },
-  {
-    "_id": "c9sjd4erdmpkkqvsy",
-    "createdAt": "2026-05-25T02:15:38.626Z",
-    "updatedAt": "2026-05-25T02:15:38.626Z",
-    "transporterId": "oucut00pcmpkkqvst",
-    "name": "Harish Chandra",
-    "licenseNumber": "DL1234567890999",
-    "mobile": "9000000020",
-    "address": "Delhi, DL",
-    "commissionRate": 9
+    "_id": "3r2hz3qmfmpkqbcb1",
+    "createdAt": "2026-05-25T04:51:31.213Z",
+    "updatedAt": "2026-05-25T04:51:31.213Z",
+    "transporterId": "4rq3q1epnmpkqay2r",
+    "name": "Ramesh Singh",
+    "licenseNumber": "DL1234567890123",
+    "mobile": "9888877777",
+    "address": "Kanpur, UP",
+    "commissionRate": 10
   }
 ]

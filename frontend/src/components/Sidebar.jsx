@@ -26,7 +26,7 @@ import {
   Settings
 } from 'lucide-react';
 
-export default function Sidebar({ activePage, setActivePage, sidebarOpen, setSidebarOpen }) {
+export default function Sidebar({ user, activePage, setActivePage, sidebarOpen, setSidebarOpen }) {
   // Navigation expand states
   const [expandStates, setExpandStates] = useState({
     masters: false,
@@ -254,20 +254,37 @@ export default function Sidebar({ activePage, setActivePage, sidebarOpen, setSid
     { id: 'settings', label: 'Settings', icon: Settings }
   ];
 
+  // Enforce strict Role-Based Access Control list filtering
+  const userRole = user?.role || 'Transporter';
+  const filteredMenuItems = menuItems.filter(item => {
+    if (userRole === 'Manager') {
+      if (['subscription', 'subuser'].includes(item.id)) return false;
+    }
+    if (userRole === 'Operator') {
+      if (['cashbank', 'accounts', 'reports', 'subscription', 'subuser'].includes(item.id)) return false;
+    }
+    if (userRole === 'Accountant') {
+      if (['subuser', 'tracking'].includes(item.id)) return false;
+    }
+    return true;
+  });
+
   return (
     <div className={`sidebar-drawer ${sidebarOpen ? 'open' : ''}`} style={styles.sidebar}>
       {/* Transporter Company Header */}
       <div style={styles.companyHeader}>
-        <div style={styles.avatar}>TL</div>
+        <div style={styles.avatar}>
+          {(user?.companyName || 'TL').substring(0, 2).toUpperCase()}
+        </div>
         <div>
-          <h4 style={styles.companyName}>TRANSCORE LOGISTICS</h4>
-          <span style={styles.role}>ADMIN</span>
+          <h4 style={styles.companyName}>{user?.companyName || 'TRANSCORE LOGISTICS'}</h4>
+          <span style={styles.role}>{userRole.toUpperCase()}</span>
         </div>
       </div>
 
       {/* Nav List */}
       <div style={styles.navList}>
-        {menuItems.map((item) => {
+        {filteredMenuItems.map((item) => {
           const Icon = item.icon;
           const isSubActive = item.subItems && item.subItems.some(sub => sub.id === activePage);
           const isActive = activePage === item.id || isSubActive;

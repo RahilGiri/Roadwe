@@ -85,13 +85,74 @@ export default function App() {
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
 
-  // Registration form states
+  // Secure Token Verification on Load/Refresh
+  const [isVerifying, setIsVerifying] = useState(!!localStorage.getItem('token'));
+
+  // Registration wizard states
   const [isRegisterMode, setIsRegisterMode] = useState(false);
+  const [regStep, setRegStep] = useState(1);
   const [regName, setRegName] = useState('');
-  const [regCompanyName, setRegCompanyName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regMobile, setRegMobile] = useState('');
   const [regPassword, setRegPassword] = useState('');
+  const [regConfirmPassword, setRegConfirmPassword] = useState('');
+  const [regCompanyName, setRegCompanyName] = useState('');
+  const [regGstin, setRegGstin] = useState('');
+  const [regTransportType, setRegTransportType] = useState('Full Truck Load (FTL)');
+  const [regAddress, setRegAddress] = useState('');
+
+  // Global Session Expired Auto-Logout Checker
+  const checkAuthStatus = (res) => {
+    if (res.status === 401 || res.status === 403) {
+      console.warn('Session expired or unauthorized. Logging out.');
+      handleLogout();
+      return true;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      const storedToken = localStorage.getItem('token');
+      if (!storedToken) {
+        setIsVerifying(false);
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/auth/profile`, {
+          headers: { 'Authorization': `Bearer ${storedToken}` }
+        });
+        if (!res.ok) {
+          throw new Error('Token verification failed');
+        }
+        const profileData = await res.json();
+        setUser(profileData);
+        setToken(storedToken);
+      } catch (err) {
+        console.error('Session expired or fake token detected. Clearing localStorage:', err);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setToken('');
+        setUser(null);
+      } finally {
+        setIsVerifying(false);
+      }
+    };
+    verifyToken();
+  }, []);
+
+  // Strict Role-Based Path Protection Gating
+  useEffect(() => {
+    if (!token || !user) return;
+    const userRole = user.role || 'Transporter';
+    if (userRole === 'Manager' && ['subscription', 'subuser'].includes(activePage)) {
+      setActivePage('dashboard');
+    } else if (userRole === 'Operator' && ['cashbank', 'accounts', 'reports', 'subscription', 'subuser'].includes(activePage)) {
+      setActivePage('dashboard');
+    } else if (userRole === 'Accountant' && ['subuser', 'tracking'].includes(activePage)) {
+      setActivePage('dashboard');
+    }
+  }, [activePage, user, token]);
 
   useEffect(() => {
     const checkPath = () => {
@@ -168,6 +229,7 @@ export default function App() {
     try {
       // 1. Dashboard counts
       const resStats = await fetch(`${API_BASE}/reports/dashboard-stats`, { headers });
+      if (checkAuthStatus(resStats)) return;
       if (resStats.ok) {
         const data = await resStats.json();
         setStats(data.counts);
@@ -176,31 +238,40 @@ export default function App() {
 
       // 2. Masters
       const resC = await fetch(`${API_BASE}/masters/customers`, { headers });
+      if (checkAuthStatus(resC)) return;
       if (resC.ok) setCustomers(await resC.json());
 
       const resV = await fetch(`${API_BASE}/masters/vehicles`, { headers });
+      if (checkAuthStatus(resV)) return;
       if (resV.ok) setVehicles(await resV.json());
 
       const resD = await fetch(`${API_BASE}/masters/drivers`, { headers });
+      if (checkAuthStatus(resD)) return;
       if (resD.ok) setDrivers(await resD.json());
 
       // 3. Documents
       const resB = await fetch(`${API_BASE}/documents/bilties`, { headers });
+      if (checkAuthStatus(resB)) return;
       if (resB.ok) setBilties(await resB.json());
 
       const resS = await fetch(`${API_BASE}/documents/loading-slips`, { headers });
+      if (checkAuthStatus(resS)) return;
       if (resS.ok) setSlips(await resS.json());
 
       const resCh = await fetch(`${API_BASE}/documents/chalans`, { headers });
+      if (checkAuthStatus(resCh)) return;
       if (resCh.ok) setChalans(await resCh.json());
 
       const resI = await fetch(`${API_BASE}/documents/invoices`, { headers });
+      if (checkAuthStatus(resI)) return;
       if (resI.ok) setInvoices(await resI.json());
 
       const resVo = await fetch(`${API_BASE}/documents/vouchers`, { headers });
+      if (checkAuthStatus(resVo)) return;
       if (resVo.ok) setVouchers(await resVo.json());
 
       const resAd = await fetch(`${API_BASE}/documents/supplier-advances`, { headers });
+      if (checkAuthStatus(resAd)) return;
       if (resAd.ok) setSupplierAdvances(await resAd.json());
 
     } catch (err) {
@@ -690,69 +761,150 @@ export default function App() {
               
               {isRegisterMode ? (
                 <>
-                  <h2 style={authStyles.title}>Register Account</h2>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <h2 style={{ ...authStyles.title, margin: 0 }}>Register Account</h2>
+                    <span style={{ fontSize: '0.72rem', backgroundColor: '#e2e8f0', color: '#475569', padding: '4px 10px', borderRadius: '9999px', fontWeight: '800' }}>
+                      Step {regStep} of 2
+                    </span>
+                  </div>
                   <p style={authStyles.subtitle}>Set up a premium transporter workspace with your business details</p>
                   
-                  <form onSubmit={handleRegister} style={authStyles.form}>
+                  <form onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (regStep === 1) {
+                      if (regPassword !== regConfirmPassword) {
+                        setAuthError('Passwords do not match.');
+                        return;
+                      }
+                      if (regPassword.length < 6) {
+                        setAuthError('Password must be at least 6 characters long.');
+                        return;
+                      }
+                      setAuthError('');
+                      setRegStep(2);
+                    } else {
+                      await handleRegister(e);
+                    }
+                  }} style={authStyles.form}>
                     {authError && <div style={authStyles.error}>{authError}</div>}
                     
-                    <div className="form-group">
-                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Company Name</label>
-                      <input 
-                        type="text" required className="form-control"
-                        value={regCompanyName} onChange={(e) => setRegCompanyName(e.target.value)}
-                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
-                        placeholder="e.g. Speedex Logistics"
-                      />
-                    </div>
+                    {regStep === 1 ? (
+                      <>
+                        <div className="form-group">
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Owner Full Name *</label>
+                          <input 
+                            type="text" required className="form-control"
+                            value={regName} onChange={(e) => setRegName(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="e.g. Ramesh Kumar"
+                          />
+                        </div>
 
-                    <div className="form-group" style={{ marginTop: '14px' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Owner Full Name</label>
-                      <input 
-                        type="text" required className="form-control"
-                        value={regName} onChange={(e) => setRegName(e.target.value)}
-                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
-                        placeholder="e.g. Ramesh Kumar"
-                      />
-                    </div>
+                        <div className="form-group" style={{ marginTop: '14px' }}>
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Email Address *</label>
+                          <input 
+                            type="email" required className="form-control"
+                            value={regEmail} onChange={(e) => setRegEmail(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="e.g. contact@speedex.com"
+                          />
+                        </div>
 
-                    <div className="form-group" style={{ marginTop: '14px' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Email Address</label>
-                      <input 
-                        type="email" required className="form-control"
-                        value={regEmail} onChange={(e) => setRegEmail(e.target.value)}
-                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
-                        placeholder="e.g. contact@speedex.com"
-                      />
-                    </div>
+                        <div className="form-group" style={{ marginTop: '14px' }}>
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Mobile Number *</label>
+                          <input 
+                            type="tel" required className="form-control"
+                            value={regMobile} onChange={(e) => setRegMobile(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="e.g. 9876543210"
+                          />
+                        </div>
+                        
+                        <div className="form-group" style={{ marginTop: '14px' }}>
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Password *</label>
+                          <input 
+                            type="password" required className="form-control"
+                            value={regPassword} onChange={(e) => setRegPassword(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="Min 6 characters"
+                          />
+                        </div>
 
-                    <div className="form-group" style={{ marginTop: '14px' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Mobile Number</label>
-                      <input 
-                        type="tel" required className="form-control"
-                        value={regMobile} onChange={(e) => setRegMobile(e.target.value)}
-                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
-                        placeholder="e.g. 9876543210"
-                      />
-                    </div>
-                    
-                    <div className="form-group" style={{ marginTop: '14px' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Setup Password</label>
-                      <input 
-                        type="password" required className="form-control"
-                        value={regPassword} onChange={(e) => setRegPassword(e.target.value)}
-                        style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
-                        placeholder="Choose a secure password"
-                      />
-                    </div>
-                    
-                    <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '24px', height: '44px', fontWeight: '800', backgroundColor: '#0066cc' }}>
-                      Register & Get Started
-                    </button>
+                        <div className="form-group" style={{ marginTop: '14px' }}>
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Confirm Password *</label>
+                          <input 
+                            type="password" required className="form-control"
+                            value={regConfirmPassword} onChange={(e) => setRegConfirmPassword(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="Confirm password"
+                          />
+                        </div>
+                        
+                        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '24px', height: '44px', fontWeight: '800', backgroundColor: '#0066cc' }}>
+                          Continue to Step 2
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="form-group">
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Company Name *</label>
+                          <input 
+                            type="text" required className="form-control"
+                            value={regCompanyName} onChange={(e) => setRegCompanyName(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="e.g. Speedex Logistics"
+                          />
+                        </div>
+
+                        <div className="form-group" style={{ marginTop: '14px' }}>
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>GST Number</label>
+                          <input 
+                            type="text" className="form-control"
+                            value={regGstin} onChange={(e) => setRegGstin(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="e.g. 09AAACT9211C1ZA"
+                          />
+                        </div>
+
+                        <div className="form-group" style={{ marginTop: '14px' }}>
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Transport Type *</label>
+                          <select 
+                            required className="form-control"
+                            value={regTransportType} onChange={(e) => setRegTransportType(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px', width: '100%', border: '1px solid #cbd5e1', borderRadius: '6px', backgroundColor: '#ffffff' }}
+                          >
+                            <option value="Full Truck Load (FTL)">Full Truck Load (FTL)</option>
+                            <option value="Part Truck Load (PTL)">Part Truck Load (PTL)</option>
+                            <option value="Parcel & Logistics">Parcel & Logistics</option>
+                            <option value="Container Services">Container Services</option>
+                            <option value="Cold Chain Carrier">Cold Chain Carrier</option>
+                          </select>
+                        </div>
+
+                        <div className="form-group" style={{ marginTop: '14px' }}>
+                          <label style={{ fontSize: '0.75rem', fontWeight: '800', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.02em' }}>Company Address</label>
+                          <input 
+                            type="text" className="form-control"
+                            value={regAddress} onChange={(e) => setRegAddress(e.target.value)}
+                            style={{ marginTop: '4px', height: '40px', padding: '8px 12px' }}
+                            placeholder="e.g. G.T. Road, Kanpur, UP"
+                          />
+                        </div>
+                        
+                        <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+                          <button type="button" onClick={() => setRegStep(1)} className="btn btn-secondary" style={{ flex: 1, height: '44px', fontWeight: '800', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#475569' }}>
+                            Back
+                          </button>
+                          <button type="submit" className="btn btn-primary" style={{ flex: 2, height: '44px', fontWeight: '800', backgroundColor: '#0066cc' }}>
+                            Create Account
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </form>
 
                   <div style={{ marginTop: '20px', fontSize: '0.8rem', textAlign: 'center' }}>
-                    <span onClick={() => { setIsRegisterMode(false); setAuthError(''); }} style={{ color: '#0066cc', cursor: 'pointer', fontWeight: '700' }}>
+                    <span onClick={() => { setIsRegisterMode(false); setAuthError(''); setRegStep(1); }} style={{ color: '#0066cc', cursor: 'pointer', fontWeight: '700' }}>
                       ← Back to Login
                     </span>
                   </div>
@@ -1669,7 +1821,7 @@ export default function App() {
         <div className={`drawer-overlay ${sidebarOpen ? 'open' : ''}`} onClick={() => setSidebarOpen(false)}></div>
 
         {/* 1. Sidebar Nav */}
-        <Sidebar activePage={activePage} setActivePage={setActivePage} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Sidebar user={user} activePage={activePage} setActivePage={setActivePage} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         {/* 2. Main content coordinates */}
         <div className="main-content">

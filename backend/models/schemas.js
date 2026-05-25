@@ -10,6 +10,7 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   address: { type: String, default: '' },
   gstin: { type: String, default: '' },
+  transportType: { type: String, default: '' },
   subscriptionPlan: { type: String, default: 'Free Trial' },
   financialYear: { type: String, default: '26-27' },
   isSuperAdmin: { type: Boolean, default: false }

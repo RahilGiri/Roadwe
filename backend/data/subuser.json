@@ -1,9 +1,20 @@
 [
   {
-    "_id": "1mzqkfuuempkkquxa",
-    "createdAt": "2026-05-25T02:15:37.486Z",
-    "updatedAt": "2026-05-25T02:15:37.486Z",
-    "transporterId": "7f8jkk3vvmpkkqux6",
+    "_id": "qu41m6y2mmpkq7g6g",
+    "createdAt": "2026-05-25T04:48:29.608Z",
+    "updatedAt": "2026-05-25T04:48:29.608Z",
+    "transporterId": "9bjhdah35mpkq7g6a",
+    "username": "transcore_logistics_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Kanpur Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
+  },
+  {
+    "_id": "ztd4ewi3cmpkq7gkv",
+    "createdAt": "2026-05-25T04:48:30.127Z",
+    "updatedAt": "2026-05-25T04:48:30.127Z",
+    "transporterId": "cbcnin8l4mpkq7gkq",
     "username": "gujarat_freight_movers_clerk",
     "role": "Loading Clerk",
     "branchAccess": "Vadodara Branch HQ",
@@ -11,10 +22,10 @@
     "status": "Active Access"
   },
   {
-    "_id": "dnha5nkzhmpkkquxs",
-    "createdAt": "2026-05-25T02:15:37.504Z",
-    "updatedAt": "2026-05-25T02:15:37.504Z",
-    "transporterId": "l8fus055bmpkkquxp",
+    "_id": "ujpr7lzxjmpkq7gzx",
+    "createdAt": "2026-05-25T04:48:30.669Z",
+    "updatedAt": "2026-05-25T04:48:30.669Z",
+    "transporterId": "y2n7l425rmpkq7gzt",
     "username": "fasttrack_cargo_clerk",
     "role": "Loading Clerk",
     "branchAccess": "Pune Branch HQ",
@@ -22,24 +33,13 @@
     "status": "Active Access"
   },
   {
-    "_id": "gtlcmeo9kmpkkqvr6",
-    "createdAt": "2026-05-25T02:15:38.562Z",
-    "updatedAt": "2026-05-25T02:15:38.562Z",
-    "transporterId": "2cmss0d02mpkkqvr1",
-    "username": "mahadev_transport_clerk",
+    "_id": "wcvras5trmpkqbcb1",
+    "createdAt": "2026-05-25T04:51:31.213Z",
+    "updatedAt": "2026-05-25T04:51:31.214Z",
+    "transporterId": "4rq3q1epnmpkqay2r",
+    "username": "transcore_logistics_clerk",
     "role": "Loading Clerk",
-    "branchAccess": "Gurugram Branch HQ",
-    "mobile": "9876543210",
-    "status": "Active Access"
-  },
-  {
-    "_id": "hlmcnyg1xmpkkqvsz",
-    "createdAt": "2026-05-25T02:15:38.627Z",
-    "updatedAt": "2026-05-25T02:15:38.627Z",
-    "transporterId": "oucut00pcmpkkqvst",
-    "username": "roadlink_express_clerk",
-    "role": "Loading Clerk",
-    "branchAccess": "Delhi Branch HQ",
+    "branchAccess": "Kanpur Branch HQ",
     "mobile": "9876543210",
     "status": "Active Access"
   }

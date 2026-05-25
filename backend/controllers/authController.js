@@ -187,10 +187,34 @@ const seedDemoData = async (transporterId, customData = {}) => {
 
 exports.register = async (req, res) => {
   try {
-    const { name, companyName, email, mobile, password } = req.body;
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: 'Email already registered' });
+    const { name, companyName, email, mobile, gstin, transportType, address, password } = req.body;
+
+    // 1. Validation checks
+    if (!name || !companyName || !email || !mobile || !password) {
+      return res.status(400).json({ error: 'All required fields must be completed' });
+    }
+
+    // 2. Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Please enter a valid email address.' });
+    }
+
+    // 3. Password strength check
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters long.' });
+    }
+
+    // 4. Duplicate email check
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ error: 'Email address is already registered.' });
+    }
+
+    // 5. Duplicate mobile check
+    const existingMobile = await User.findOne({ mobile });
+    if (existingMobile) {
+      return res.status(400).json({ error: 'Mobile number is already registered.' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -199,6 +223,9 @@ exports.register = async (req, res) => {
       companyName,
       email,
       mobile,
+      gstin: gstin || '',
+      transportType: transportType || 'Full Truck Load (FTL)',
+      address: address || '',
       password: hashedPassword
     });
 
@@ -212,22 +239,23 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
     }
 
-    const isMatch = (password === 'admin' && user.password === 'admin') 
-      ? true 
-      : await bcrypt.compare(password, user.password);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'Account not found. Please register first.' });
+    }
 
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid email or password.' });
     }
 
     // Dynamic Multi-tenant seeding checks on user login
     if (user.isSuperAdmin !== true) {
-      // Find what custom config to seed
       const matchConfig = transportersConfig.find(tc => tc.email === user.email);
       await seedDemoData(user._id, matchConfig ? matchConfig.customSeeding : {});
     }
@@ -240,6 +268,7 @@ exports.login = async (req, res) => {
         companyName: user.companyName, 
         email: user.email, 
         id: user._id,
+        role: user.isSuperAdmin ? 'Super Admin' : (user.role || 'Transporter'),
         isSuperAdmin: !!user.isSuperAdmin 
       } 
     });
@@ -254,7 +283,18 @@ exports.getProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    res.json(user);
+    res.json({
+      name: user.name,
+      companyName: user.companyName,
+      email: user.email,
+      mobile: user.mobile,
+      gstin: user.gstin,
+      transportType: user.transportType,
+      address: user.address,
+      id: user._id,
+      role: user.isSuperAdmin ? 'Super Admin' : (user.role || 'Transporter'),
+      isSuperAdmin: !!user.isSuperAdmin
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -263,11 +303,10 @@ exports.getProfile = async (req, res) => {
 // Seed configurations definition
 const transportersConfig = [
   {
-    email: 'admin@transcore.com',
+    email: 'transcore@roadwe.com',
     name: 'Transcore Admin',
     companyName: 'TRANSCORE LOGISTICS',
     mobile: '8269203922',
-    password: 'admin',
     gstin: '09AAACT9211C1ZA',
     subscriptionPlan: 'Premium Transporter',
     customSeeding: {
@@ -292,11 +331,10 @@ const transportersConfig = [
     }
   },
   {
-    email: 'gujarat@roadwe.com',
+    email: 'gujaratfreight@roadwe.com',
     name: 'Gujarat Movers Admin',
     companyName: 'GUJARAT FREIGHT MOVERS',
     mobile: '9174076214',
-    password: 'admin',
     gstin: '24BBBBM1111B2Z2',
     subscriptionPlan: 'Free Trial',
     customSeeding: {
@@ -325,7 +363,6 @@ const transportersConfig = [
     name: 'FastTrack Cargo Admin',
     companyName: 'FASTTRACK CARGO',
     mobile: '9888877777',
-    password: 'admin',
     gstin: '27CCCCM1111B2Z2',
     subscriptionPlan: 'Enterprise Gold',
     customSeeding: {
@@ -348,64 +385,6 @@ const transportersConfig = [
       toCity: 'Bangalore',
       goodsDescription: 'E-Commerce Consignments'
     }
-  },
-  {
-    email: 'mahadev@roadwe.com',
-    name: 'Mahadev Admin',
-    companyName: 'MAHADEV TRANSPORT',
-    mobile: '9999911111',
-    password: 'admin',
-    gstin: '06DDDDM1111B2Z2',
-    subscriptionPlan: 'Premium Transporter',
-    customSeeding: {
-      companyName: 'MAHADEV TRANSPORT',
-      customers: [
-        { name: 'ULTRA TECH CEMENT', phone: '9000000011', email: 'logistics@ultratech.com', gstin: '06AAAAA0000A1Z1', address: 'Gurugram Industrial Area', city: 'Gurugram' },
-        { name: 'L&T INFRASTRUCTURE', phone: '9000000012', email: 'dispatch@lnnt.com', gstin: '06BBBBB1111B2Z2', address: 'Kolkata Metro Project Site', city: 'Kolkata' }
-      ],
-      vehicles: [
-        { vehicleNumber: 'HR-55-MD-7777', model: 'Ashok Leyland 4825', ownerName: 'Haryana Road Carrier', ownerPhone: '9000000013' },
-        { vehicleNumber: 'HR-38-XY-2222', model: 'Mahindra Blazo X 35', ownerName: 'Delhi Transit Co', ownerPhone: '9000000014' }
-      ],
-      drivers: [
-        { name: 'Rajesh Yadav', licenseNumber: 'HR1234567890123', mobile: '9000000015', address: 'Gurugram, HR', commissionRate: 11 }
-      ],
-      biltyCount: 42,
-      biltyNoPrefix: '4000066',
-      biltyStartNum: 405,
-      fromCity: 'Gurugram',
-      toCity: 'Kolkata',
-      goodsDescription: 'Fly Ash / Steel Rods'
-    }
-  },
-  {
-    email: 'roadlink@roadwe.com',
-    name: 'Roadlink Admin',
-    companyName: 'ROADLINK EXPRESS',
-    mobile: '8888899999',
-    password: 'admin',
-    gstin: '07EEEEM1111B2Z2',
-    subscriptionPlan: 'Suspended',
-    customSeeding: {
-      companyName: 'ROADLINK EXPRESS',
-      customers: [
-        { name: 'MARUTI SUZUKI INDIA', phone: '9000000016', email: 'logistics@maruti.com', gstin: '07AAAAA0000A1Z1', address: 'Manesar Plant', city: 'Gurugram' },
-        { name: 'TATA MOTORS CO', phone: '9000000017', email: 'dispatch@tatamotors.com', gstin: '07BBBBB1111B2Z2', address: 'Jamshedpur Factory', city: 'Jamshedpur' }
-      ],
-      vehicles: [
-        { vehicleNumber: 'DL-03-RL-5555', model: 'Tata Signa 2823', ownerName: 'Delhi Transport Hub', ownerPhone: '9000000018' },
-        { vehicleNumber: 'DL-08-AB-6666', model: 'BharatBenz 2823C', ownerName: 'Capital Logistics', ownerPhone: '9000000019' }
-      ],
-      drivers: [
-        { name: 'Harish Chandra', licenseNumber: 'DL1234567890999', mobile: '9000000020', address: 'Delhi, DL', commissionRate: 9 }
-      ],
-      biltyCount: 10,
-      biltyNoPrefix: '5000077',
-      biltyStartNum: 120,
-      fromCity: 'Delhi',
-      toCity: 'Chennai',
-      goodsDescription: 'Automobile Parts'
-    }
   }
 ];
 
@@ -413,31 +392,33 @@ const transportersConfig = [
 exports.ensureAdminSeeded = async () => {
   try {
     // 1. Seed Platform Super Admin
-    const superAdmin = await User.findOne({ email: 'superadmin@roadwe.com' });
+    const superAdmin = await User.findOne({ email: 'admin@roadwe.com' });
     if (!superAdmin) {
-      console.log('👑 Seeding default Platform Super Admin user: superadmin@roadwe.com / admin');
+      console.log('👑 Seeding default Platform Super Admin user: admin@roadwe.com / admin');
+      const hashedPassword = await bcrypt.hash('admin', 10);
       await User.create({
         name: 'Platform Super Admin',
         companyName: 'Roadwe Platform HQ',
-        email: 'superadmin@roadwe.com',
+        email: 'admin@roadwe.com',
         mobile: '9999999999',
-        password: 'admin',
+        password: hashedPassword,
         isSuperAdmin: true,
         financialYear: '26-27'
       });
     }
 
-    // 2. Seed all 5 distinct Transporter Companies
+    // 2. Seed all 3 distinct Transporter Companies
     for (let tConfig of transportersConfig) {
       let tenant = await User.findOne({ email: tConfig.email });
       if (!tenant) {
         console.log(`👤 Seeding client Transporter user: ${tConfig.email} (${tConfig.companyName})`);
+        const hashedPassword = await bcrypt.hash('admin', 10);
         tenant = await User.create({
           name: tConfig.name,
           companyName: tConfig.companyName,
           email: tConfig.email,
           mobile: tConfig.mobile,
-          password: 'admin', // Seeded as 'admin'
+          password: hashedPassword,
           gstin: tConfig.gstin,
           subscriptionPlan: tConfig.subscriptionPlan,
           isSuperAdmin: false,
