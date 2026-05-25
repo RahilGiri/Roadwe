@@ -98,7 +98,7 @@ export default function Header({
   }, [searchQuery, bilties, invoices, vehicles, drivers, customers]);
 
   return (
-    <div style={styles.header}>
+    <div className="main-header" style={styles.header}>
       
       {/* Mobile Hamburger toggle menu */}
       <button onClick={() => setSidebarOpen(!sidebarOpen)} style={styles.hamburgerBtn} className="mobile-hamburger-btn" title="Toggle Menu">

@@ -1089,19 +1089,19 @@ export default function App() {
           </div>
 
           {/* B. SUPER ADMIN MAIN DISPLAY COORDINATES */}
-          <div className="main-content" style={{ flex: 1, overflowY: 'auto', backgroundColor: '#090d16', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ height: '70px', borderBottom: '1px solid rgba(55, 65, 81, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', backgroundColor: '#0f172a', position: 'sticky', top: 0, zIndex: 99 }}>
+          <div className="main-content admin-main-content" style={{ flex: 1, overflow: 'hidden', backgroundColor: '#090d16', height: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <div className="admin-header" style={{ height: '70px', borderBottom: '1px solid rgba(55, 65, 81, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', backgroundColor: '#0f172a', zIndex: 99 }}>
               <div>
                 <h2 style={{ fontFamily: 'Outfit', fontWeight: '800', fontSize: '1.4rem', color: '#ffffff' }}>
-                  {adminTab === 'overview' && '🛡️ SaaS Control Tower'}
-                  {adminTab === 'companies' && '🏢 Transporter Client Directory'}
-                  {adminTab === 'vehicles' && '🚛 Global Fleet Inventory'}
-                  {adminTab === 'tracking' && '📡 Live Indian GPS Track Segment'}
-                  {adminTab === 'revenue' && '💰 Revenue & Payment Analytics'}
-                  {adminTab === 'plans' && '💎 Subscription Service Tiers'}
-                  {adminTab === 'tickets' && '🎟️ Platform Resolution Desk'}
-                  {adminTab === 'health' && '⚡ System Infrastructure Metrics'}
-                  {adminTab === 'audit' && '📜 System Audit Trail'}
+                   {adminTab === 'overview' && '🛡️ SaaS Control Tower'}
+                   {adminTab === 'companies' && '🏢 Transporter Client Directory'}
+                   {adminTab === 'vehicles' && '🚛 Global Fleet Inventory'}
+                   {adminTab === 'tracking' && '📡 Live Indian GPS Track Segment'}
+                   {adminTab === 'revenue' && '💰 Revenue & Payment Analytics'}
+                   {adminTab === 'plans' && '💎 Subscription Service Tiers'}
+                   {adminTab === 'tickets' && '🎟️ Platform Resolution Desk'}
+                   {adminTab === 'health' && '⚡ System Infrastructure Metrics'}
+                   {adminTab === 'audit' && '📜 System Audit Trail'}
                 </h2>
                 <span style={{ fontSize: '0.72rem', color: '#64748b' }}>Platform Owner Node: superadmin@roadwe.com</span>
               </div>
@@ -1116,7 +1116,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="page-body" style={{ padding: '24px', flex: 1 }}>
+            <div className="page-body" style={{ padding: '24px', flex: 1, overflowY: 'auto' }}>
               
               {/* TAB 1: SAAS OVERVIEW HUB */}
               {adminTab === 'overview' && (
@@ -1792,7 +1792,9 @@ export default function App() {
         <div style={{
           backgroundColor: '#f59e0b',
           color: '#0f172a',
-          padding: '8px 24px',
+          padding: '0 24px',
+          height: '40px',
+          boxSizing: 'border-box',
           fontSize: '0.85rem',
           fontWeight: '700',
           display: 'flex',
@@ -1824,7 +1826,7 @@ export default function App() {
         </div>
       )}
 
-      <div className="app-container" style={{ flex: 1 }}>
+      <div className={`app-container ${isImpersonating ? 'impersonating' : ''}`} style={{ flex: 1 }}>
         {/* Mobile Drawer Overlay Backdrop */}
         <div className={`drawer-overlay ${sidebarOpen ? 'open' : ''}`} onClick={() => setSidebarOpen(false)}></div>
 

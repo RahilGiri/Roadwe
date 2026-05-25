@@ -267,10 +267,9 @@ export default function LandingPage({ onLoginClick, onAdminLoginClick }) {
       scrollBehavior: 'smooth',
       overflowX: 'hidden'
     }}>
-      
-      {/* 1. GLASSMORPHIC TOP HEADER (DARK SLATE STYLE OVER DARK HERO) */}
+            {/* 1. GLASSMORPHIC TOP HEADER (DARK SLATE STYLE OVER DARK HERO) */}
       <header style={{
-        position: 'sticky', top: 0, zIndex: 100,
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         background: 'rgba(11, 14, 26, 0.85)',
         backdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',

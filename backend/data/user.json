@@ -15,7 +15,7 @@
   {
     "_id": "ro7u681oumpl72cae",
     "createdAt": "2026-05-25T12:40:24.883Z",
-    "updatedAt": "2026-05-25T12:40:24.884Z",
+    "updatedAt": "2026-05-25T12:51:53.140Z",
     "name": "Transcore Admin",
     "companyName": "TRANSCORE LOGISTICS",
     "email": "transcore@roadwe.com",
@@ -24,7 +24,6 @@
     "gstin": "09AAACT9211C1ZA",
     "subscriptionPlan": "Premium Transporter",
     "isSuperAdmin": false,
-    "financialYear": "26-27",
     "company_id": "ro7u681oumpl72cae"
   },
   {
