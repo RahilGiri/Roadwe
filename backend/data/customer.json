@@ -70,5 +70,77 @@
     "gstin": "27BBBBB1111B2Z2",
     "address": "Pune Fulfillment Center",
     "city": "Pune"
+  },
+  {
+    "_id": "2nje8h0g6mpl72cdy",
+    "createdAt": "2026-05-25T12:40:24.886Z",
+    "updatedAt": "2026-05-25T12:40:24.886Z",
+    "company_id": "ro7u681oumpl72cae",
+    "name": "TATA STEEL LTD",
+    "phone": "9876543210",
+    "email": "logistics@tatasteel.com",
+    "gstin": "22AAAAA0000A1Z1",
+    "address": "Jamshedpur Industrial Area",
+    "city": "Jamshedpur"
+  },
+  {
+    "_id": "q9rqwwi34mpl72cdy",
+    "createdAt": "2026-05-25T12:40:24.886Z",
+    "updatedAt": "2026-05-25T12:40:24.886Z",
+    "company_id": "ro7u681oumpl72cae",
+    "name": "RELIANCE INDUSTRIES",
+    "phone": "9123456789",
+    "email": "dispatch@ril.com",
+    "gstin": "27BBBBB1111B2Z2",
+    "address": "Reliance Refinery",
+    "city": "Jamnagar"
+  },
+  {
+    "_id": "or4xd804ampl72cto",
+    "createdAt": "2026-05-25T12:40:25.452Z",
+    "updatedAt": "2026-05-25T12:40:25.452Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "name": "AMBUJA CEMENT LTD",
+    "phone": "9000000001",
+    "email": "logistics@ambuja.com",
+    "gstin": "24AAAAA0000A1Z1",
+    "address": "Mehsana Road",
+    "city": "Vadodara"
+  },
+  {
+    "_id": "z3p1v91f3mpl72cto",
+    "createdAt": "2026-05-25T12:40:25.452Z",
+    "updatedAt": "2026-05-25T12:40:25.452Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "name": "ADANI PORTS & SEZ",
+    "phone": "9000000002",
+    "email": "dispatch@adani.com",
+    "gstin": "24BBBBB1111B2Z2",
+    "address": "Mundra Port",
+    "city": "Mundra"
+  },
+  {
+    "_id": "0y9jvp9g7mpl72d8o",
+    "createdAt": "2026-05-25T12:40:25.992Z",
+    "updatedAt": "2026-05-25T12:40:25.992Z",
+    "company_id": "kp64tyf5impl72d55",
+    "name": "AMAZON SELLER SERVICES",
+    "phone": "9000000006",
+    "email": "logistics@amazon.com",
+    "gstin": "27AAAAA0000A1Z1",
+    "address": "Bhiwandi Warehouse",
+    "city": "Mumbai"
+  },
+  {
+    "_id": "yaznqpvctmpl72d8o",
+    "createdAt": "2026-05-25T12:40:25.992Z",
+    "updatedAt": "2026-05-25T12:40:25.992Z",
+    "company_id": "kp64tyf5impl72d55",
+    "name": "FLIPKART LOGISTICS",
+    "phone": "9000000007",
+    "email": "dispatch@flipkart.com",
+    "gstin": "27BBBBB1111B2Z2",
+    "address": "Pune Fulfillment Center",
+    "city": "Pune"
   }
 ]

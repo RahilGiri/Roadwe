@@ -58,5 +58,65 @@
     "accountNo": "50100223344",
     "ifsc": "HDFC0000112",
     "balance": 450000
+  },
+  {
+    "_id": "k357y6yd9mpl72cdz",
+    "createdAt": "2026-05-25T12:40:24.887Z",
+    "updatedAt": "2026-05-25T12:40:24.887Z",
+    "company_id": "ro7u681oumpl72cae",
+    "type": "Cash",
+    "name": "Main Cash Box",
+    "balance": 25000
+  },
+  {
+    "_id": "qcmsoyetqmpl72ce0",
+    "createdAt": "2026-05-25T12:40:24.888Z",
+    "updatedAt": "2026-05-25T12:40:24.888Z",
+    "company_id": "ro7u681oumpl72cae",
+    "type": "Bank",
+    "name": "HDFC Corporate Bank Account",
+    "accountNo": "50100223344",
+    "ifsc": "HDFC0000112",
+    "balance": 450000
+  },
+  {
+    "_id": "nbs6l6is0mpl72ctp",
+    "createdAt": "2026-05-25T12:40:25.453Z",
+    "updatedAt": "2026-05-25T12:40:25.453Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "type": "Cash",
+    "name": "Main Cash Box",
+    "balance": 25000
+  },
+  {
+    "_id": "cho5243v5mpl72ctp",
+    "createdAt": "2026-05-25T12:40:25.453Z",
+    "updatedAt": "2026-05-25T12:40:25.453Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "type": "Bank",
+    "name": "HDFC Corporate Bank Account",
+    "accountNo": "50100223344",
+    "ifsc": "HDFC0000112",
+    "balance": 450000
+  },
+  {
+    "_id": "kyg2oo5ndmpl72d8q",
+    "createdAt": "2026-05-25T12:40:25.994Z",
+    "updatedAt": "2026-05-25T12:40:25.994Z",
+    "company_id": "kp64tyf5impl72d55",
+    "type": "Cash",
+    "name": "Main Cash Box",
+    "balance": 25000
+  },
+  {
+    "_id": "vb7n6vc9vmpl72d8q",
+    "createdAt": "2026-05-25T12:40:25.994Z",
+    "updatedAt": "2026-05-25T12:40:25.994Z",
+    "company_id": "kp64tyf5impl72d55",
+    "type": "Bank",
+    "name": "HDFC Corporate Bank Account",
+    "accountNo": "50100223344",
+    "ifsc": "HDFC0000112",
+    "balance": 450000
   }
 ]

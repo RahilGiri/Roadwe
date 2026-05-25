@@ -31,5 +31,38 @@
     "mobile": "9000000010",
     "address": "Mumbai, MH",
     "commissionRate": 12
+  },
+  {
+    "_id": "1o0gcen97mpl72cdz",
+    "createdAt": "2026-05-25T12:40:24.887Z",
+    "updatedAt": "2026-05-25T12:40:24.887Z",
+    "company_id": "ro7u681oumpl72cae",
+    "name": "Ramesh Singh",
+    "licenseNumber": "DL1234567890123",
+    "mobile": "9888877777",
+    "address": "Kanpur, UP",
+    "commissionRate": 10
+  },
+  {
+    "_id": "iyjcv44wxmpl72cto",
+    "createdAt": "2026-05-25T12:40:25.452Z",
+    "updatedAt": "2026-05-25T12:40:25.452Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "name": "Devendra Patel",
+    "licenseNumber": "GJ1234567890123",
+    "mobile": "9000000005",
+    "address": "Ahmedabad, GJ",
+    "commissionRate": 8
+  },
+  {
+    "_id": "v34bl5nd5mpl72d8p",
+    "createdAt": "2026-05-25T12:40:25.993Z",
+    "updatedAt": "2026-05-25T12:40:25.993Z",
+    "company_id": "kp64tyf5impl72d55",
+    "name": "Sukhwinder Singh",
+    "licenseNumber": "MH1234567890123",
+    "mobile": "9000000010",
+    "address": "Mumbai, MH",
+    "commissionRate": 12
   }
 ]

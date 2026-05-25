@@ -32,7 +32,7 @@ module.exports = async (req, res, next) => {
 
     if (company && company.subscriptionPlan === 'Suspended') {
       return res.status(403).json({ 
-        error: 'Access Denied. Your company workspace has been suspended. Please contact admin@roadwe.com to manage billing or renew your plan.' 
+        error: 'Access Denied. Your company workspace has been suspended. Please contact superadmin@roadwe.com to manage billing or renew your plan.' 
       });
     }
 

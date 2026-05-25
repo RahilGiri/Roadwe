@@ -28,5 +28,35 @@
     "gstin": "09AAACT9211C1ZA",
     "phone": "8269203922",
     "city": "Pune"
+  },
+  {
+    "_id": "284pq795vmpl72cdz",
+    "createdAt": "2026-05-25T12:40:24.887Z",
+    "updatedAt": "2026-05-25T12:40:24.887Z",
+    "company_id": "ro7u681oumpl72cae",
+    "branchName": "TRANSCORE LOGISTICS (Kanpur HQ) (ADMIN)",
+    "gstin": "09AAACT9211C1ZA",
+    "phone": "8269203922",
+    "city": "Kanpur"
+  },
+  {
+    "_id": "tjy68tlngmpl72ctp",
+    "createdAt": "2026-05-25T12:40:25.453Z",
+    "updatedAt": "2026-05-25T12:40:25.453Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "branchName": "GUJARAT FREIGHT MOVERS (Vadodara HQ) (ADMIN)",
+    "gstin": "09AAACT9211C1ZA",
+    "phone": "8269203922",
+    "city": "Vadodara"
+  },
+  {
+    "_id": "8juoe68qimpl72d8p",
+    "createdAt": "2026-05-25T12:40:25.993Z",
+    "updatedAt": "2026-05-25T12:40:25.993Z",
+    "company_id": "kp64tyf5impl72d55",
+    "branchName": "FASTTRACK CARGO (Pune HQ) (ADMIN)",
+    "gstin": "09AAACT9211C1ZA",
+    "phone": "8269203922",
+    "city": "Pune"
   }
 ]

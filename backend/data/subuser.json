@@ -31,5 +31,38 @@
     "branchAccess": "Pune Branch HQ",
     "mobile": "9876543210",
     "status": "Active Access"
+  },
+  {
+    "_id": "1m6i20yjzmpl72cdz",
+    "createdAt": "2026-05-25T12:40:24.887Z",
+    "updatedAt": "2026-05-25T12:40:24.887Z",
+    "company_id": "ro7u681oumpl72cae",
+    "username": "transcore_logistics_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Kanpur Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
+  },
+  {
+    "_id": "754mqcsdampl72ctp",
+    "createdAt": "2026-05-25T12:40:25.453Z",
+    "updatedAt": "2026-05-25T12:40:25.453Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "username": "gujarat_freight_movers_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Vadodara Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
+  },
+  {
+    "_id": "uwefo98gampl72d8p",
+    "createdAt": "2026-05-25T12:40:25.993Z",
+    "updatedAt": "2026-05-25T12:40:25.993Z",
+    "company_id": "kp64tyf5impl72d55",
+    "username": "fasttrack_cargo_clerk",
+    "role": "Loading Clerk",
+    "branchAccess": "Pune Branch HQ",
+    "mobile": "9876543210",
+    "status": "Active Access"
   }
 ]

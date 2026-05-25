@@ -40,5 +40,47 @@
     "toCity": "Bangalore",
     "rate": 35000,
     "details": "Freight charges include standard loading fees."
+  },
+  {
+    "_id": "i29k94us6mpl72ce0",
+    "createdAt": "2026-05-25T12:40:24.888Z",
+    "updatedAt": "2026-05-25T12:40:24.888Z",
+    "company_id": "ro7u681oumpl72cae",
+    "quotationNo": "Q-2026-001",
+    "date": "2026-05-25",
+    "type": "Transport",
+    "partyName": "TATA STEEL LTD",
+    "fromCity": "Kanpur",
+    "toCity": "Mumbai",
+    "rate": 35000,
+    "details": "Freight charges include standard loading fees."
+  },
+  {
+    "_id": "0na6ttscwmpl72ctp",
+    "createdAt": "2026-05-25T12:40:25.453Z",
+    "updatedAt": "2026-05-25T12:40:25.453Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "quotationNo": "Q-2026-001",
+    "date": "2026-05-25",
+    "type": "Transport",
+    "partyName": "AMBUJA CEMENT LTD",
+    "fromCity": "Vadodara",
+    "toCity": "Jamnagar",
+    "rate": 35000,
+    "details": "Freight charges include standard loading fees."
+  },
+  {
+    "_id": "y2rsjwg8smpl72d8q",
+    "createdAt": "2026-05-25T12:40:25.994Z",
+    "updatedAt": "2026-05-25T12:40:25.994Z",
+    "company_id": "kp64tyf5impl72d55",
+    "quotationNo": "Q-2026-001",
+    "date": "2026-05-25",
+    "type": "Transport",
+    "partyName": "AMAZON SELLER SERVICES",
+    "fromCity": "Pune",
+    "toCity": "Bangalore",
+    "rate": 35000,
+    "details": "Freight charges include standard loading fees."
   }
 ]

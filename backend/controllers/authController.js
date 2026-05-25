@@ -273,7 +273,7 @@ exports.login = async (req, res) => {
     // Lock out suspended companies immediately
     if (user.subscriptionPlan === 'Suspended') {
       return res.status(403).json({ 
-        error: 'Access Denied. Your company workspace has been suspended. Please contact admin@roadwe.com to manage billing or renew your plan.' 
+        error: 'Access Denied. Your company workspace has been suspended. Please contact superadmin@roadwe.com to manage billing or renew your plan.' 
       });
     }
 
@@ -416,10 +416,13 @@ const transportersConfig = [
 // Check and auto-seed admin if database is empty on start
 exports.ensureAdminSeeded = async () => {
   try {
+    // Delete legacy admin@roadwe.com super admin account to restrict access
+    await User.findOneAndDelete({ email: 'admin@roadwe.com' });
+
     // 1. Seed Platform Super Admin
-    const superAdmin = await User.findOne({ email: 'admin@roadwe.com' });
+    const superAdmin = await User.findOne({ email: 'superadmin@roadwe.com' });
     if (!superAdmin) {
-      console.log('👑 Seeding default Platform Super Admin user: admin@roadwe.com / admin');
+      console.log('👑 Seeding default Platform Super Admin user: superadmin@roadwe.com / admin');
       const adminId = isFallback()
         ? (Math.random().toString(36).substring(2, 11) + Date.now().toString(36))
         : new mongoose.Types.ObjectId().toString();
@@ -428,7 +431,7 @@ exports.ensureAdminSeeded = async () => {
         _id: adminId,
         name: 'Platform Super Admin',
         companyName: 'Roadwe Platform HQ',
-        email: 'admin@roadwe.com',
+        email: 'superadmin@roadwe.com',
         mobile: '9999999999',
         password: hashedPassword,
         isSuperAdmin: true,

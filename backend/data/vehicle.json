@@ -70,5 +70,77 @@
     "ownerPhone": "9000000009",
     "insuranceExpiry": "2027-12-31",
     "rcNumber": "RCMH43EX1111"
+  },
+  {
+    "_id": "xjlhmtgb5mpl72cdz",
+    "createdAt": "2026-05-25T12:40:24.887Z",
+    "updatedAt": "2026-05-25T12:40:24.887Z",
+    "company_id": "ro7u681oumpl72cae",
+    "vehicleNumber": "UP-77-AN-4876",
+    "model": "Tata Signa 4825.T",
+    "ownerName": "Transcore Logistics Owner",
+    "ownerPhone": "8269203922",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCUP77AN4876"
+  },
+  {
+    "_id": "z3ksjjou0mpl72cdz",
+    "createdAt": "2026-05-25T12:40:24.887Z",
+    "updatedAt": "2026-05-25T12:40:24.887Z",
+    "company_id": "ro7u681oumpl72cae",
+    "vehicleNumber": "DL-01-GB-1234",
+    "model": "Ashok Leyland 3520",
+    "ownerName": "Subhash Transport",
+    "ownerPhone": "9988776655",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCDL01GB1234"
+  },
+  {
+    "_id": "0mx1ykoizmpl72cto",
+    "createdAt": "2026-05-25T12:40:25.452Z",
+    "updatedAt": "2026-05-25T12:40:25.452Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "vehicleNumber": "GJ-01-XX-9999",
+    "model": "Tata Signa 4021.S",
+    "ownerName": "Ahmedabad Transport",
+    "ownerPhone": "9000000003",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCGJ01XX9999"
+  },
+  {
+    "_id": "ek0ywlygjmpl72cto",
+    "createdAt": "2026-05-25T12:40:25.452Z",
+    "updatedAt": "2026-05-25T12:40:25.452Z",
+    "company_id": "5ziae51fxmpl72cq4",
+    "vehicleNumber": "GJ-03-YY-7777",
+    "model": "BharatBenz 3523R",
+    "ownerName": "Rajkot Roadlines",
+    "ownerPhone": "9000000004",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCGJ03YY7777"
+  },
+  {
+    "_id": "fuuiq8vgempl72d8p",
+    "createdAt": "2026-05-25T12:40:25.993Z",
+    "updatedAt": "2026-05-25T12:40:25.993Z",
+    "company_id": "kp64tyf5impl72d55",
+    "vehicleNumber": "MH-12-FT-8888",
+    "model": "Tata Ultra 1918",
+    "ownerName": "Mumbai Fast Fleet",
+    "ownerPhone": "9000000008",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCMH12FT8888"
+  },
+  {
+    "_id": "42vclx3flmpl72d8p",
+    "createdAt": "2026-05-25T12:40:25.993Z",
+    "updatedAt": "2026-05-25T12:40:25.993Z",
+    "company_id": "kp64tyf5impl72d55",
+    "vehicleNumber": "MH-43-EX-1111",
+    "model": "Eicher Pro 6028",
+    "ownerName": "Pune Logistics Group",
+    "ownerPhone": "9000000009",
+    "insuranceExpiry": "2027-12-31",
+    "rcNumber": "RCMH43EX1111"
   }
 ]
