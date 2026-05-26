@@ -1,59 +1,60 @@
 [
   {
-    "_id": "g8bma51n7mpl72bzd",
-    "createdAt": "2026-05-25T12:40:24.482Z",
-    "updatedAt": "2026-05-25T12:40:24.484Z",
+    "_id": "5m4ov8647mplzjle8",
+    "createdAt": "2026-05-26T01:57:39.118Z",
+    "updatedAt": "2026-05-26T01:57:39.119Z",
     "name": "Platform Super Admin",
     "companyName": "Roadwe Platform HQ",
     "email": "superadmin@roadwe.com",
     "mobile": "9999999999",
-    "password": "$2a$10$dwi.3IcIw9PLr4A28wUOku1F01WKbXw2.8S.VyH.DzMtj7wjmpDuG",
+    "password": "$2a$10$XKZ7SrFPVC0dvmPlzwXFo.pN566Se1fiHyWx04PZXIgEEHiQ.z/IC",
     "isSuperAdmin": true,
     "financialYear": "26-27",
-    "company_id": "g8bma51n7mpl72bzd"
+    "company_id": "5m4ov8647mplzjle8"
   },
   {
-    "_id": "ro7u681oumpl72cae",
-    "createdAt": "2026-05-25T12:40:24.883Z",
-    "updatedAt": "2026-05-25T12:51:53.140Z",
+    "_id": "6ront1cngmplzjlqa",
+    "createdAt": "2026-05-26T01:57:39.521Z",
+    "updatedAt": "2026-05-26T01:57:39.522Z",
     "name": "Transcore Admin",
     "companyName": "TRANSCORE LOGISTICS",
     "email": "transcore@roadwe.com",
     "mobile": "8269203922",
-    "password": "$2a$10$mGQvT5CtYM2vUrrFe2AFyeFSP87RFtV//dMRRRqOWoUgxO3V/wm1C",
+    "password": "$2a$10$XpHrCM11KdxLroKh1iRJpuDi.16HeVmWmKV1vJfUBSE.5EhsRc8V2",
     "gstin": "09AAACT9211C1ZA",
     "subscriptionPlan": "Premium Transporter",
     "isSuperAdmin": false,
-    "company_id": "ro7u681oumpl72cae"
+    "financialYear": "26-27",
+    "company_id": "6ront1cngmplzjlqa"
   },
   {
-    "_id": "5ziae51fxmpl72cq4",
-    "createdAt": "2026-05-25T12:40:25.450Z",
-    "updatedAt": "2026-05-25T12:40:25.450Z",
+    "_id": "rqt0zh5mvmplzjmbm",
+    "createdAt": "2026-05-26T01:57:40.288Z",
+    "updatedAt": "2026-05-26T01:57:40.289Z",
     "name": "Gujarat Movers Admin",
     "companyName": "GUJARAT FREIGHT MOVERS",
     "email": "gujaratfreight@roadwe.com",
     "mobile": "9174076214",
-    "password": "$2a$10$WV2RRnTFeF.dWxUX47yW9eGmc0z/84apyB1DSsOo2RZpx.xAj6vLG",
+    "password": "$2a$10$oK7LGLqh6A029VdX.WQdd.5C1aWuLVp7SQ8jKLJMoQbrFUpj3.TI.",
     "gstin": "24BBBBM1111B2Z2",
     "subscriptionPlan": "Free Trial",
     "isSuperAdmin": false,
     "financialYear": "26-27",
-    "company_id": "5ziae51fxmpl72cq4"
+    "company_id": "rqt0zh5mvmplzjmbm"
   },
   {
-    "_id": "kp64tyf5impl72d55",
-    "createdAt": "2026-05-25T12:40:25.990Z",
-    "updatedAt": "2026-05-25T12:40:25.991Z",
+    "_id": "g9yymv36implzjms8",
+    "createdAt": "2026-05-26T01:57:40.899Z",
+    "updatedAt": "2026-05-26T01:57:40.900Z",
     "name": "FastTrack Cargo Admin",
     "companyName": "FASTTRACK CARGO",
     "email": "fasttrack@roadwe.com",
     "mobile": "9888877777",
-    "password": "$2a$10$f/6LN5WkjBdvXCP6cHFNfeihcjo87G0Ht08Oa.XAfvXIdzGcvh6Ye",
+    "password": "$2a$10$2Maa9k.dHUHfPt.IRjmz.efanZ78OWcu9GZE1tv9trUOReJmZGksK",
     "gstin": "27CCCCM1111B2Z2",
     "subscriptionPlan": "Enterprise Gold",
     "isSuperAdmin": false,
     "financialYear": "26-27",
-    "company_id": "kp64tyf5impl72d55"
+    "company_id": "g9yymv36implzjms8"
   }
 ]

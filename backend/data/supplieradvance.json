@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "_id": "kjdwmn93bmplzjlu9",
+    "createdAt": "2026-05-26T01:57:39.537Z",
+    "updatedAt": "2026-05-26T01:57:39.537Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "supplierName": "Jai Jagdamba Logistics",
+    "supplierPan": "ABCDE1234F",
+    "paymentDate": "2026-05-20",
+    "amount": 50000,
+    "reason": "Lorry contract advance booking",
+    "settledAmount": 15000,
+    "balance": 35000,
+    "createdBy": "TRANSCORE LOGISTICS Admin"
+  },
+  {
+    "_id": "xc5mi8xs3mplzjmfe",
+    "createdAt": "2026-05-26T01:57:40.298Z",
+    "updatedAt": "2026-05-26T01:57:40.298Z",
+    "company_id": "rqt0zh5mvmplzjmbm",
+    "supplierName": "Jai Jagdamba Logistics",
+    "supplierPan": "ABCDE1234F",
+    "paymentDate": "2026-05-20",
+    "amount": 50000,
+    "reason": "Lorry contract advance booking",
+    "settledAmount": 15000,
+    "balance": 35000,
+    "createdBy": "GUJARAT FREIGHT MOVERS Admin"
+  },
+  {
+    "_id": "wwopafqdhmplzjmwm",
+    "createdAt": "2026-05-26T01:57:40.918Z",
+    "updatedAt": "2026-05-26T01:57:40.918Z",
+    "company_id": "g9yymv36implzjms8",
+    "supplierName": "Jai Jagdamba Logistics",
+    "supplierPan": "ABCDE1234F",
+    "paymentDate": "2026-05-20",
+    "amount": 50000,
+    "reason": "Lorry contract advance booking",
+    "settledAmount": 15000,
+    "balance": 35000,
+    "createdBy": "FASTTRACK CARGO Admin"
+  }
+]

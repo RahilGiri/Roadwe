@@ -1,1 +1,128 @@
-[]
+[
+  {
+    "_id": "fywbzn3d1mplzjlu8",
+    "createdAt": "2026-05-26T01:57:39.536Z",
+    "updatedAt": "2026-05-26T01:57:39.536Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "invoiceNo": "INV-2026-1052",
+    "date": "2026-05-24",
+    "customerId": "w931xcp6tmplzjltw",
+    "customerName": "TATA STEEL LTD",
+    "bilties": [
+      "1000011205"
+    ],
+    "totalFreight": 38000,
+    "sgst": 950,
+    "cgst": 950,
+    "igst": 0,
+    "grandTotal": 39900,
+    "amountPaid": 0,
+    "balance": 39900,
+    "dueDate": "2026-06-10"
+  },
+  {
+    "_id": "1oton4ntlmplzjlu8",
+    "createdAt": "2026-05-26T01:57:39.536Z",
+    "updatedAt": "2026-05-26T01:57:39.536Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "invoiceNo": "INV-2026-1053",
+    "date": "2026-05-16",
+    "customerId": "bnn7o4my0mplzjltw",
+    "customerName": "RELIANCE INDUSTRIES",
+    "bilties": [
+      "1000011204"
+    ],
+    "totalFreight": 24000,
+    "sgst": 600,
+    "cgst": 600,
+    "igst": 0,
+    "grandTotal": 25200,
+    "amountPaid": 25200,
+    "balance": 0,
+    "dueDate": "2026-05-25"
+  },
+  {
+    "_id": "xb2jvf2lemplzjmfe",
+    "createdAt": "2026-05-26T01:57:40.298Z",
+    "updatedAt": "2026-05-26T01:57:40.298Z",
+    "company_id": "rqt0zh5mvmplzjmbm",
+    "invoiceNo": "INV-2026-1052",
+    "date": "2026-05-24",
+    "customerId": "f2c265d61mplzjmf6",
+    "customerName": "AMBUJA CEMENT LTD",
+    "bilties": [
+      "2000044105"
+    ],
+    "totalFreight": 38000,
+    "sgst": 950,
+    "cgst": 950,
+    "igst": 0,
+    "grandTotal": 39900,
+    "amountPaid": 0,
+    "balance": 39900,
+    "dueDate": "2026-06-10"
+  },
+  {
+    "_id": "e33f3vc06mplzjmfe",
+    "createdAt": "2026-05-26T01:57:40.298Z",
+    "updatedAt": "2026-05-26T01:57:40.298Z",
+    "company_id": "rqt0zh5mvmplzjmbm",
+    "invoiceNo": "INV-2026-1053",
+    "date": "2026-05-16",
+    "customerId": "0bu4k10urmplzjmf6",
+    "customerName": "ADANI PORTS & SEZ",
+    "bilties": [
+      "2000044104"
+    ],
+    "totalFreight": 24000,
+    "sgst": 600,
+    "cgst": 600,
+    "igst": 0,
+    "grandTotal": 25200,
+    "amountPaid": 25200,
+    "balance": 0,
+    "dueDate": "2026-05-25"
+  },
+  {
+    "_id": "ri4rahdfjmplzjmwm",
+    "createdAt": "2026-05-26T01:57:40.918Z",
+    "updatedAt": "2026-05-26T01:57:40.918Z",
+    "company_id": "g9yymv36implzjms8",
+    "invoiceNo": "INV-2026-1052",
+    "date": "2026-05-24",
+    "customerId": "4e5u0208ymplzjmw6",
+    "customerName": "AMAZON SELLER SERVICES",
+    "bilties": [
+      "3000055308"
+    ],
+    "totalFreight": 38000,
+    "sgst": 950,
+    "cgst": 950,
+    "igst": 0,
+    "grandTotal": 39900,
+    "amountPaid": 0,
+    "balance": 39900,
+    "dueDate": "2026-06-10"
+  },
+  {
+    "_id": "x74l1qr4bmplzjmwm",
+    "createdAt": "2026-05-26T01:57:40.918Z",
+    "updatedAt": "2026-05-26T01:57:40.918Z",
+    "company_id": "g9yymv36implzjms8",
+    "invoiceNo": "INV-2026-1053",
+    "date": "2026-05-16",
+    "customerId": "sqhd0qnr8mplzjmw6",
+    "customerName": "FLIPKART LOGISTICS",
+    "bilties": [
+      "3000055307"
+    ],
+    "totalFreight": 24000,
+    "sgst": 600,
+    "cgst": 600,
+    "igst": 0,
+    "grandTotal": 25200,
+    "amountPaid": 25200,
+    "balance": 0,
+    "dueDate": "2026-05-25"
+  }
+]

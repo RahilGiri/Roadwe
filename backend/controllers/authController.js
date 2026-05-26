@@ -13,25 +13,31 @@ const JWT_SECRET = process.env.JWT_SECRET || 'roadwe-super-secret-key-12345';
 // Unified Multi-Tenant Demo Data Seeder
 const seedDemoData = async (company_id, customData = {}) => {
   try {
+    const userObj = await User.findById(company_id);
+    const resolvedCompanyName = customData.companyName || (userObj ? userObj.companyName : 'TRANSCORE LOGISTICS');
+    const resolvedFromCity = customData.fromCity || 'Kanpur';
+    const resolvedToCity = customData.toCity || 'Mumbai';
+    const resolvedGoods = customData.goodsDescription || 'Iron Sheets / Coils';
+
     const {
-      companyName = 'TRANSCORE LOGISTICS',
+      companyName = resolvedCompanyName,
       customers = [
         { name: 'TATA STEEL LTD', phone: '9876543210', email: 'logistics@tatasteel.com', gstin: '22AAAAA0000A1Z1', address: 'Jamshedpur Industrial Area', city: 'Jamshedpur' },
         { name: 'RELIANCE INDUSTRIES', phone: '9123456789', email: 'dispatch@ril.com', gstin: '27BBBBB1111B2Z2', address: 'Reliance Refinery', city: 'Jamnagar' }
       ],
       vehicles = [
-        { vehicleNumber: 'UP-77-AN-4876', model: 'Tata Signa 4825.T', ownerName: 'Transcore Logistics Owner', ownerPhone: '8269203922' },
+        { vehicleNumber: 'UP-77-AN-4876', model: 'Tata Signa 4825.T', ownerName: `${resolvedCompanyName} Owner`, ownerPhone: '8269203922' },
         { vehicleNumber: 'DL-01-GB-1234', model: 'Ashok Leyland 3520', ownerName: 'Subhash Transport', ownerPhone: '9988776655' }
       ],
       drivers = [
-        { name: 'Ramesh Singh', licenseNumber: 'DL1234567890123', mobile: '9888877777', address: 'Kanpur, UP', commissionRate: 10 }
+        { name: 'Ramesh Singh', licenseNumber: 'DL1234567890123', mobile: '9888877777', address: `${resolvedFromCity}, UP`, commissionRate: 10 }
       ],
       biltyCount = 31,
       biltyNoPrefix = '1000011',
       biltyStartNum = 205,
-      fromCity = 'Kanpur',
-      toCity = 'Mumbai',
-      goodsDescription = 'Iron Sheets / Coils'
+      fromCity = resolvedFromCity,
+      toCity = resolvedToCity,
+      goodsDescription = resolvedGoods
     } = customData;
 
     const biltyCountExisting = await Bilty.countDocuments({ company_id });
@@ -179,6 +185,169 @@ const seedDemoData = async (company_id, customData = {}) => {
           deliveryStatus: isTarget ? 'Dispatched' : 'Delivered'
         });
       }
+
+      // 5.1 Seed Loading Slips
+      const { LoadingSlipSchema } = require('../models/schemas');
+      const LoadingSlip = getModel('LoadingSlip', LoadingSlipSchema);
+      await LoadingSlip.create({
+        company_id,
+        slipNo: 'LS-2026-904',
+        date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        consignorName: c1.name,
+        fromCity,
+        toCity,
+        vehicleNumber: v1.vehicleNumber,
+        brokerName: 'Bajrang Roadlines',
+        freightPromised: 45000,
+        driverAdvance: 15000,
+        balance: 30000,
+        remarks: 'Bilty linked to LS-904'
+      });
+
+      // 5.2 Seed Chalans
+      const { ChalanSchema } = require('../models/schemas');
+      const Chalan = getModel('Chalan', ChalanSchema);
+      await Chalan.create({
+        company_id,
+        chalanNo: 'CH-26-27-0105',
+        date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        branchCode: 'KANPUR-HQ',
+        financialYear: '2026-2027',
+        supplierName: 'Jai Jagdamba Logistics',
+        supplierMobile: '9988776655',
+        supplierPan: 'ABCDE1234F',
+        supplierAddress: 'Transport Nagar, Kanpur',
+        consignorName: c1.name,
+        consigneeName: c2.name,
+        brokerName: 'Bajrang Roadlines',
+        vehicleNumber: v1.vehicleNumber,
+        fromCity,
+        toCity,
+        driverName: createdDrivers[0].name,
+        driverDl: createdDrivers[0].licenseNumber,
+        driverMobile: createdDrivers[0].mobile,
+        biltyNo: `${biltyNoPrefix}${biltyStartNum}`,
+        biltyDate: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        materialName: goodsDescription,
+        freightType: 'Select Freight Type',
+        weight: 25,
+        unit: 'MT (Metric Ton)',
+        rate: 1500,
+        isFixed: false,
+        lorryFreight: 37500,
+        haltingCharges: 0,
+        belowChargesType: 'Plus (+) to Freight',
+        hamaliCharges: 500,
+        serviceCharge: 1000,
+        otherCharge: 0,
+        shortageQty: 0,
+        shortageUnit: 'MT (Metric Ton)',
+        shortageAmt: 0,
+        advAmt1: 15000,
+        advMode1: 'Bank Transfer',
+        advDate1: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        advAmt2: 0,
+        advMode2: 'Select Advance Payment Mode',
+        advDate2: '',
+        advAmt3: 0,
+        advMode3: 'Select Advance Payment Mode',
+        advDate3: '',
+        advAmt4: 0,
+        advMode4: 'Select Advance Payment Mode',
+        advDate4: '',
+        dieselAdvance: 8000,
+        selectedPump: 'Mahadev Fuel Center',
+        pumpPaymentMode: 'Diesel Slip',
+        advancePaid: 23000,
+        dieselCardCharge: 0,
+        commissionType: 'Fixed',
+        commissionAmount: 1500,
+        commissionPlusMinus: 'None',
+        commission: 1500,
+        tdsAmount: 375,
+        officeExpenses: 200,
+        balanceToDriver: 11425,
+        commissionStatus: 'Paid',
+        balancePayableAt: 'Mumbai Office',
+        remarks: 'Chalan signed and copy received',
+        hideDatetime: false,
+        signatureData: '',
+        paymentStatus: 'Pending'
+      });
+
+      // 5.3 Seed Invoices
+      const { InvoiceSchema } = require('../models/schemas');
+      const Invoice = getModel('Invoice', InvoiceSchema);
+      await Invoice.create({
+        company_id,
+        invoiceNo: 'INV-2026-1052',
+        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        customerId: c1._id,
+        customerName: c1.name,
+        bilties: [`${biltyNoPrefix}${biltyStartNum}`],
+        totalFreight: 38000,
+        sgst: 950,
+        cgst: 950,
+        igst: 0,
+        grandTotal: 39900,
+        amountPaid: 0,
+        balance: 39900,
+        dueDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+      });
+      await Invoice.create({
+        company_id,
+        invoiceNo: 'INV-2026-1053',
+        date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        customerId: c2._id,
+        customerName: c2.name,
+        bilties: [`${biltyNoPrefix}${biltyStartNum - 1}`],
+        totalFreight: 24000,
+        sgst: 600,
+        cgst: 600,
+        igst: 0,
+        grandTotal: 25200,
+        amountPaid: 25200,
+        balance: 0,
+        dueDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+      });
+
+      // 5.4 Seed Vouchers
+      const { VoucherSchema } = require('../models/schemas');
+      const Voucher = getModel('Voucher', VoucherSchema);
+      await Voucher.create({
+        company_id,
+        voucherNo: 'V-2026-201',
+        date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        type: 'Receipt',
+        partyName: c1.name,
+        description: 'Payment received against Bilty Advance',
+        amount: 15000
+      });
+      await Voucher.create({
+        company_id,
+        voucherNo: 'V-2026-202',
+        date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        type: 'Payment',
+        partyName: createdDrivers[0].name,
+        description: 'Loading expense advance given to driver',
+        amount: 8000
+      });
+
+      // 5.5 Seed Supplier Advances
+      const { SupplierAdvanceSchema } = require('../models/schemas');
+      const SupplierAdvance = getModel('SupplierAdvance', SupplierAdvanceSchema);
+      await SupplierAdvance.create({
+        company_id,
+        supplierName: 'Jai Jagdamba Logistics',
+        supplierPan: 'ABCDE1234F',
+        paymentDate: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        amount: 50000,
+        reason: 'Lorry contract advance booking',
+        settledAmount: 15000,
+        balance: 35000,
+        createdBy: `${companyName} Admin`
+      });
+
       console.log(`✅ Multi-Tenant data seeding complete for ${companyName}!`);
     }
   } catch (err) {
@@ -235,6 +404,9 @@ exports.register = async (req, res) => {
       password: hashedPassword,
       company_id: newId
     });
+
+    // Seed dynamic demo operational data for the new registered tenant instantly
+    await seedDemoData(user._id, {});
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '7d' });
     res.status(201).json({ 

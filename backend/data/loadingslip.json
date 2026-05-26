@@ -1,1 +1,53 @@
-[]
+[
+  {
+    "_id": "mewtlxfi4mplzjlu7",
+    "createdAt": "2026-05-26T01:57:39.535Z",
+    "updatedAt": "2026-05-26T01:57:39.535Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "slipNo": "LS-2026-904",
+    "date": "2026-05-22",
+    "consignorName": "TATA STEEL LTD",
+    "fromCity": "Kanpur",
+    "toCity": "Mumbai",
+    "vehicleNumber": "UP-77-AN-4876",
+    "brokerName": "Bajrang Roadlines",
+    "freightPromised": 45000,
+    "driverAdvance": 15000,
+    "balance": 30000,
+    "remarks": "Bilty linked to LS-904"
+  },
+  {
+    "_id": "xrnnwz46hmplzjmfd",
+    "createdAt": "2026-05-26T01:57:40.297Z",
+    "updatedAt": "2026-05-26T01:57:40.297Z",
+    "company_id": "rqt0zh5mvmplzjmbm",
+    "slipNo": "LS-2026-904",
+    "date": "2026-05-22",
+    "consignorName": "AMBUJA CEMENT LTD",
+    "fromCity": "Vadodara",
+    "toCity": "Jamnagar",
+    "vehicleNumber": "GJ-01-XX-9999",
+    "brokerName": "Bajrang Roadlines",
+    "freightPromised": 45000,
+    "driverAdvance": 15000,
+    "balance": 30000,
+    "remarks": "Bilty linked to LS-904"
+  },
+  {
+    "_id": "gznqqr2sbmplzjmwl",
+    "createdAt": "2026-05-26T01:57:40.917Z",
+    "updatedAt": "2026-05-26T01:57:40.917Z",
+    "company_id": "g9yymv36implzjms8",
+    "slipNo": "LS-2026-904",
+    "date": "2026-05-22",
+    "consignorName": "AMAZON SELLER SERVICES",
+    "fromCity": "Pune",
+    "toCity": "Bangalore",
+    "vehicleNumber": "MH-12-FT-8888",
+    "brokerName": "Bajrang Roadlines",
+    "freightPromised": 45000,
+    "driverAdvance": 15000,
+    "balance": 30000,
+    "remarks": "Bilty linked to LS-904"
+  }
+]
