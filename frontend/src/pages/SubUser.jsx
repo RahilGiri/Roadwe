@@ -40,6 +40,15 @@ export default function SubUser({ token, activePage, setActivePage }) {
   // Navigation Tabs: 'employees' | 'matrix' | 'analytics' | 'logs'
   const [activeTab, setActiveTab] = useState('employees');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showForm, setShowForm] = useState(activePage === 'subuser-create');
+
+  useEffect(() => {
+    if (activePage === 'subuser-create') {
+      setShowForm(true);
+    } else if (activePage === 'subuser-list' || activePage === 'subuser') {
+      setShowForm(false);
+    }
+  }, [activePage]);
   
   // Modal controllers
   const [branchModalUser, setBranchModalUser] = useState(null);
@@ -438,171 +447,215 @@ export default function SubUser({ token, activePage, setActivePage }) {
 
       {/* TAB 1: EMPLOYEE DIRECTORY */}
       {activeTab === 'employees' && (
-        <div style={styles.columnsSplit}>
-          {/* Left Column: Create new employee form */}
-          <div className="glass-panel-premium" style={styles.formCol}>
-            <h3 style={styles.panelTitle}>Add Corporate Employee</h3>
-            <span style={styles.panelSub}>Register staff and map primary roles & branch access</span>
-            
-            <form onSubmit={handleSubmitNewUser} style={styles.form}>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Employee Code (Optional)</label>
-                <input 
-                  type="text" placeholder="e.g. EMP-1092" value={empCode}
-                  onChange={(e) => setEmpCode(e.target.value)} style={styles.input}
-                />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {showForm ? (
+            /* Left Column: Create new employee form */
+            <div className="glass-panel-premium" style={{ ...styles.formCol, maxWidth: '600px', margin: '0 auto', width: '100%' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={styles.panelTitle}>Add Corporate Employee</h3>
+                <button 
+                  type="button" 
+                  style={{
+                    backgroundColor: '#0066cc',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    padding: '6px 12px',
+                    fontSize: '0.8rem',
+                    fontWeight: '700',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => {
+                    setShowForm(false);
+                    if (setActivePage) setActivePage('subuser-list');
+                  }}
+                >
+                  Employee List
+                </button>
               </div>
+              <span style={styles.panelSub}>Register staff and map primary roles & branch access</span>
+              
+              <form onSubmit={handleSubmitNewUser} style={styles.form}>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>Employee Code (Optional)</label>
+                  <input 
+                    type="text" placeholder="e.g. EMP-1092" value={empCode}
+                    onChange={(e) => setEmpCode(e.target.value)} style={styles.input}
+                  />
+                </div>
 
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Full Name *</label>
-                <input 
-                  type="text" required placeholder="Employee Name" value={empName}
-                  onChange={(e) => setEmpName(e.target.value)} style={styles.input}
-                />
-              </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>Full Name *</label>
+                  <input 
+                    type="text" required placeholder="Employee Name" value={empName}
+                    onChange={(e) => setEmpName(e.target.value)} style={styles.input}
+                  />
+                </div>
 
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Mobile Number *</label>
-                <input 
-                  type="tel" required placeholder="Mobile Number" value={mobileNumber}
-                  onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 10))} style={styles.input}
-                />
-              </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>Mobile Number *</label>
+                  <input 
+                    type="tel" required placeholder="Mobile Number" value={mobileNumber}
+                    onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, '').slice(0, 10))} style={styles.input}
+                  />
+                </div>
 
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Corporate Email *</label>
-                <input 
-                  type="email" required placeholder="Corporate Email" value={emailAddress}
-                  onChange={(e) => setEmailAddress(e.target.value)} style={styles.input}
-                />
-              </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>Corporate Email *</label>
+                  <input 
+                    type="email" required placeholder="Corporate Email" value={emailAddress}
+                    onChange={(e) => setEmailAddress(e.target.value)} style={styles.input}
+                  />
+                </div>
 
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Temporary Password *</label>
-                <input 
-                  type="password" required placeholder="Temporary Password" value={empPassword}
-                  onChange={(e) => setEmpPassword(e.target.value)} style={styles.input}
-                />
-              </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>Temporary Password *</label>
+                  <input 
+                    type="password" required placeholder="Temporary Password" value={empPassword}
+                    onChange={(e) => setEmpPassword(e.target.value)} style={styles.input}
+                  />
+                </div>
 
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Assign Role *</label>
-                <select required value={empRole} onChange={(e) => setEmpRole(e.target.value)} style={styles.input}>
-                  <option value="">Select Corporate Role</option>
-                  {roles.map(r => (
-                    <option key={r._id || r.key} value={r.name}>{r.name}</option>
-                  ))}
-                </select>
-              </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>Assign Role *</label>
+                  <select required value={empRole} onChange={(e) => setEmpRole(e.target.value)} style={styles.input}>
+                    <option value="">Select Corporate Role</option>
+                    {roles.map(r => (
+                      <option key={r._id || r.key} value={r.name}>{r.name}</option>
+                    ))}
+                  </select>
+                </div>
 
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Default Home Branch *</label>
-                <select required value={empBranch} onChange={(e) => setEmpBranch(e.target.value)} style={styles.input}>
-                  <option value="Vadodara HQ">Vadodara HQ</option>
-                  <option value="Kanpur Branch">Kanpur Branch</option>
-                  <option value="Mumbai Warehouse">Mumbai Warehouse</option>
-                  <option value="Delhi SG Nagar">Delhi SG Nagar</option>
-                </select>
-              </div>
+                <div style={styles.formGroup}>
+                  <label style={styles.label}>Default Home Branch *</label>
+                  <select required value={empBranch} onChange={(e) => setEmpBranch(e.target.value)} style={styles.input}>
+                    <option value="Vadodara HQ">Vadodara HQ</option>
+                    <option value="Kanpur Branch">Kanpur Branch</option>
+                    <option value="Mumbai Warehouse">Mumbai Warehouse</option>
+                    <option value="Delhi SG Nagar">Delhi SG Nagar</option>
+                  </select>
+                </div>
 
-              <button type="submit" style={styles.greenSubmitBtn}>
-                Register Corporate Employee
-              </button>
-            </form>
-          </div>
-
-          {/* Right Column: Employee Registry Lists */}
-          <div className="glass-panel-premium" style={styles.listCol}>
-            <div style={styles.toolbar}>
-              <h3 style={styles.panelTitle}>Active Operators ( {filteredUsers.length} )</h3>
-              <input 
-                type="text" placeholder="Search by name, code..." value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)} style={styles.searchInput}
-              />
+                <button type="submit" style={styles.greenSubmitBtn}>
+                  Register Corporate Employee
+                </button>
+              </form>
             </div>
+          ) : (
+            /* Right Column: Employee Registry Lists */
+            <div className="glass-panel-premium" style={{ ...styles.listCol, width: '100%' }}>
+              <div style={styles.toolbar}>
+                <h3 style={styles.panelTitle}>Active Operators ( {filteredUsers.length} )</h3>
+                <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                  <input 
+                    type="text" placeholder="Search by name, code..." value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)} style={styles.searchInput}
+                  />
+                  <button 
+                    type="button" 
+                    style={{
+                      backgroundColor: '#0066cc',
+                      color: '#ffffff',
+                      border: 'none',
+                      borderRadius: '4px',
+                      padding: '8px 16px',
+                      fontSize: '0.85rem',
+                      fontWeight: '700',
+                      cursor: 'pointer'
+                    }}
+                    onClick={() => {
+                      setShowForm(true);
+                      if (setActivePage) setActivePage('subuser-create');
+                    }}
+                  >
+                    Add Employee
+                  </button>
+                </div>
+              </div>
 
-            <div className="responsive-table-scroll">
-              <table style={styles.table}>
-                <thead>
-                  <tr style={styles.thRow}>
-                    <th style={styles.th}>Employee Code</th>
-                    <th style={styles.th}>Name</th>
-                    <th style={styles.th}>Role / Branches</th>
-                    <th style={styles.th}>2FA Status</th>
-                    <th style={styles.th}>Status</th>
-                    <th style={{ ...styles.th, textAlign: 'center' }}>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredUsers.length > 0 ? (
-                    filteredUsers.map((user, index) => (
-                      <tr key={user._id || index} style={styles.tr}>
-                        <td style={styles.tdSno}>{user.empCode || `EMP-${index+1}`}</td>
-                        <td style={styles.tdBranchName}>
-                          {user.username}
-                          <span style={styles.userEmail}>{user.email || 'No email coordinates'}</span>
-                        </td>
-                        <td style={styles.td}>
-                          <span style={styles.roleBadge}>{user.role}</span>
-                          <div style={styles.branchTagsContainer}>
-                            <span 
-                              style={styles.branchAssignLink}
-                              onClick={() => handleOpenBranchModal(user)}
-                              title="Assign allowed branches"
-                            >
-                              <MapPin size={10} style={{ marginRight: 2 }} />
-                              Map ({user.allowedBranches ? user.allowedBranches.length : 1})
-                            </span>
-                            {user.allowedBranches && user.allowedBranches.map((b, bi) => (
-                              <span key={bi} style={styles.branchTagBadge}>{b}</span>
-                            ))}
-                          </div>
-                        </td>
-                        <td style={styles.td}>
-                          <button 
-                            onClick={() => handleToggle2FA(user)} 
-                            style={{ ...styles.statusBtn, backgroundColor: user.twoFactorEnabled ? '#d1fae5' : '#f3f4f6', color: user.twoFactorEnabled ? '#065f46' : '#64748b' }}
-                          >
-                            {user.twoFactorEnabled ? '2FA Enabled' : 'Disabled'}
-                          </button>
-                        </td>
-                        <td style={styles.td}>
-                          <button 
-                            onClick={() => handleToggleUserStatus(user)}
-                            style={{ ...styles.statusBtn, backgroundColor: user.status === 'Active Access' ? '#dbeafe' : '#fee2e2', color: user.status === 'Active Access' ? '#1d4ed8' : '#ef4444' }}
-                          >
-                            {user.status || 'Active Access'}
-                          </button>
-                        </td>
-                        <td style={styles.tdActions}>
-                          <div style={styles.actionCell}>
-                            <button 
-                              onClick={() => handleResetPassword(user)} 
-                              style={styles.actionLockBtn} 
-                              title="Reset Password"
-                            >
-                              <Lock size={12} />
-                            </button>
-                            <button 
-                              onClick={() => handleDeleteUser(user._id)} 
-                              style={styles.actionDeleteBtn} 
-                              title="Delete Account"
-                            >
-                              <Trash2 size={12} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="6" style={styles.tdEmpty}>No corporate employees found. Register one using the left form.</td>
+              <div className="responsive-table-scroll">
+                <table style={styles.table}>
+                  <thead>
+                    <tr style={styles.thRow}>
+                      <th style={styles.th}>Employee Code</th>
+                      <th style={styles.th}>Name</th>
+                      <th style={styles.th}>Role / Branches</th>
+                      <th style={styles.th}>2FA Status</th>
+                      <th style={styles.th}>Status</th>
+                      <th style={{ ...styles.th, textAlign: 'center' }}>Actions</th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filteredUsers.length > 0 ? (
+                      filteredUsers.map((user, index) => (
+                        <tr key={user._id || index} style={styles.tr}>
+                          <td style={styles.tdSno}>{user.empCode || `EMP-${index+1}`}</td>
+                          <td style={styles.tdBranchName}>
+                            {user.username}
+                            <span style={styles.userEmail}>{user.email || 'No email coordinates'}</span>
+                          </td>
+                          <td style={styles.td}>
+                            <span style={styles.roleBadge}>{user.role}</span>
+                            <div style={styles.branchTagsContainer}>
+                              <span 
+                                style={styles.branchAssignLink}
+                                onClick={() => handleOpenBranchModal(user)}
+                                title="Assign allowed branches"
+                              >
+                                <MapPin size={10} style={{ marginRight: 2 }} />
+                                Map ({user.allowedBranches ? user.allowedBranches.length : 1})
+                              </span>
+                              {user.allowedBranches && user.allowedBranches.map((b, bi) => (
+                                <span key={bi} style={styles.branchTagBadge}>{b}</span>
+                              ))}
+                            </div>
+                          </td>
+                          <td style={styles.td}>
+                            <button 
+                              onClick={() => handleToggle2FA(user)} 
+                              style={{ ...styles.statusBtn, backgroundColor: user.twoFactorEnabled ? '#d1fae5' : '#f3f4f6', color: user.twoFactorEnabled ? '#065f46' : '#64748b' }}
+                            >
+                              {user.twoFactorEnabled ? '2FA Enabled' : 'Disabled'}
+                            </button>
+                          </td>
+                          <td style={styles.td}>
+                            <button 
+                              onClick={() => handleToggleUserStatus(user)}
+                              style={{ ...styles.statusBtn, backgroundColor: user.status === 'Active Access' ? '#dbeafe' : '#fee2e2', color: user.status === 'Active Access' ? '#1d4ed8' : '#ef4444' }}
+                            >
+                              {user.status || 'Active Access'}
+                            </button>
+                          </td>
+                          <td style={styles.tdActions}>
+                            <div style={styles.actionCell}>
+                              <button 
+                                onClick={() => handleResetPassword(user)} 
+                                style={styles.actionLockBtn} 
+                                title="Reset Password"
+                              >
+                                <Lock size={12} />
+                              </button>
+                              <button 
+                                onClick={() => handleDeleteUser(user._id)} 
+                                style={styles.actionDeleteBtn} 
+                                title="Delete Account"
+                              >
+                                <Trash2 size={12} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6" style={styles.tdEmpty}>No corporate employees found. Register one using the left form.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
 

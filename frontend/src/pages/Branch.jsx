@@ -3,7 +3,7 @@ import { Edit2, Trash2, X, Home, ChevronsUpDown } from 'lucide-react';
 
 const API_BASE = '/api';
 
-export default function Branch({ token }) {
+export default function Branch({ token, activePage, setActivePage }) {
   const [branches, setBranches] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,6 +59,14 @@ export default function Branch({ token }) {
   useEffect(() => {
     fetchBranches();
   }, [token]);
+
+  useEffect(() => {
+    if (activePage === 'branch-create') {
+      handleOpenAddModal();
+    } else if (activePage === 'branch-list' || activePage === 'branch') {
+      setIsModalOpen(false);
+    }
+  }, [activePage]);
 
   const handleOpenAddModal = () => {
     setEditingBranch(null);
@@ -182,13 +190,69 @@ export default function Branch({ token }) {
 
   return (
     <div style={styles.pageContainer}>
+      {/* Dynamic Style Injection for high-fidelity direct browser printing of branch registry */}
+      <style>{`
+        @media print {
+          /* Hide dashboard UI completely */
+          aside, header, nav, .sidebar, .sidebar-container, .top-header, .header-navbar, button, .btn, [style*="sidebar"], [style*="Sidebar"], .addButton, .toolbar, div[style*="toolbar"] {
+            display: none !important;
+          }
+          
+          /* Ensure the body and page container are completely expanded */
+          body, html {
+            background: #ffffff !important;
+            color: #000000 !important;
+          }
+          
+          /* Hide breadcrumbs and pagination row */
+          div[style*="breadcrumbs"], .paginationRow, div[style*="paginationRow"], div[style*="paginationControls"] {
+            display: none !important;
+          }
+          
+          /* Style the main card to print fully */
+          div[style*="card"] {
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          
+          /* Expand table wrapper */
+          div[style*="tableWrapper"] {
+            border: none !important;
+            overflow: visible !important;
+            margin: 0 !important;
+          }
+          
+          /* Make table perfect A4 width */
+          table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+          }
+          th, td {
+            border: 1px solid #cbd5e1 !important;
+            padding: 8px !important;
+          }
+          tr {
+            page-break-inside: avoid !important;
+          }
+          
+          /* Hide action columns in print */
+          th:last-child, td:last-child {
+            display: none !important;
+          }
+        }
+      `}</style>
+
       {/* High-Fidelity Breadcrumbs matching screenshot */}
       <div style={styles.breadcrumbs}>
-        <div style={styles.breadcrumbLink}>
+        <div style={{ ...styles.breadcrumbLink, cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')}>
           <Home size={14} style={styles.homeIcon} /> Home
         </div>
         <span style={styles.breadcrumbSeparator}>&gt;</span>
-        <div style={styles.breadcrumbLink}>Branch</div>
+        <div style={{ ...styles.breadcrumbLink, cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('branch-list')}>Branch</div>
         <span style={styles.breadcrumbSeparator}>&gt;</span>
         <span style={styles.breadcrumbActive}>Branch List</span>
       </div>

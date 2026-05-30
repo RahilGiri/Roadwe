@@ -116,4 +116,13 @@ router.put('/admin/transporters/:id', auth, adminOnly, adminController.updateTra
 router.delete('/admin/transporters/:id', auth, adminOnly, adminController.deleteTransporter);
 router.post('/admin/impersonate/:id', auth, adminOnly, adminController.impersonateTransporter);
 
+// --- 6. Bilty Templates & Settings ---
+const templateController = require('../controllers/templateController');
+router.get('/bilty-templates', auth, templateController.getTemplates);
+router.get('/transporter-template-settings', auth, templateController.getTransporterSettings);
+router.post('/transporter-template-settings', auth, templateController.updateTransporterSettings);
+router.post('/bilty-templates', auth, adminOnly, templateController.createTemplate);
+router.put('/bilty-templates/:id', auth, adminOnly, templateController.updateTemplate);
+router.delete('/bilty-templates/:id', auth, adminOnly, templateController.deleteTemplate);
+
 module.exports = router;

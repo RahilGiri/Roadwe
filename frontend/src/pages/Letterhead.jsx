@@ -483,6 +483,31 @@ export default function Letterhead({ token, activePage, setActivePage }) {
       {/* STATUTORY CORRESPONDENCE PRINT PREVIEW SHEET */}
       {viewingLetterhead && (
         <div style={styles.modalOverlay}>
+          <style>{`
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              .print-only-document, .print-only-document * {
+                visibility: visible;
+              }
+              .print-only-document {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+              }
+              button, .btn {
+                display: none !important;
+              }
+            }
+          `}</style>
           <div style={{ ...styles.modalContent, maxWidth: '800px', padding: 0 }}>
             <div style={{ ...styles.modalHeader, padding: '16px 20px', borderBottom: '1px solid #cbd5e1' }}>
               <h3 style={{ margin: 0 }}>🖨️ Letterhead Print Preview</h3>

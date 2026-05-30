@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Search, Edit2, Trash2, Printer, Home, ChevronDown, ChevronUp, X, Check, FileText } from 'lucide-react';
+import InvoiceTemplate from '../components/templates/InvoiceTemplate';
 
 export default function Invoice({ 
   invoices, bilties, customers, slips, vehicles, initialOpen,
@@ -135,6 +136,18 @@ export default function Invoice({
       balanceAmount: 0
     };
   }
+
+  // Sync initialOpen trigger from Sidebar sub-navigation
+  useEffect(() => {
+    if (initialOpen) {
+      setEditingInvoice(null);
+      setActiveTab('Bilty');
+      setShowFormPage(true);
+    } else {
+      setShowFormPage(false);
+      setEditingInvoice(null);
+    }
+  }, [initialOpen]);
 
   // Trigger when formPage opens
   useEffect(() => {
@@ -550,18 +563,18 @@ export default function Invoice({
       {/* 1. Invoices card list view */}
       {!showFormPage && (
         <>
-          <div style={styles.header}>
+          <div style={styles.header} className="print-hidden">
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')} />
+              <span style={{ cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Invoice</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingInvoice(null); if (setActivePage) setActivePage('invoice'); }}>Invoice</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>Invoice List</span>
             </div>
           </div>
 
-          <div style={styles.mainCard}>
+          <div style={styles.mainCard} className="print-hidden">
             <div style={styles.cardHeaderRow}>
               <h2 style={styles.cardTitle}>Invoice List ({filteredInvoices.length})</h2>
               
@@ -634,13 +647,13 @@ export default function Invoice({
 
       {/* 2. Consolidated Invoice creation Desk (Screenshot 1 & 2) */}
       {showFormPage && activeTab !== 'Manual' && (
-        <div style={styles.container}>
+        <div style={styles.container} className="print-hidden">
           <div style={styles.header}>
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingInvoice(null); if (setActivePage) setActivePage('dashboard'); }} />
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingInvoice(null); if (setActivePage) setActivePage('dashboard'); }}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Invoice</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingInvoice(null); }}>Invoice</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>Create New Invoice</span>
             </div>
@@ -842,13 +855,13 @@ export default function Invoice({
 
       {/* 3. High-Fidelity Manual & Proceeded Form (Screenshot 3, 4, 5) */}
       {showFormPage && activeTab === 'Manual' && (
-        <div style={styles.container}>
+        <div style={styles.container} className="print-hidden">
           <div style={styles.header}>
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingInvoice(null); if (setActivePage) setActivePage('dashboard'); }} />
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingInvoice(null); if (setActivePage) setActivePage('dashboard'); }}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Invoice</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingInvoice(null); }}>Invoice</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>{editingInvoice ? 'Edit Invoice' : 'Create New Invoice'}</span>
             </div>
@@ -1457,145 +1470,47 @@ export default function Invoice({
 
       {/* 4. Beautiful Print ready Tax Invoice layout */}
       {printingInvoice && (
-        <div style={styles.printOverlay}>
+        <div style={styles.printOverlay} className="print-overlay-container">
+          {/* Dynamic Style Injection for high-fidelity borders, grids, and print-media optimization */}
+          <style>{`
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              .print-container-visible, .print-container-visible * {
+                visibility: visible;
+              }
+              .print-container-visible {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+              }
+              .print-controls {
+                display: none !important;
+              }
+            }
+          `}</style>
           <div className="print-container-visible" style={styles.printContainer}>
-            <div style={styles.printHeader}>
-              <div style={styles.printLogo}>
-                {logoImg && <img src={logoImg} alt="Logo" style={{ height: '36px', verticalAlign: 'middle', marginRight: '8px' }} />}
-                <span style={{ color: headingColor || '#0066cc' }}>TRANSCORE LOGISTICS</span>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <h2 style={{ color: headingColor || '#0066cc', fontSize: '1.3rem', fontWeight: '800', margin: 0, textTransform: 'uppercase' }}>
-                  {invoiceHeading && invoiceHeading !== 'Default Template' ? invoiceHeading : 'TAX INVOICE'}
-                </h2>
-                <span style={{ fontSize: '0.75rem' }}><b>Invoice No:</b> INV-{printingInvoice.invoiceNo}</span><br />
-                <span style={{ fontSize: '0.75rem' }}><b>Date:</b> {printingInvoice.date}</span><br />
-                <span style={{ fontSize: '0.75rem' }}><b>Due Date:</b> {printingInvoice.dueDate || 'Immediate'}</span>
-              </div>
-            </div>
-
-            <hr style={{ ...styles.divider, borderTopColor: headingColor || '#0066cc' }} />
-
-            <div style={styles.printSection}>
-              <div style={styles.printCol}>
-                <h4 style={{ color: headingColor || '#0066cc', fontSize: '0.8rem', fontWeight: '700', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '8px' }}>BILLED TO (Party)</h4>
-                <p><b>Name:</b> {printingInvoice.customerName}</p>
-                {printingInvoice.consignorGstin && <p><b>GSTIN:</b> {printingInvoice.consignorGstin}</p>}
-                {printingInvoice.consignorContact && <p><b>Contact:</b> {printingInvoice.consignorContact}</p>}
-                <p><b>Address:</b> {printingInvoice.consignorAddress || 'Jamshedpur Industrial Area'}</p>
-              </div>
-              <div style={styles.printCol}>
-                <h4 style={{ color: headingColor || '#0066cc', fontSize: '0.8rem', fontWeight: '700', borderBottom: '1px solid #cbd5e1', paddingBottom: '4px', marginBottom: '8px' }}>ISSUED BY (Transporter)</h4>
-                <p><b>Company:</b> TRANSCORE LOGISTICS</p>
-                <p><b>GSTIN:</b> 09AAACT9211C1ZA</p>
-                <p><b>Email:</b> admin@transcore.com</p>
-                <p><b>Address:</b> Kanpur Nagar, Uttar Pradesh, India</p>
-              </div>
-            </div>
-
-            <h5 style={{ fontSize: '0.8rem', color: '#475569', fontWeight: '700', marginBottom: '8px' }}>Consignment Shipments Summary</h5>
-            <table style={styles.printTable}>
-              <thead>
-                <tr style={{ background: '#f8fafc' }}>
-                  <th style={styles.printTh}>S.No.</th>
-                  <th style={styles.printTh}>LR/GR Number</th>
-                  <th style={styles.printTh}>Vehicle Number</th>
-                  <th style={styles.printTh}>Route Details</th>
-                  <th style={styles.printTh}>Material Name</th>
-                  <th style={styles.printTh}>Freight Charge</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(printingInvoice.items || []).map((item, idx) => (
-                  <tr key={item.id || idx}>
-                    <td style={styles.printTd}>{idx + 1}</td>
-                    <td style={{ ...styles.printTd, fontWeight: '700' }}>{item.lrNo}</td>
-                    <td style={{ ...styles.printTd, color: '#f97316', fontWeight: '700' }}>{item.vehicleNumber}</td>
-                    <td style={styles.printTd}>{item.fromCity} → {item.toCity}</td>
-                    <td style={styles.printTd}>{item.materialName}</td>
-                    <td style={styles.printTd}>₹{item.totalAmount}/-</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div style={styles.printFreightSummary}>
-              <div style={styles.freightRow}><span>Freight Subtotal:</span> <b>₹{printingInvoice.totalFreight}/-</b></div>
-              <div style={styles.freightRow}><span>GST Amount ({printingInvoice.gstPercentage}%):</span> <b>₹{printingInvoice.gstAmount || 0}/-</b></div>
-              {printingInvoice.tdsAmount > 0 && <div style={styles.freightRow}><span>TDS Deducted ({printingInvoice.tdsPercentage}%):</span> <b style={{ color: '#ef4444' }}>- ₹{printingInvoice.tdsAmount}/-</b></div>}
-              <div style={styles.freightRow}><span style={{ fontWeight: '700', color: headingColor || '#0066cc' }}>GRAND TOTAL VALUE:</span> <b>₹{printingInvoice.grandTotal}/-</b></div>
-              <div style={styles.freightRow}><span>Less - Advances Paid:</span> <b style={{ color: '#16a34a' }}>- ₹{printingInvoice.amountPaid}/-</b></div>
-              <div style={styles.freightRow}><span style={{ color: '#ef4444', fontWeight: '800' }}>NET OUTSTANDING:</span> <b style={{ color: '#ef4444', fontSize: '1rem' }}>₹{printingInvoice.balance}/-</b></div>
-            </div>
-
-            {/* HDFC Bank settlement */}
-            {showInvoiceBank && (
-              <div style={{
-                margin: '20px 0',
-                padding: '12px 16px',
-                border: '1px dashed #cbd5e1',
-                borderRadius: '6px',
-                backgroundColor: '#f8fafc',
-                fontSize: '0.75rem',
-                color: '#334155',
-                lineHeight: '1.4'
-              }}>
-                <strong>🏦 HDFC BANK SETTLEMENT TERMS:</strong><br />
-                Account Holder: TRANSCORE LOGISTICS PRIVATE LIMITED • Account No: 5010023456789 • IFSC: HDFC0000123 • Branch: Kanpur Nagar Main
-              </div>
-            )}
-
-            {/* Stamp, E-signatures and Approval */}
-            <div style={styles.printFooter}>
-              <div style={{ flex: 1, marginRight: '20px' }}>
-                <h5 style={{ fontSize: '0.7rem', color: headingColor || '#0066cc', marginBottom: '4px' }}>Declaration & Terms:</h5>
-                <ol style={{ paddingLeft: '12px', margin: 0, fontSize: '0.55rem', color: '#475569', lineHeight: '1.3' }}>
-                  <li>Reverse Charge Mechanism (RCM) applies under Section 9(3) of CGST Act.</li>
-                  <li>Payments settled after due date are subject to 12% compounding interest.</li>
-                  <li>Weight indicators match weighbridge slips compiled during dispatch.</li>
-                </ol>
-              </div>
-
-              {/* Draw e-signature canvas on print if exists */}
-              {printingInvoice.signatureData && (
-                <div style={{ textAlign: 'center', marginRight: '30px' }}>
-                  <img src={printingInvoice.signatureData} alt="Client Signature" style={{ height: '50px', display: 'block', margin: '0 auto 4px auto', borderBottom: '1px solid #cbd5e1' }} />
-                  <span style={{ fontSize: '0.65rem', color: '#64748b' }}>Customer E-Signature</span>
-                </div>
-              )}
-
-              <div style={styles.signatureBlock}>
-                {stampImg ? (
-                  <img src={stampImg} alt="Transcore Stamp" style={{ height: '48px', marginBottom: '4px', objectFit: 'contain' }} />
-                ) : (
-                  <div style={{
-                    border: '3px double #0066cc',
-                    color: '#0066cc',
-                    borderRadius: '50%',
-                    width: '74px',
-                    height: '74px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontWeight: 'bold',
-                    fontSize: '0.45rem',
-                    textTransform: 'uppercase',
-                    transform: 'rotate(-4deg)',
-                    padding: '4px',
-                    textAlign: 'center',
-                    lineHeight: '1.1',
-                    margin: '0 auto 8px auto'
-                  }}>
-                    <span>Transcore</span>
-                    <span style={{ fontSize: '0.35rem', borderTop: '1px solid #0066cc', paddingTop: '2.5px' }}>LOGISTICS</span>
-                    <span style={{ fontSize: '0.35rem', color: '#ef4444' }}>APPROVED</span>
-                  </div>
-                )}
-                <div style={styles.sigLine}></div>
-                <span style={{ fontSize: '0.7rem', color: '#64748b' }}>Authorized Billing Accountant</span>
-              </div>
-            </div>
+            <InvoiceTemplate 
+              data={printingInvoice} 
+              company={{ 
+                companyName: 'TRANSCORE LOGISTICS', 
+                address: 'Kanpur Nagar, Uttar Pradesh, India', 
+                mobile: '9664874523', 
+                pan: 'CTSPG1070M', 
+                gstin: '24CTSPG1070M1ZF', 
+                logo_img: logoImg, 
+                stamp_img: stampImg, 
+                heading_color: headingColor 
+              }} 
+            />
 
             <div style={styles.printControls}>
               <button className="btn btn-secondary" onClick={() => setPrintingInvoice(null)}>Close</button>
@@ -1786,7 +1701,7 @@ export default function Invoice({
 
       {/* 6. Beautiful Print ready Reports overlay */}
       {printingReport && (
-        <div style={styles.printOverlay}>
+        <div style={styles.printOverlay} className="print-overlay-container">
           <div className="print-container-visible" style={styles.printContainer}>
             <div style={styles.printHeader}>
               <div style={styles.printLogo}>

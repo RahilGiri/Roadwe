@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Plus, Printer, Search, X, Check, Filter, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Printer, Search, X, Check, Filter, Edit2, Trash2, Home } from 'lucide-react';
+import VoucherTemplate from '../components/templates/VoucherTemplate';
 
 const API_BASE = '/api';
 
@@ -302,7 +303,18 @@ export default function Voucher({
     <div style={styles.container}>
       {/* VOUCHER FORM VIEW (Screenshot 1) */}
       {isCreateMode && (
-        <div className="glass-panel" style={styles.card}>
+        <>
+          <div style={styles.header} className="print-hidden">
+            <div style={styles.breadcrumbs}>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')} />
+              <span style={{ cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')}>Home</span>
+              <span style={styles.breadcrumbSeparator}>&gt;</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setActivePage && setActivePage('voucher-list'); }}>Voucher</span>
+              <span style={styles.breadcrumbSeparator}>&gt;</span>
+              <span style={styles.breadcrumbActive}>Voucher Form</span>
+            </div>
+          </div>
+          <div className="glass-panel print-hidden" style={styles.card}>
           <div style={styles.cardHeader}>
             <h2 style={styles.cardTitle}>Voucher Form</h2>
             <button 
@@ -487,11 +499,22 @@ export default function Voucher({
             </div>
           </form>
         </div>
+        </>
       )}
 
       {/* REGISTRY LIST VIEW (Screenshot 2) */}
       {isListMode && (
-        <div>
+        <div className="print-hidden">
+          <div style={styles.header} className="print-hidden">
+            <div style={styles.breadcrumbs}>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')} />
+              <span style={{ cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')}>Home</span>
+              <span style={styles.breadcrumbSeparator}>&gt;</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setActivePage && setActivePage('voucher-list'); }}>Voucher</span>
+              <span style={styles.breadcrumbSeparator}>&gt;</span>
+              <span style={styles.breadcrumbActive}>Voucher List</span>
+            </div>
+          </div>
           <div style={styles.headerRow}>
             <h2 style={styles.title}>
               Voucher List ({filteredVouchers.length})
@@ -847,7 +870,32 @@ export default function Voucher({
 
       {/* REPORT REGISTER SLIPS LIST STATEMENT PRINT MODAL */}
       {printingRegister && (
-        <div style={styles.modalOverlay}>
+        <div style={styles.modalOverlay} className="print-overlay-container">
+          <style>{`
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              .print-only-document, .print-only-document * {
+                visibility: visible;
+              }
+              .print-only-document {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+              }
+              button, .btn {
+                display: none !important;
+              }
+            }
+          `}</style>
           <div style={{ ...styles.modalContent, maxWidth: '850px', padding: 0 }}>
             <div style={{ ...styles.modalHeader, padding: '16px 20px', borderBottom: '1px solid #cbd5e1' }}>
               <h3 style={{ margin: 0 }}>🖨️ Voucher Register Print Preview</h3>
@@ -942,7 +990,32 @@ export default function Voucher({
 
       {/* INDIVIDUAL VOUCHER PRINT PREVIEW OVERLAY (Screenshot 1 legacy style alignment) */}
       {viewingVoucher && (
-        <div style={styles.modalOverlay}>
+        <div style={styles.modalOverlay} className="print-overlay-container">
+          <style>{`
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              .print-only-document, .print-only-document * {
+                visibility: visible;
+              }
+              .print-only-document {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+              }
+              button, .btn {
+                display: none !important;
+              }
+            }
+          `}</style>
           <div style={{ ...styles.modalContent, maxWidth: '800px', padding: 0 }}>
             <div style={{ ...styles.modalHeader, padding: '16px 20px', borderBottom: '1px solid #cbd5e1' }}>
               <h3 style={{ margin: 0 }}>🖨️ Voucher Advice Slip</h3>
@@ -950,74 +1023,20 @@ export default function Voucher({
             </div>
             
             {/* Printable Frame */}
-            <div style={{ ...styles.printFrame, backgroundColor: voucherBgColor || '#ffffff' }} className="print-only-document">
-              {/* Double border premium look */}
-              <div style={{ border: '4px double #cbd5e1', padding: '30px', borderRadius: '4px' }}>
-                <div style={styles.printHeader}>
-                  <div>
-                    {logoImg && <img src={logoImg} alt="Logo" style={{ height: '36px', verticalAlign: 'middle', marginRight: '8px' }} />}
-                    <h1 style={{ display: 'inline', color: headingColor || '#0066cc', fontSize: '1.6rem', fontFamily: 'Outfit, sans-serif' }}>
-                      TRANSCORE LOGISTICS
-                    </h1>
-                    <p style={{ color: '#64748b', fontSize: '0.8rem', margin: '4px 0 0 0' }}>
-                      GSTIN: 09AAACT9211C1ZA • Reg. Address: Kanpur Bypass Road, Kanpur, India
-                    </p>
-                  </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <h2 style={{ color: headingColor || '#0066cc', fontSize: '1.25rem', fontWeight: '800', margin: 0 }}>
-                      {viewingVoucher.type === 'Received Payment' ? 'RECEIPT SLIP' : 'PAYMENT SLIP'}
-                    </h2>
-                    <p style={{ fontSize: '0.85rem', margin: '4px 0 0 0' }}><b>Voucher #:</b> #{viewingVoucher.voucherNo}</p>
-                    <p style={{ fontSize: '0.85rem', margin: '2px 0 0 0' }}><b>Date:</b> {viewingVoucher.date.split('-').reverse().join('/')}</p>
-                  </div>
-                </div>
-
-                <hr style={{ border: 'none', borderTop: `2px solid ${headingColor || '#0066cc'}`, margin: '20px 0' }} />
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '24px', fontSize: '0.9rem', color: '#334155', margin: '20px 0' }}>
-                  <div>
-                    <p>{viewingVoucher.type === 'Received Payment' ? 'Received with thanks from:' : 'Paid payment made to:'}</p>
-                    <h3 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#0f172a', borderBottom: '1px dashed #cbd5e1', paddingBottom: '4px', margin: '4px 0 16px 0' }}>
-                      {viewingVoucher.partyName}
-                    </h3>
-
-                    <p>Narrations / Transaction details:</p>
-                    <p style={{ fontStyle: 'italic', color: '#64748b', borderBottom: '1px dashed #cbd5e1', paddingBottom: '4px', margin: '4px 0 16px 0', lineHeight: '1.4' }}>
-                      {viewingVoucher.remarks || 'Settlement of outstanding balances.'}
-                    </p>
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '20px', textAlign: 'center' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b', textTransform: 'uppercase' }}>Volume Settled</span>
-                    <h1 style={{ fontSize: '2.2rem', fontWeight: '800', color: viewingVoucher.type === 'Received Payment' ? '#10b981' : '#ef4444', margin: '8px 0' }}>
-                      ₹{viewingVoucher.amount.toLocaleString()}
-                    </h1>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '700', backgroundColor: viewingVoucher.type === 'Received Payment' ? '#ecfdf5' : '#fef2f2', color: viewingVoucher.type === 'Received Payment' ? '#047857' : '#b91c1c', padding: '4px 10px', borderRadius: '4px', textTransform: 'uppercase' }}>
-                      💰 {viewingVoucher.type} Mode
-                    </span>
-                  </div>
-                </div>
-
-                {/* Signature stamps footer */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '40px' }}>
-                  <div style={{ fontSize: '0.7rem', color: '#64748b', fontStyle: 'italic', maxWidth: '300px' }}>
-                    * This is an official digital advice receipt slip. Legally valid with system timestamps.
-                  </div>
-                  <div style={{ textAlign: 'center', width: '200px' }}>
-                    {viewingVoucher.signature ? (
-                      <img src={viewingVoucher.signature} alt="E-Signature" style={{ height: '50px', objectFit: 'contain', marginBottom: '4px' }} />
-                    ) : stampImg ? (
-                      <img src={stampImg} alt="Stamp" style={{ height: '44px', marginBottom: '4px', objectFit: 'contain' }} />
-                    ) : (
-                      <div style={{ border: '2px dashed #0066cc', color: '#0066cc', padding: '2px 6px', borderRadius: '4px', fontWeight: '700', fontSize: '0.55rem', display: 'inline-block', marginBottom: '4px', transform: 'rotate(-2deg)' }}>
-                        APPROVED STAMP
-                      </div>
-                    )}
-                    <div style={{ borderBottom: '1px solid #64748b', width: '100%', height: '10px', marginBottom: '4px' }}></div>
-                    <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>Authorized Signatory</span>
-                  </div>
-                </div>
-              </div>
+            <div className="print-only-document">
+              <VoucherTemplate 
+                data={viewingVoucher} 
+                company={{ 
+                  companyName: 'TRANSCORE LOGISTICS', 
+                  address: 'Kanpur Bypass Road, Kanpur, India', 
+                  mobile: '9664874523', 
+                  pan: 'CTSPG1070M', 
+                  gstin: '24CTSPG1070M1ZF', 
+                  logo_img: logoImg, 
+                  stamp_img: stampImg, 
+                  heading_color: headingColor 
+                }} 
+              />
             </div>
 
             <div style={{ padding: '16px 20px', borderTop: '1px solid #cbd5e1', display: 'flex', justifyContent: 'flex-end', gap: '10px', backgroundColor: '#f8fafc' }}>
@@ -1046,6 +1065,31 @@ export default function Voucher({
 const styles = {
   container: {
     padding: '0 4px'
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '12px'
+  },
+  breadcrumbs: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    fontSize: '0.8rem',
+    color: '#64748b',
+    fontWeight: '600',
+    fontFamily: "'Inter', sans-serif",
+    marginBottom: '16px',
+    padding: '0 4px'
+  },
+  breadcrumbSeparator: {
+    color: '#cbd5e1',
+    fontWeight: '400'
+  },
+  breadcrumbActive: {
+    color: '#0284c7',
+    fontWeight: '700'
   },
   card: {
     backgroundColor: '#ffffff',

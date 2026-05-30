@@ -32,6 +32,64 @@ export default function Reports({ activePage }) {
 
   return (
     <div className="glass-panel" style={{ backgroundColor: '#ffffff', minHeight: '85vh', padding: '24px', position: 'relative' }}>
+      {/* Dynamic Style Injection for high-fidelity direct browser printing of Profit/Loss and Revenue reports */}
+      <style>{`
+        @media print {
+          /* Hide dashboard sidebar and header UI completely */
+          aside, header, nav, .sidebar, .sidebar-container, .top-header, .header-navbar, button, .btn, [style*="sidebar"], [style*="Sidebar"] {
+            display: none !important;
+          }
+          
+          /* Ensure the body is expanded */
+          body, html {
+            background: #ffffff !important;
+            color: #000000 !important;
+          }
+          
+          /* Hide breadcrumbs, header filters, download buttons, and details buttons */
+          div[style*="breadcrumbs"], div[style*="headerCard"], div[style*="radioTogglesRow"] {
+            display: none !important;
+          }
+          
+          /* Style the main panel card to print fully */
+          .glass-panel {
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            background: #ffffff !important;
+          }
+          
+          /* Expand plCardsGrid to print all cards clearly */
+          div[style*="plCardsGrid"] {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 16px !important;
+            width: 100% !important;
+          }
+          
+          /* Make table perfect A4 width */
+          table, .custom-table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+          }
+          th, td {
+            border: 1px solid #cbd5e1 !important;
+            padding: 8px !important;
+            font-size: 0.75rem !important;
+          }
+          tr {
+            page-break-inside: avoid !important;
+          }
+          
+          /* Hide action columns in print */
+          th:last-child, td:last-child {
+            display: none !important;
+          }
+        }
+      `}</style>
       
       {/* Breadcrumbs - Outlined Home icon inside the breadcrumb rows */}
       <div style={styles.breadcrumbs}>

@@ -70,5 +70,27 @@
     "ownerPhone": "9000000009",
     "insuranceExpiry": "2027-12-31",
     "rcNumber": "RCMH43EX1111"
+  },
+  {
+    "_id": "dmhummdcdmprsgiaf",
+    "createdAt": "2026-05-30T03:25:54.711Z",
+    "updatedAt": "2026-05-30T03:25:54.712Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "vehicleNumber": "GJ-06-AA-2345",
+    "model": "",
+    "ownerName": "",
+    "ownerPhone": "",
+    "insuranceExpiry": "",
+    "rcNumber": "",
+    "driverName": "SUJAL GIRI",
+    "driverMobile": "8780378874",
+    "dlNumber": "sujal giri 13151",
+    "engineNumber": "",
+    "chassisNumber": "",
+    "supplierName": "",
+    "supplierMobile": "",
+    "supplierPan": "",
+    "supplierAddress": "",
+    "createdBy": "TRANSCORE LOGISTICS"
   }
 ]

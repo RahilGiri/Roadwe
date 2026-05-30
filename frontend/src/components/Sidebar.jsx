@@ -28,23 +28,48 @@ import {
 
 export default function Sidebar({ user, activePage, setActivePage, sidebarOpen, setSidebarOpen }) {
   // Navigation expand states
-  const [expandStates, setExpandStates] = useState({
-    masters: false,
-    bilty: false,
-    loadingSlip: false,
-    invoice: false,
-    chalan: false,
-    quotation: false,
-    letterhead: false,
-    deliverySlip: false,
-    voucher: false,
-    tracking: false,
-    branch: false,
-    subuser: false,
-    cashbank: false,
-    accounts: false,
-    reports: false
+  const [expandStates, setExpandStates] = useState(() => {
+    return {
+      masters: ['master-party', 'master-truck', 'master-supplier', 'master-employee', 'master-item', 'master-charge', 'master-terms'].includes(activePage),
+      bilty: ['bilty-create', 'bilty-list'].includes(activePage),
+      loadingSlip: ['loading-create', 'loading-list'].includes(activePage),
+      invoice: ['invoice-create', 'invoice-list'].includes(activePage),
+      chalan: ['chalan-create', 'chalan-list'].includes(activePage),
+      quotation: ['quotation-transport-create', 'quotation-transport-list', 'quotation-pm-create', 'quotation-pm-list'].includes(activePage),
+      letterhead: ['letterhead-create', 'letterhead-list'].includes(activePage),
+      deliverySlip: ['delivery-create', 'delivery-list'].includes(activePage),
+      voucher: ['voucher-create', 'voucher-list'].includes(activePage),
+      tracking: ['tracking-add', 'tracking-list'].includes(activePage),
+      branch: ['branch-create', 'branch-list'].includes(activePage),
+      subuser: ['subuser-create', 'subuser-list'].includes(activePage),
+      cashbank: ['cashbank-cash-master', 'cashbank-bank-master', 'cashbank-khata'].includes(activePage),
+      accounts: ['accounts-pump', 'accounts-driver-khata', 'accounts-bilty-expense', 'accounts-loading-expense', 'accounts-truck-expense', 'accounts-office-expense'].includes(activePage),
+      reports: ['reports-pl', 'reports-revenue'].includes(activePage)
+    };
   });
+
+  // Automatically expand corresponding sidebar item when activePage updates
+  React.useEffect(() => {
+    if (!activePage) return;
+    setExpandStates(prev => ({
+      ...prev,
+      masters: prev.masters || ['master-party', 'master-truck', 'master-supplier', 'master-employee', 'master-item', 'master-charge', 'master-terms'].includes(activePage),
+      bilty: prev.bilty || ['bilty-create', 'bilty-list'].includes(activePage),
+      loadingSlip: prev.loadingSlip || ['loading-create', 'loading-list'].includes(activePage),
+      invoice: prev.invoice || ['invoice-create', 'invoice-list'].includes(activePage),
+      chalan: prev.chalan || ['chalan-create', 'chalan-list'].includes(activePage),
+      quotation: prev.quotation || ['quotation-transport-create', 'quotation-transport-list', 'quotation-pm-create', 'quotation-pm-list'].includes(activePage),
+      letterhead: prev.letterhead || ['letterhead-create', 'letterhead-list'].includes(activePage),
+      deliverySlip: prev.deliverySlip || ['delivery-create', 'delivery-list'].includes(activePage),
+      voucher: prev.voucher || ['voucher-create', 'voucher-list'].includes(activePage),
+      tracking: prev.tracking || ['tracking-add', 'tracking-list'].includes(activePage),
+      branch: prev.branch || ['branch-create', 'branch-list'].includes(activePage),
+      subuser: prev.subuser || ['subuser-create', 'subuser-list'].includes(activePage),
+      cashbank: prev.cashbank || ['cashbank-cash-master', 'cashbank-bank-master', 'cashbank-khata'].includes(activePage),
+      accounts: prev.accounts || ['accounts-pump', 'accounts-driver-khata', 'accounts-bilty-expense', 'accounts-loading-expense', 'accounts-truck-expense', 'accounts-office-expense'].includes(activePage),
+      reports: prev.reports || ['reports-pl', 'reports-revenue'].includes(activePage)
+    }));
+  }, [activePage]);
 
   const toggleExpand = (key) => {
     setExpandStates(prev => ({

@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "0pocvsfismpm02p7g",
+    "createdAt": "2026-05-26T02:12:30.364Z",
+    "updatedAt": "2026-05-26T02:12:30.364Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "operatorName": "Ramesh Singh",
+    "changedByName": "Transcore Admin",
+    "changeDescription": "Toggled view/create options for Loading Slips module.",
+    "timestamp": "2026-05-26T01:42:30.364Z"
+  },
+  {
+    "_id": "hzwotr5nzmpm02p7g",
+    "createdAt": "2026-05-26T02:12:30.364Z",
+    "updatedAt": "2026-05-26T02:12:30.364Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "operatorName": "Sukhdev Singh",
+    "changedByName": "Transcore Admin",
+    "changeDescription": "Cloned Accountant role permissions to Custom Accountant Role.",
+    "timestamp": "2026-05-25T22:12:30.364Z"
+  }
+]

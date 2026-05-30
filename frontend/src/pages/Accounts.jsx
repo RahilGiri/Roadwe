@@ -122,9 +122,9 @@ export default function Accounts({ activePage, setActivePage }) {
       
       {/* Breadcrumbs */}
       <div style={styles.breadcrumbs}>
-        <span>🏠 Home</span>
+        <span style={{ cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')}>🏠 Home</span>
         <span style={styles.breadcrumbSeparator}>&gt;</span>
-        <span>Accounts</span>
+        <span style={{ cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('accounts-pump')}>Accounts</span>
         <span style={styles.breadcrumbSeparator}>&gt;</span>
         <span style={styles.breadcrumbActive}>
           {isPump && 'Pump Master'}

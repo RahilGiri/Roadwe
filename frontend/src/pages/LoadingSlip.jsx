@@ -4,7 +4,8 @@ import { Plus, Search, Edit2, Trash2, Share2, Printer, Home, Download, Filter, X
 export default function LoadingSlip({ 
   slips, customers, vehicles, initialOpen,
   onCreateSlip, onUpdateSlip, onDeleteSlip,
-  headingColor, showLoadBank, selectedLoadingFormat, loadingBgColor, logoImg, stampImg
+  headingColor, showLoadBank, selectedLoadingFormat, loadingBgColor, logoImg, stampImg,
+  activePage, setActivePage
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [showFormPage, setShowFormPage] = useState(initialOpen || false);
@@ -32,6 +33,9 @@ export default function LoadingSlip({
   React.useEffect(() => {
     if (initialOpen) {
       handleOpenAdd();
+    } else {
+      setShowFormPage(false);
+      setEditingSlip(null);
     }
   }, [initialOpen]);
 
@@ -234,18 +238,18 @@ export default function LoadingSlip({
       {/* 1. Card Structured Loading Slip List View */}
       {!showFormPage && (
         <>
-          <div style={styles.header}>
+          <div style={styles.header} className="print-hidden">
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')} />
+              <span style={{ cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Loading Slip</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingSlip(null); if (setActivePage) setActivePage('loading-slip'); }}>Loading Slip</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>Loading Slip List</span>
             </div>
           </div>
 
-          <div style={styles.mainCard}>
+          <div style={styles.mainCard} className="print-hidden">
             <div style={styles.cardHeaderRow}>
               <h2 style={styles.cardTitle}>Loading Slip List ({filteredSlips.length})</h2>
               
@@ -324,13 +328,13 @@ export default function LoadingSlip({
 
       {/* 2. Premium visual Loading Slip creation Form Page */}
       {showFormPage && (
-        <div style={styles.container}>
+        <div style={styles.container} className="print-hidden">
           <div style={styles.header}>
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingSlip(null); if (setActivePage) setActivePage('dashboard'); }} />
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingSlip(null); if (setActivePage) setActivePage('dashboard'); }}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Loading Slip</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingSlip(null); }}>Loading Slip</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>{editingSlip ? 'Edit Loading Slip' : 'Create New Loading Slip'}</span>
             </div>
@@ -736,7 +740,33 @@ export default function LoadingSlip({
 
       {/* 3. Printable Loading Slip Overlay */}
       {printingSlip && (
-        <div style={styles.printOverlay}>
+        <div style={styles.printOverlay} className="print-overlay-container">
+          {/* Dynamic Style Injection for high-fidelity borders, grids, and print-media optimization */}
+          <style>{`
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              .print-container-visible, .print-container-visible * {
+                visibility: visible;
+              }
+              .print-container-visible {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+              }
+              .print-controls {
+                display: none !important;
+              }
+            }
+          `}</style>
           <div className="print-container-visible" style={{ ...styles.printContainer, backgroundColor: loadingBgColor || '#ffffff' }}>
             
             {/* Format 1: Pavan Standard */}

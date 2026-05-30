@@ -18,7 +18,9 @@ export default function Settings({
   invoiceMinDigits, setInvoiceMinDigits,
   chalanMinDigits, setChalanMinDigits,
   notifyInterval, setNotifyInterval,
-  invoiceHeading, setInvoiceHeading
+  invoiceHeading, setInvoiceHeading,
+  biltyTemplates = [],
+  onSaveSettings
 }) {
   const [logoStaged, setLogoStaged] = useState(!!logoImg);
   const [stampName, setStampName] = useState('');
@@ -56,8 +58,39 @@ export default function Settings({
     setLogoImg(null);
   };
 
-  const handleSaveSettings = () => {
-    alert('🚀 System settings compiled successfully! Print layouts refreshed.');
+  const handleSaveSettings = async () => {
+    if (onSaveSettings) {
+      const formatToCode = {
+        1: 'classic_lr',
+        2: 'triple_split',
+        3: 'relational',
+        4: 'invoice_style',
+        5: 'minimal'
+      };
+      const code = formatToCode[selectedBiltyFormat] || 'classic_lr';
+      const template = biltyTemplates.find(t => t.template_code === code);
+      const selected_template_id = template ? template._id : undefined;
+
+      await onSaveSettings({
+        selected_template_id,
+        logo_img: logoImg || '',
+        stamp_img: stampImg || '',
+        heading_color: headingColor,
+        show_bilty_bank: showBiltyBank,
+        show_load_bank: showLoadBank,
+        show_invoice_bank: showInvoiceBank,
+        selected_loading_format: selectedLoadingFormat,
+        loading_bg_color: loadingBgColor,
+        voucher_bg_color: voucherBgColor,
+        bilty_min_digits: biltyMinDigits,
+        loading_min_digits: loadingMinDigits,
+        invoice_min_digits: invoiceMinDigits,
+        chalan_min_digits: chalanMinDigits,
+        notify_interval: notifyInterval,
+        invoice_heading: invoiceHeading
+      });
+    }
+    alert('🚀 System settings saved to database successfully! Print layouts refreshed.');
   };
 
   // Preset swatches list matching Screenshot 3
@@ -266,18 +299,7 @@ export default function Settings({
               onClick={() => setSelectedBiltyFormat(1)}
             >
               <div style={styles.formatPreview}>
-                <svg viewBox="0 0 160 220" style={styles.formatSvg}>
-                  <rect x="5" y="5" width="150" height="210" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                  <rect x="5" y="5" width="150" height="36" fill="#ef4444" rx="2"/>
-                  <text x="80" y="26" fill="white" font-size="10" text-anchor="middle" font-weight="bold">TRANSCORE LR</text>
-                  <line x1="5" y1="70" x2="155" y2="70" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="80" y1="41" x2="80" y2="90" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="5" y1="90" x2="155" y2="90" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="5" y1="160" x2="155" y2="160" stroke="#cbd5e1" stroke-width="1"/>
-                  <rect x="15" y="105" width="50" height="8" rx="2" fill="#e2e8f0"/>
-                  <rect x="15" y="120" width="110" height="6" rx="1" fill="#f1f5f9"/>
-                  <circle cx="120" cy="185" r="14" fill="#0066cc" fill-opacity="0.1" stroke="#0066cc" stroke-width="1" stroke-dasharray="2 2"/>
-                </svg>
+                <img src="/bilty_format_1.jpg" alt="Format 1 Preview" style={styles.formatPreviewImage} />
               </div>
               <div style={styles.formatSelectRow}>
                 <input 
@@ -300,16 +322,7 @@ export default function Settings({
               onClick={() => setSelectedBiltyFormat(2)}
             >
               <div style={styles.formatPreview}>
-                <svg viewBox="0 0 160 220" style={styles.formatSvg}>
-                  <rect x="5" y="5" width="150" height="210" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                  <rect x="5" y="5" width="150" height="30" fill="#475569" rx="2"/>
-                  <text x="80" y="22" fill="white" font-size="9" text-anchor="middle" font-weight="bold">DELIVERY ADVICE</text>
-                  <line x1="55" y1="35" x2="55" y2="100" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="105" y1="35" x2="105" y2="100" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="5" y1="100" x2="155" y2="100" stroke="#cbd5e1" stroke-width="1"/>
-                  <rect x="15" y="115" width="130" height="45" fill="#f8fafc" rx="4" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="15" y1="130" x2="145" y2="130" stroke="#cbd5e1" stroke-width="1"/>
-                </svg>
+                <img src="/bilty_format_2.jpg" alt="Format 2 Preview" style={styles.formatPreviewImage} />
               </div>
               <div style={styles.formatSelectRow}>
                 <input 
@@ -332,16 +345,7 @@ export default function Settings({
               onClick={() => setSelectedBiltyFormat(3)}
             >
               <div style={styles.formatPreview}>
-                <svg viewBox="0 0 160 220" style={styles.formatSvg}>
-                  <rect x="5" y="5" width="150" height="210" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                  <rect x="5" y="5" width="150" height="38" fill="#0066cc" rx="2"/>
-                  <text x="80" y="20" fill="white" font-size="9" text-anchor="middle" font-weight="bold">TRANSCORE PVT LTD</text>
-                  <text x="80" y="32" fill="white" font-size="6" text-anchor="middle">GSTIN: 09AAACT9211C1ZA</text>
-                  <line x1="5" y1="65" x2="155" y2="65" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="5" y1="85" x2="155" y2="85" stroke="#cbd5e1" stroke-width="1"/>
-                  <rect x="105" y="165" width="40" height="25" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
-                  <text x="125" y="180" fill="#ef4444" font-size="6" text-anchor="middle" font-weight="bold">APPROVED</text>
-                </svg>
+                <img src="/bilty_format_3.jpg" alt="Format 3 Preview" style={styles.formatPreviewImage} />
               </div>
               <div style={styles.formatSelectRow}>
                 <input 
@@ -364,15 +368,7 @@ export default function Settings({
               onClick={() => setSelectedBiltyFormat(4)}
             >
               <div style={styles.formatPreview}>
-                <svg viewBox="0 0 160 220" style={styles.formatSvg}>
-                  <rect x="5" y="5" width="150" height="210" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                  <rect x="5" y="5" width="150" height="30" fill="#00b050" rx="2"/>
-                  <text x="80" y="22" fill="white" font-size="9" text-anchor="middle" font-weight="bold">INVOICE STYLE LR</text>
-                  <line x1="15" y1="50" x2="145" y2="50" stroke="#cbd5e1" stroke-width="1"/>
-                  <rect x="15" y="60" width="130" height="60" fill="#fafafa" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="15" y1="90" x2="145" y2="90" stroke="#cbd5e1" stroke-width="1"/>
-                  <line x1="60" y1="60" x2="60" y2="120" stroke="#cbd5e1" stroke-width="1"/>
-                </svg>
+                <img src="/bilty_format_4.jpg" alt="Format 4 Preview" style={styles.formatPreviewImage} />
               </div>
               <div style={styles.formatSelectRow}>
                 <input 
@@ -395,14 +391,7 @@ export default function Settings({
               onClick={() => setSelectedBiltyFormat(5)}
             >
               <div style={styles.formatPreview}>
-                <svg viewBox="0 0 160 220" style={styles.formatSvg}>
-                  <rect x="5" y="5" width="150" height="210" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                  <rect x="5" y="5" width="150" height="20" fill="#f59e0b" rx="2"/>
-                  <text x="80" y="17" fill="white" font-size="8" text-anchor="middle" font-weight="bold">COMPACT BILTY</text>
-                  <line x1="5" y1="40" x2="155" y2="40" stroke="#cbd5e1" stroke-width="1"/>
-                  <rect x="15" y="55" width="130" height="25" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
-                  <rect x="15" y="90" width="130" height="25" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
-                </svg>
+                <img src="/bilty_format_5.jpg" alt="Format 5 Preview" style={styles.formatPreviewImage} />
               </div>
               <div style={styles.formatSelectRow}>
                 <input 
@@ -913,6 +902,16 @@ const styles = {
     width: '120px',
     height: '165px',
     boxShadow: '0 2px 4px rgba(0,0,0,0.04)'
+  },
+  formatPreviewImage: {
+    width: '120px',
+    height: '165px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+    borderRadius: '6px',
+    objectFit: 'contain',
+    border: '1px solid #e2e8f0',
+    backgroundColor: '#ffffff',
+    transition: 'all 0.2s ease'
   },
   formatSelectRow: {
     display: 'flex',

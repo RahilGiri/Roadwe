@@ -513,16 +513,35 @@ export default function Masters({
     window.print();
   };
 
+  const handleBackToTabList = () => {
+    setShowPartyFormPage(false);
+    setShowTruckFormPage(false);
+    setShowSupplierFormPage(false);
+    setShowEmployeeFormPage(false);
+    setShowItemFormPage(false);
+    setShowChargeFormPage(false);
+    setShowTermsFormPage(false);
+    setEditingItem(null);
+  };
+
   // --- Rendering Breadcrumbs ---
   const renderBreadcrumbs = () => {
     const activeLabel = tabsList.find(x => x.id === activePage)?.label || 'Party List';
+    const handleGoHome = () => {
+      handleBackToTabList();
+      if (setActivePage) setActivePage('dashboard');
+    };
+    const handleGoMasters = () => {
+      handleBackToTabList();
+    };
+
     if (currentTab === 'parties' && showPartyFormPage) {
       return (
         <div style={styles.breadcrumbs}>
-          <Home size={14} style={{ marginRight: '4px' }} />
-          <span>Home</span>
+          <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+          <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
-          <span>Masters</span>
+          <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
           <span style={styles.breadcrumbActive}>{editingItem ? 'Edit Party' : 'Add New Party'}</span>
         </div>
@@ -531,10 +550,10 @@ export default function Masters({
     if (currentTab === 'trucks' && showTruckFormPage) {
       return (
         <div style={styles.breadcrumbs}>
-          <Home size={14} style={{ marginRight: '4px' }} />
-          <span>Home</span>
+          <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+          <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
-          <span>Masters</span>
+          <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
           <span style={styles.breadcrumbActive}>{editingItem ? 'Edit Truck' : 'Add New Truck'}</span>
         </div>
@@ -543,10 +562,10 @@ export default function Masters({
     if (currentTab === 'suppliers' && showSupplierFormPage) {
       return (
         <div style={styles.breadcrumbs}>
-          <Home size={14} style={{ marginRight: '4px' }} />
-          <span>Home</span>
+          <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+          <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
-          <span>Masters</span>
+          <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
           <span style={styles.breadcrumbActive}>{editingItem ? 'Edit Supplier' : 'Add New Supplier'}</span>
         </div>
@@ -555,10 +574,10 @@ export default function Masters({
     if (currentTab === 'employees' && showEmployeeFormPage) {
       return (
         <div style={styles.breadcrumbs}>
-          <Home size={14} style={{ marginRight: '4px' }} />
-          <span>Home</span>
+          <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+          <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
-          <span>Masters</span>
+          <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
           <span style={styles.breadcrumbActive}>{editingItem ? 'Edit Employee' : 'Add New Employee'}</span>
         </div>
@@ -567,10 +586,10 @@ export default function Masters({
     if (currentTab === 'items' && showItemFormPage) {
       return (
         <div style={styles.breadcrumbs}>
-          <Home size={14} style={{ marginRight: '4px' }} />
-          <span>Home</span>
+          <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+          <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
-          <span>Masters</span>
+          <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
           <span style={styles.breadcrumbActive}>{editingItem ? 'Edit Item' : 'Add New Item'}</span>
         </div>
@@ -579,10 +598,10 @@ export default function Masters({
     if (currentTab === 'charges' && showChargeFormPage) {
       return (
         <div style={styles.breadcrumbs}>
-          <Home size={14} style={{ marginRight: '4px' }} />
-          <span>Home</span>
+          <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+          <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
-          <span>Masters</span>
+          <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
           <span style={styles.breadcrumbActive}>{editingItem ? 'Edit Charge' : 'Add New Charge'}</span>
         </div>
@@ -591,10 +610,10 @@ export default function Masters({
     if (currentTab === 'terms' && showTermsFormPage) {
       return (
         <div style={styles.breadcrumbs}>
-          <Home size={14} style={{ marginRight: '4px' }} />
-          <span>Home</span>
+          <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+          <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
-          <span>Masters</span>
+          <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
           <span style={styles.breadcrumbSeparator}>&gt;</span>
           <span style={styles.breadcrumbActive}>{editingItem ? 'Edit Terms & Condition' : 'Add New TnC'}</span>
         </div>
@@ -602,10 +621,10 @@ export default function Masters({
     }
     return (
       <div style={styles.breadcrumbs}>
-        <Home size={14} style={{ marginRight: '4px' }} />
-        <span>Home</span>
+        <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={handleGoHome} />
+        <span style={{ cursor: 'pointer' }} onClick={handleGoHome}>Home</span>
         <span style={styles.breadcrumbSeparator}>&gt;</span>
-        <span>Masters</span>
+        <span style={{ cursor: 'pointer' }} onClick={handleGoMasters}>Masters</span>
         <span style={styles.breadcrumbSeparator}>&gt;</span>
         <span style={styles.breadcrumbActive}>{activeLabel}</span>
       </div>
@@ -1355,6 +1374,55 @@ export default function Masters({
   // --- STANDARD DIRECTORY VIEWS ---
   return (
     <div style={styles.container}>
+      {/* Dynamic Style Injection for high-fidelity direct browser printing of Masters directories */}
+      <style>{`
+        @media print {
+          /* Hide dashboard sidebar and header UI completely */
+          aside, header, nav, .sidebar, .sidebar-container, .top-header, .header-navbar, button, .btn, [style*="sidebar"], [style*="Sidebar"], .addButton, .addBtn, [style*="addBtn"] {
+            display: none !important;
+          }
+          
+          /* Ensure the body and container are completely expanded */
+          body, html {
+            background: #ffffff !important;
+            color: #000000 !important;
+          }
+          
+          /* Hide breadcrumbs, tab selection bars, sub-tabs, and controlsRow */
+          div[style*="breadcrumbs"], div[style*="tabsRow"], div[style*="controlsRow"], div[style*="subTabsRow"] {
+            display: none !important;
+          }
+          
+          /* Style the main card to print fully */
+          div[style*="mainCard"], div[style*="card"] {
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          
+          /* Make table perfect A4 width */
+          table, .custom-table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+          }
+          th, td {
+            border: 1px solid #cbd5e1 !important;
+            padding: 8px !important;
+            font-size: 0.75rem !important;
+          }
+          tr {
+            page-break-inside: avoid !important;
+          }
+          
+          /* Hide action columns in print */
+          th:last-child, td:last-child {
+            display: none !important;
+          }
+        }
+      `}</style>
       {renderBreadcrumbs()}
 
       {/* Main card panel */}

@@ -157,8 +157,12 @@ export default function Chalan({
 
   // Sync initialOpen props
   useEffect(() => {
-    if (initialOpen && !editingChalan) {
+    if (initialOpen) {
+      setEditingChalan(null);
       handleOpenCreate();
+    } else {
+      setShowFormPage(false);
+      setEditingChalan(null);
     }
   }, [initialOpen]);
 
@@ -559,18 +563,18 @@ export default function Chalan({
       {/* 1. Chalans card directory grid */}
       {!showFormPage && (
         <>
-          <div style={styles.header}>
+          <div style={styles.header} className="print-hidden">
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')} />
+              <span style={{ cursor: 'pointer' }} onClick={() => setActivePage && setActivePage('dashboard')}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Chalan</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingChalan(null); if (setActivePage) setActivePage('chalan'); }}>Chalan</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>Chalan List</span>
             </div>
           </div>
 
-          <div style={styles.mainCard}>
+          <div style={styles.mainCard} className="print-hidden">
             <div style={styles.cardHeaderRow}>
               <h2 style={styles.cardTitle}>Chalan List ({filteredChalans.length})</h2>
               
@@ -651,13 +655,13 @@ export default function Chalan({
 
       {/* 2. Three-Tab Selector Page (Screenshot 1 & 3) */}
       {showFormPage && activeTab !== 'Manual' && (
-        <div style={styles.container}>
+        <div style={styles.container} className="print-hidden">
           <div style={styles.header}>
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingChalan(null); if (setActivePage) setActivePage('dashboard'); }} />
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingChalan(null); if (setActivePage) setActivePage('dashboard'); }}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Chalan</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingChalan(null); }}>Chalan</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>Create New Chalan</span>
             </div>
@@ -864,13 +868,13 @@ export default function Chalan({
 
       {/* 3. Detailed Chalan Form Workspace (Screenshot 2, 4, 5) */}
       {showFormPage && activeTab === 'Manual' && (
-        <div style={styles.container}>
+        <div style={styles.container} className="print-hidden">
           <div style={styles.header}>
             <div style={styles.breadcrumbs}>
-              <Home size={14} style={{ marginRight: '4px' }} />
-              <span>Home</span>
+              <Home size={14} style={{ marginRight: '4px', cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingChalan(null); if (setActivePage) setActivePage('dashboard'); }} />
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingChalan(null); if (setActivePage) setActivePage('dashboard'); }}>Home</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
-              <span>Chalan</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => { setShowFormPage(false); setEditingChalan(null); }}>Chalan</span>
               <span style={styles.breadcrumbSeparator}>&gt;</span>
               <span style={styles.breadcrumbActive}>{editingChalan ? 'Edit Chalan' : 'Create New Chalan'}</span>
             </div>
@@ -1353,7 +1357,33 @@ export default function Chalan({
 
       {/* 4. Beautiful Print ready Tax Chalan overlay */}
       {printingChalan && (
-        <div style={styles.printOverlay}>
+        <div style={styles.printOverlay} className="print-overlay-container">
+          {/* Dynamic Style Injection for high-fidelity borders, grids, and print-media optimization */}
+          <style>{`
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              .print-container-visible, .print-container-visible * {
+                visibility: visible;
+              }
+              .print-container-visible {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+              }
+              .print-controls {
+                display: none !important;
+              }
+            }
+          `}</style>
           <div className="print-container-visible" style={styles.printContainer}>
             <div style={styles.printHeader}>
               <div style={styles.printLogo}>
@@ -1612,7 +1642,7 @@ export default function Chalan({
 
       {/* 7. Printable Hired Chalan Register Sheet */}
       {printingReport && (
-        <div style={styles.printOverlay}>
+        <div style={styles.printOverlay} className="print-overlay-container">
           <div className="print-container-visible" style={{ ...styles.printContainer, maxWidth: '950px' }}>
             <div style={styles.printHeader}>
               <div style={styles.printLogo}>

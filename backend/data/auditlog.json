@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "9a91rfqk1mpm02p7b",
+    "createdAt": "2026-05-26T02:12:30.359Z",
+    "updatedAt": "2026-05-26T02:12:30.359Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "userId": "6ront1cngmplzjlqa",
+    "operatorName": "Transcore Admin",
+    "action": "LOGIN",
+    "description": "Login successful from IP 192.168.1.1 (Chrome - MacOS)",
+    "timestamp": "2026-05-26T02:12:30.359Z"
+  },
+  {
+    "_id": "g6ggu41h6mpm02p7b",
+    "createdAt": "2026-05-26T02:12:30.359Z",
+    "updatedAt": "2026-05-26T02:12:30.359Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "userId": "6ront1cngmplzjlqa",
+    "operatorName": "Transcore Admin",
+    "action": "PERM_CHANGE",
+    "description": "Modified Accountant role permissions matrix.",
+    "timestamp": "2026-05-26T01:57:30.359Z"
+  },
+  {
+    "_id": "pqsptxcw1mpm02p7b",
+    "createdAt": "2026-05-26T02:12:30.359Z",
+    "updatedAt": "2026-05-26T02:12:30.359Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "userId": "6ront1cngmplzjlqa",
+    "operatorName": "Transcore Admin",
+    "action": "BRANCH_ASSIGN",
+    "description": "Assigned Kanpur Branch HQ access to Ramesh Singh.",
+    "timestamp": "2026-05-26T01:12:30.359Z"
+  }
+]

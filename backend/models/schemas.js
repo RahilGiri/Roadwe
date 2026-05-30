@@ -291,6 +291,41 @@ const PermissionHistorySchema = new Schema({
   timestamp: { type: String, required: true }
 });
 
+// 19. Bilty Template Schema (Serves as general Document Template catalog)
+const BiltyTemplateSchema = new Schema({
+  template_name: { type: String, required: true },
+  template_code: { type: String, required: true },
+  preview_image: { type: String, required: true },
+  html_structure: { type: String, required: true },
+  css_styles: { type: String, required: true },
+  document_type: { type: String, enum: ['Bilty', 'Invoice', 'Voucher', 'Consignment'], default: 'Bilty' },
+  is_active: { type: Boolean, default: true }
+}, { timestamps: true });
+
+// 20. Transporter Template Settings Schema
+const TransporterTemplateSettingsSchema = new Schema({
+  company_id: { type: String, required: true },
+  selected_template_id: { type: String, required: true },
+  selected_invoice_template: { type: String, default: 'standard_invoice' },
+  selected_voucher_template: { type: String, default: 'standard_voucher' },
+  selected_consignment_template: { type: String, default: 'standard_consignment' },
+  logo_img: { type: String, default: '' },
+  stamp_img: { type: String, default: '' },
+  heading_color: { type: String, default: '#000000' },
+  show_bilty_bank: { type: Boolean, default: true },
+  show_load_bank: { type: Boolean, default: true },
+  show_invoice_bank: { type: Boolean, default: true },
+  selected_loading_format: { type: Number, default: 1 },
+  loading_bg_color: { type: String, default: '#ffffff' },
+  voucher_bg_color: { type: String, default: '#ffffff' },
+  bilty_min_digits: { type: String, default: 'Select Minimum Digits' },
+  loading_min_digits: { type: String, default: 'Select Minimum Digits' },
+  invoice_min_digits: { type: String, default: 'Select Minimum Digits' },
+  chalan_min_digits: { type: String, default: 'Select Minimum Digits' },
+  notify_interval: { type: String, default: '15 MIN' },
+  invoice_heading: { type: String, default: 'Default Template' }
+}, { timestamps: true });
+
 module.exports = {
   UserSchema,
   CustomerSchema,
@@ -309,5 +344,8 @@ module.exports = {
   SupplierAdvanceSchema,
   RoleSchema,
   AuditLogSchema,
-  PermissionHistorySchema
+  PermissionHistorySchema,
+  BiltyTemplateSchema,
+  TransporterTemplateSettingsSchema
 };
+

@@ -1410,6 +1410,31 @@ export default function Quotation({ token, activePage, setActivePage }) {
       {/* Printable Invoice / Quotation Modal View */}
       {viewingQuotation && (
         <div className="modal-overlay">
+          <style>{`
+            @media print {
+              body * {
+                visibility: hidden;
+              }
+              .print-only-document, .print-only-document * {
+                visibility: visible;
+              }
+              .print-only-document {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 100%;
+                padding: 0 !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+              }
+              button, .btn {
+                display: none !important;
+              }
+            }
+          `}</style>
           <div className="modal-content" style={{ maxWidth: '800px', padding: 0 }}>
             <div style={styles.modalHeader}>
               <h3 style={{ margin: 0 }}>🖨️ Quotation Print Preview</h3>

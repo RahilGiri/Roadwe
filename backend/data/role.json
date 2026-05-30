@@ -1,0 +1,210 @@
+[
+  {
+    "_id": "yqjy9gvkwmpm02p6v",
+    "createdAt": "2026-05-26T02:12:30.343Z",
+    "updatedAt": "2026-05-26T02:12:30.343Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "name": "Super Admin",
+    "key": "super_admin",
+    "description": "Full corporate operational & administrative permissions.",
+    "isPredefined": true,
+    "permissions": [
+      {
+        "moduleName": "Bilty",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      },
+      {
+        "moduleName": "Loading Slip",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      },
+      {
+        "moduleName": "Invoice",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      },
+      {
+        "moduleName": "Chalan",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      }
+    ]
+  },
+  {
+    "_id": "g24z7hs6empm02p6v",
+    "createdAt": "2026-05-26T02:12:30.343Z",
+    "updatedAt": "2026-05-26T02:12:30.343Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "name": "Company Admin",
+    "key": "company_admin",
+    "description": "Full operations within single company scope.",
+    "isPredefined": true,
+    "permissions": [
+      {
+        "moduleName": "Bilty",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      },
+      {
+        "moduleName": "Loading Slip",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      },
+      {
+        "moduleName": "Invoice",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      },
+      {
+        "moduleName": "Chalan",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": true,
+        "export": true,
+        "approve": true,
+        "assign": true
+      }
+    ]
+  },
+  {
+    "_id": "na09kbxp2mpm02p6z",
+    "createdAt": "2026-05-26T02:12:30.347Z",
+    "updatedAt": "2026-05-26T02:12:30.347Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "name": "Operations Executive",
+    "key": "operations_executive",
+    "description": "Create & manage Lorry Bilties & Loading Slips.",
+    "isPredefined": true,
+    "permissions": [
+      {
+        "moduleName": "Bilty",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": false,
+        "export": true,
+        "approve": false,
+        "assign": true
+      },
+      {
+        "moduleName": "Loading Slip",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": false,
+        "export": true,
+        "approve": false,
+        "assign": false
+      },
+      {
+        "moduleName": "Invoice",
+        "view": false,
+        "create": false,
+        "edit": false,
+        "delete": false,
+        "export": false,
+        "approve": false,
+        "assign": false
+      },
+      {
+        "moduleName": "Chalan",
+        "view": true,
+        "create": false,
+        "edit": false,
+        "delete": false,
+        "export": false,
+        "approve": false,
+        "assign": false
+      }
+    ]
+  },
+  {
+    "_id": "0n48cu3vpmpm02p70",
+    "createdAt": "2026-05-26T02:12:30.348Z",
+    "updatedAt": "2026-05-26T02:12:30.348Z",
+    "company_id": "6ront1cngmplzjlqa",
+    "name": "Accountant",
+    "key": "accountant",
+    "description": "Manage Tax Invoices, ledgers, & payment logs.",
+    "isPredefined": true,
+    "permissions": [
+      {
+        "moduleName": "Bilty",
+        "view": true,
+        "create": false,
+        "edit": false,
+        "delete": false,
+        "export": true,
+        "approve": false,
+        "assign": false
+      },
+      {
+        "moduleName": "Loading Slip",
+        "view": false,
+        "create": false,
+        "edit": false,
+        "delete": false,
+        "export": false,
+        "approve": false,
+        "assign": false
+      },
+      {
+        "moduleName": "Invoice",
+        "view": true,
+        "create": true,
+        "edit": true,
+        "delete": false,
+        "export": true,
+        "approve": true,
+        "assign": false
+      },
+      {
+        "moduleName": "Chalan",
+        "view": true,
+        "create": false,
+        "edit": false,
+        "delete": false,
+        "export": true,
+        "approve": false,
+        "assign": false
+      }
+    ]
+  }
+]

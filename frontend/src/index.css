@@ -496,7 +496,7 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
   }
   
-  .sidebar, .header, .btn, .btn-icon, .form-actions, .filter-bar, .app-container {
+  .sidebar, .header, .btn, .btn-icon, .form-actions, .filter-bar {
     display: none !important;
   }
   
@@ -1050,3 +1050,190 @@ input:checked + .slider:before {
     padding-top: 100px !important; /* 40px (impersonation bar) + 60px (header) */
   }
 }
+
+/* HIGH-FIDELITY PRINT OVERRIDES TO PREVENT DUPLICATES */
+@media print {
+  /* 1. Hide all layout, navigation, overlays, and buttons globally */
+  .sidebar,
+  .header,
+  .breadcrumbs,
+  .filter-bar,
+  .print-controls,
+  .btn,
+  .btn-icon,
+  .form-actions,
+  .greenButtonContainer,
+  .no-print,
+  button,
+  input,
+  select,
+  textarea {
+    display: none !important;
+  }
+
+  /* 2. Hide list card containers and form elements under all pages during printing */
+  .print-hidden,
+  .print-hidden-card,
+  form,
+  .form-container,
+  div[style*="mainCard"],
+  div[style*="cardGrid"],
+  div[style*="formContainer"] {
+    display: none !important;
+  }
+
+  /* 3. Reset all parent structure boxes to allow exact page wrapping and clear formatting */
+  html, body {
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  #root, .app-container, .main-content, .page-body {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* 4. Force overlay panels to become static document containers, avoiding position: fixed repetition */
+  div[style*="position: fixed"],
+  div[style*="position:fixed"],
+  div[style*="zIndex: 2000"],
+  div[style*="z-index: 2000"],
+  .modal-overlay,
+  .print-overlay-container {
+    position: static !important;
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* 5. Highlight the exact print sheets on the canvas, absolute top positioned and fully visible */
+  .print-container-visible,
+  .print-only-document {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh !important; /* Lock to 92% of print page height to prevent blank page 2 */
+    overflow: hidden !important;  /* Clip any trailing margins/padding */
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    border: none !important;
+    box-shadow: none !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+
+  .print-container-visible *,
+  .print-only-document * {
+    visibility: visible !important;
+  }
+
+  /* Shrink margins slightly during printing to fit A4 layout comfortably */
+  .bilty-wrapper,
+  .bilty-print-container,
+  .print-container-visible > div,
+  .print-only-document > div {
+    margin-bottom: 0 !important;
+    padding-bottom: 5px !important;
+  }
+
+  /* 6. Collapse other sibling elements of the root/layout to avoid reserving blank spaces */
+  body * {
+    visibility: hidden;
+  }
+}
+
+/* ROADWE PREMIUM REDESIGN MICRO-INTERACTION UTILITIES */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.hover-lift:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.12), 0 4px 12px -5px rgba(15, 23, 42, 0.04) !important;
+}
+
+.pulsing-dot-green {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-green, #10b981);
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+}
+.pulsing-dot-green::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: var(--accent-green, #10b981);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: pulse-animation-green 1.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+.pulsing-dot-yellow {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-orange, #f59e0b);
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+}
+.pulsing-dot-yellow::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: var(--accent-orange, #f59e0b);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: pulse-animation-yellow 1.5s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes pulse-animation-green {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-animation-yellow {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+

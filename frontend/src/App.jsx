@@ -47,7 +47,28 @@ const seededSuppliers = [
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || 'null'));
-  const [activePage, setActivePage] = useState('dashboard');
+  const [activePage, setActivePage] = useState(() => {
+    const hash = window.location.hash.replace('#/', '');
+    return hash || 'dashboard';
+  });
+
+  // Sync state changes with URL hash and listen to browser back/forward buttons
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#/', '');
+      if (hash && hash !== activePage) {
+        setActivePage(hash);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [activePage]);
+
+  useEffect(() => {
+    if (token) {
+      window.location.hash = `#/${activePage}`;
+    }
+  }, [activePage, token]);
   const [quickAddTarget, setQuickAddTarget] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -177,6 +198,7 @@ export default function App() {
   const [invoices, setInvoices] = useState([]);
   const [vouchers, setVouchers] = useState([]);
   const [supplierAdvances, setSupplierAdvances] = useState([]);
+  const [biltyTemplates, setBiltyTemplates] = useState([]);
 
   // --- Global Settings States (with LocalStorage persistence) ---
   const [logoImg, setLogoImg] = useState(() => localStorage.getItem('settings_logoImg') || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="58" fill="%23ffffff" stroke="%23cbd5e1" stroke-width="1"/><path d="M25,65 Q60,40 95,65" stroke="%23f59e0b" stroke-width="3" fill="none"/><path d="M20,70 Q60,45 100,70" stroke="%230f172a" stroke-width="3" fill="none"/><text x="60" y="55" font-family="Outfit" font-size="11" font-weight="900" fill="%230f172a" text-anchor="middle" letter-spacing="0.05em">TRANSCORE</text><text x="60" y="85" font-family="Inter" font-size="7" font-weight="700" fill="%23f59e0b" text-anchor="middle" letter-spacing="0.1em">LOGISTICS</text></svg>');
@@ -273,6 +295,43 @@ export default function App() {
       const resAd = await fetch(`${API_BASE}/documents/supplier-advances`, { headers });
       if (checkAuthStatus(resAd)) return;
       if (resAd.ok) setSupplierAdvances(await resAd.json());
+
+      // 4. Bilty Templates & Settings
+      const resTemplates = await fetch(`${API_BASE}/bilty-templates`, { headers });
+      if (resTemplates.ok) {
+        setBiltyTemplates(await resTemplates.json());
+      }
+
+      const resSettings = await fetch(`${API_BASE}/transporter-template-settings`, { headers });
+      if (resSettings.ok) {
+        const settingsData = await resSettings.json();
+        if (settingsData.selected_template) {
+          const codeToFormat = {
+            'classic_lr': 1,
+            'triple_split': 2,
+            'relational': 3,
+            'invoice_style': 4,
+            'minimal': 5
+          };
+          const formatNum = codeToFormat[settingsData.selected_template.template_code] || 1;
+          setSelectedBiltyFormat(formatNum);
+        }
+        if (settingsData.logo_img) setLogoImg(settingsData.logo_img);
+        if (settingsData.stamp_img) setStampImg(settingsData.stamp_img);
+        if (settingsData.heading_color) setHeadingColor(settingsData.heading_color);
+        setShowBiltyBank(settingsData.show_bilty_bank !== false);
+        setShowLoadBank(settingsData.show_load_bank !== false);
+        setShowInvoiceBank(settingsData.show_invoice_bank !== false);
+        setSelectedLoadingFormat(settingsData.selected_loading_format || 1);
+        if (settingsData.loading_bg_color) setLoadingBgColor(settingsData.loading_bg_color);
+        if (settingsData.voucher_bg_color) setVoucherBgColor(settingsData.voucher_bg_color);
+        setBiltyMinDigits(settingsData.bilty_min_digits || 'Select Minimum Digits');
+        setLoadingMinDigits(settingsData.loading_min_digits || 'Select Minimum Digits');
+        setInvoiceMinDigits(settingsData.invoice_min_digits || 'Select Minimum Digits');
+        setChalanMinDigits(settingsData.chalan_min_digits || 'Select Minimum Digits');
+        setNotifyInterval(settingsData.notify_interval || '15 MIN');
+        setInvoiceHeading(settingsData.invoice_heading || 'Default Template');
+      }
 
     } catch (err) {
       console.warn('⚠️ Server offline or unreachable. Activating mock-seeding data in browser...', err);
@@ -622,6 +681,26 @@ export default function App() {
       if (type === 'invoice') setInvoices([...invoices, newDoc]);
       if (type === 'voucher') setVouchers([...vouchers, newDoc]);
       if (type === 'supplier-advance') setSupplierAdvances([...supplierAdvances, newDoc]);
+    }
+  };
+
+  const handleSaveTransporterSettings = async (settingsPayload) => {
+    if (!token) return;
+    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+    try {
+      const res = await fetch(`${API_BASE}/transporter-template-settings`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(settingsPayload)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        console.log('Saved settings successfully:', data);
+        // Refresh local data to match DB
+        fetchData();
+      }
+    } catch (err) {
+      console.error('Failed saving template settings to API:', err);
     }
   };
 
@@ -1869,6 +1948,7 @@ export default function App() {
             <Bilty 
               bilties={bilties} customers={customers} vehicles={vehicles} 
               quickAddTarget={activePage === 'bilty-create' ? 'bilty' : quickAddTarget}
+              initialOpen={activePage === 'bilty-create'}
               onCreateBilty={(data) => handleCreateDocument('bilty', 'bilties', data)}
               onUpdateBilty={(id, data) => handleUpdateDocument('bilty', 'bilties', id, data)}
               onDeleteBilty={(id) => handleDeleteDocument('bilty', 'bilties', id)}
@@ -1877,6 +1957,10 @@ export default function App() {
               selectedBiltyFormat={selectedBiltyFormat}
               logoImg={logoImg}
               stampImg={stampImg}
+              biltyTemplates={biltyTemplates}
+              user={user}
+              activePage={activePage}
+              setActivePage={setActivePage}
             />
           )}
 
@@ -1893,6 +1977,8 @@ export default function App() {
               loadingBgColor={loadingBgColor}
               logoImg={logoImg}
               stampImg={stampImg}
+              activePage={activePage}
+              setActivePage={setActivePage}
             />
           )}
 
@@ -1921,6 +2007,8 @@ export default function App() {
               invoiceHeading={invoiceHeading}
               logoImg={logoImg}
               stampImg={stampImg}
+              activePage={activePage}
+              setActivePage={setActivePage}
             />
           )}
 
@@ -1935,6 +2023,8 @@ export default function App() {
               voucherBgColor={voucherBgColor}
               logoImg={logoImg}
               stampImg={stampImg}
+              activePage={activePage}
+              setActivePage={setActivePage}
             />
           )}
 
@@ -2032,7 +2122,7 @@ export default function App() {
 
           {/* Branch Directory View */}
           {(activePage === 'branch' || activePage.startsWith('branch-')) && (
-            <Branch token={token} />
+            <Branch token={token} activePage={activePage} setActivePage={setActivePage} />
           )}
 
           {/* Quotations View */}
@@ -2080,6 +2170,8 @@ export default function App() {
               chalanMinDigits={chalanMinDigits} setChalanMinDigits={setChalanMinDigits}
               notifyInterval={notifyInterval} setNotifyInterval={setNotifyInterval}
               invoiceHeading={invoiceHeading} setInvoiceHeading={setInvoiceHeading}
+              biltyTemplates={biltyTemplates}
+              onSaveSettings={handleSaveTransporterSettings}
             />
           )}
 

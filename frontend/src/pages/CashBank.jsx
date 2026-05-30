@@ -327,7 +327,7 @@ export default function CashBank({ token, activePage, setActivePage }) {
   return (
     <div style={styles.pageContainer}>
       {/* High-Fidelity Outlined Breadcrumbs matching screenshots */}
-      <div style={styles.breadcrumbs}>
+      <div style={styles.breadcrumbs} className="print-hidden">
         <div style={styles.breadcrumbLink}>
           <Home size={14} style={styles.homeIcon} /> Home
         </div>
@@ -345,7 +345,7 @@ export default function CashBank({ token, activePage, setActivePage }) {
 
       {/* VIEW SECTION 1: CASH MASTER WORKSPACE */}
       {isCashPage && (
-        <div style={styles.card}>
+        <div style={styles.card} className="print-hidden">
           {cashSubView === 'list' ? (
             /* Cash List Directory view (Screenshot 1) */
             <>
@@ -519,7 +519,7 @@ export default function CashBank({ token, activePage, setActivePage }) {
 
       {/* VIEW SECTION 2: BANK MASTER WORKSPACE */}
       {isBankPage && (
-        <div style={styles.card}>
+        <div style={styles.card} className="print-hidden">
           {bankSubView === 'list' ? (
             /* Bank List Directory view */
             <>
@@ -728,7 +728,7 @@ export default function CashBank({ token, activePage, setActivePage }) {
 
       {/* VIEW SECTION 3: CASH / BANK KHATA WORKSPACE (Screenshot 4) */}
       {isKhataPage && (
-        <div style={styles.card}>
+        <div style={styles.card} className="print-hidden">
           <div style={styles.cardHeader}>
             <h3 style={styles.cardTitle}>Cash / Bank Khata</h3>
           </div>
@@ -1060,7 +1060,7 @@ export default function CashBank({ token, activePage, setActivePage }) {
 
       {/* 7. CASH LEDGER FORM (Screenshot 4) */}
       {activePage === 'cashbank-cash-ledger-form' && (
-        <div style={styles.card}>
+        <div style={styles.card} className="print-hidden">
           <div style={styles.cardHeader}>
             <h3 style={styles.cardTitle}>Cash Ledger Form</h3>
             <button 
@@ -1176,7 +1176,7 @@ export default function CashBank({ token, activePage, setActivePage }) {
 
       {/* CASH LEDGER LIST VIEW */}
       {activePage === 'cashbank-cash-ledger-list' && (
-        <div style={styles.card}>
+        <div style={styles.card} className="print-hidden">
           <div style={styles.cardHeader}>
             <h3 style={styles.cardTitle}>
               Cash Ledger List ( {khataTransactions.filter(t => t.tabType === 'cash').length} entries )
@@ -1284,7 +1284,33 @@ export default function CashBank({ token, activePage, setActivePage }) {
         const netClosingBalance = selectedOpening + totalCredits - totalDebits;
 
         return (
-          <div style={styles.printOverlay}>
+          <div style={styles.printOverlay} className="print-overlay-container">
+            {/* Self-contained styling for high fidelity ledger print formatting */}
+            <style>{`
+              @media print {
+                body * {
+                  visibility: hidden;
+                }
+                .print-container-visible, .print-container-visible * {
+                  visibility: visible;
+                }
+                .print-container-visible {
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  width: 100%;
+                  max-width: 100%;
+                  padding: 0 !important;
+                  margin: 0 !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  background: #ffffff !important;
+                }
+                .print-controls, button, .btn {
+                  display: none !important;
+                }
+              }
+            `}</style>
             <div className="print-container-visible" style={{ ...styles.printContainer, maxWidth: '950px' }}>
               <div style={styles.printHeader}>
                 <div style={styles.printLogo}>
